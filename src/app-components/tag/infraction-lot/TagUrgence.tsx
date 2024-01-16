@@ -37,15 +37,14 @@ export default function TagUrgence(
   }
 
   return (
-    <Stack>
+    <Stack spacing={4}>
       <Tag
         colorScheme={colorScheme}
-        fontSize="2xs"
+        size="sm"
+        as="div"
+        height="min-content"
       >
-        <TagLeftIcon
-          boxSize={4}
-          as={icon}
-        />
+        <TagLeftIcon as={icon} />
         <TagLabel>{urgence}</TagLabel>
       </Tag>
     </Stack>

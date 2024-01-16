@@ -1,5 +1,5 @@
 import {
-  Skeleton,
+  SkeletonText as SkeletonTextChakra,
   SkeletonTextProps,
 } from '@chakra-ui/react';
 import { ReactElement } from 'react';
@@ -7,11 +7,16 @@ import { ReactElement } from 'react';
 export default function SkeletonText(
   props: SkeletonTextProps
 ): ReactElement {
-  const { width } = props;
+  const {
+    width,
+    skeletonHeight = '4',
+    noOfLines = 1,
+  } = props;
   return (
-    <Skeleton
-      height="1em"
+    <SkeletonTextChakra
+      skeletonHeight={skeletonHeight}
       width={width}
+      noOfLines={noOfLines}
     />
   );
 }

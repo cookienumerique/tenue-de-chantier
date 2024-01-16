@@ -1,4 +1,4 @@
-import { Grid, GridItem } from '@chakra-ui/react';
+import { Grid, GridItem, Stack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 
@@ -8,9 +8,11 @@ import CardLot from '@/app-components/card/CardLot';
 import CardZac from '@/app-components/card/CardZac';
 import TitleInfractionLot from '@/app-components/text/TitleInfractionLot';
 import Layout from '@/components/layout/Layout';
+import CreatedByOn from '@/components/text/CreatedByOn';
 import useFindInfractionLotById from '@/hooks/infractionLots/useFindInfractionLotById';
 import useFindInfractionById from '@/hooks/infractions/useFindInfractionById';
 import useFindLotById from '@/hooks/lots/useFindLotById';
+import useFindUtilisateurById from '@/hooks/utilisateur/useFindUtilisateurById';
 import useFindZacById from '@/hooks/zacs/useFindZacById';
 
 import { NextPageWithLayout } from '../_app';
@@ -49,6 +51,14 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
     });
 
     const {
+      data: utilisateur,
+      isLoading: isLoadingUtilisateur,
+    } = useFindUtilisateurById({
+      id: infractionLot?.utilisateur?.id,
+      enabled: !!infractionLot?.utilisateur?.id,
+    });
+
+    const {
       data: infraction,
       isLoading: isLoadingInfraction,
       isError: isErrorInfraction,
@@ -63,11 +73,31 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
         gap={6}
       >
         <GridItem colSpan={12}>
-          <TitleInfractionLot
-            statut={infractionLot?.statut?.value}
-            urgence={infractionLot?.urgence?.value}
-            isLoading={isLoadingInfractionLot}
-          />
+          <Stack
+            spacing={
+              isLoadingUtilisateur ||
+              isLoadingInfractionLot
+                ? '2xs'
+                : 0
+            }
+          >
+            {/* Header*/}
+            <TitleInfractionLot
+              statut={infractionLot?.statut?.value}
+              urgence={infractionLot?.urgence?.value}
+              isLoading={isLoadingInfractionLot}
+            />
+
+            <CreatedByOn
+              nom={`${utilisateur?.nom} ${utilisateur?.prenom}`}
+              date={infractionLot?.date}
+              isLoading={
+                isLoadingUtilisateur ||
+                isLoadingInfractionLot
+              }
+            />
+          </Stack>
+          {/* SubHeader informations utilisateurs */}
         </GridItem>
         <GridItem colSpan={{ base: 12, md: 6, lg: 4 }}>
           <CardZac

@@ -29,10 +29,14 @@ export default function TitleInfractionLot(
     );
   }
   return (
-    <Stack direction="row">
+    <Stack
+      direction="row"
+      alignItems="center"
+    >
       <Text
         color="gray.700"
         fontWeight="bold"
+        fontSize="xl"
       >
         {statut}
       </Text>
