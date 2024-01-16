@@ -2,13 +2,12 @@ import { Grid, GridItem } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 
-import Card from '@/app-components/card/Card';
 import CardEvenement from '@/app-components/card/CardEvenement';
 import CardInfraction from '@/app-components/card/CardInfraction';
 import CardLot from '@/app-components/card/CardLot';
 import CardZac from '@/app-components/card/CardZac';
+import TitleInfractionLot from '@/app-components/text/TitleInfractionLot';
 import Layout from '@/components/layout/Layout';
-import LabelValue from '@/components/text/LabelValue';
 import useFindInfractionLotById from '@/hooks/infractionLots/useFindInfractionLotById';
 import useFindInfractionById from '@/hooks/infractions/useFindInfractionById';
 import useFindLotById from '@/hooks/lots/useFindLotById';
@@ -24,7 +23,7 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
     // Récupération du lot
     const {
       data: infractionLot,
-      // isLoading: isLoadingInfractionLot,
+      isLoading: isLoadingInfractionLot,
       // isError: isErrorInfractionLot,
     } = useFindInfractionLotById({
       id: uuid,
@@ -63,6 +62,13 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
         templateColumns="repeat(12, 1fr)"
         gap={6}
       >
+        <GridItem colSpan={12}>
+          <TitleInfractionLot
+            statut={infractionLot?.statut?.value}
+            urgence={infractionLot?.urgence?.value}
+            isLoading={isLoadingInfractionLot}
+          />
+        </GridItem>
         <GridItem colSpan={{ base: 12, md: 6, lg: 4 }}>
           <CardZac
             zac={zac}
@@ -76,24 +82,6 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
             isLoading={isLoadingLot}
             isError={isErrorLot}
           />
-        </GridItem>
-
-        <GridItem colSpan={{ base: 12, md: 12, lg: 4 }}>
-          <Card
-            title="Autres à afficher"
-            isError={isErrorInfraction}
-            isLoading={isLoadingInfraction}
-            color="gray.600"
-          >
-            <LabelValue
-              label="Urgence"
-              value={infractionLot?.urgence}
-            />
-            <LabelValue
-              label="Statut"
-              value={infractionLot?.statut}
-            />
-          </Card>
         </GridItem>
 
         <GridItem colSpan={{ base: 12, lg: 12, xl: 8 }}>

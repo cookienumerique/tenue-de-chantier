@@ -6,8 +6,14 @@ import Utilisateur from '@/interfaces/Utilisateur';
 export default interface InfractionLot {
   id: string;
   date: string;
-  statut: InfractionLotStatutEnum;
-  urgence: InfractionLotUrgenceEnum;
+  statut: {
+    name: string;
+    value: InfractionLotStatutEnum;
+  };
+  urgence: {
+    name: string;
+    value: InfractionLotUrgenceEnum;
+  };
   utilisateur: Utilisateur;
   infraction: Infraction;
   lotId: number;

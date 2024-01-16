@@ -4,7 +4,7 @@ import { ReactElement } from 'react';
 import ButtonShortCut from '@/components/button/ButtonShortCut';
 import HeaderMobile from '@/components/layout/_partials/HeaderMobile';
 import { LayoutProps } from '@/components/layout/_partials/LayoutLarge';
-import Body from '@/components/layout/Body/Body';
+import Body from '@/components/layout/body/Body';
 
 /**
  * @description Layout for mobile

@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 
 import ButtonShortCut from '@/components/button/ButtonShortCut';
 import HeaderLarge from '@/components/layout/_partials/HeaderLarge';
-import Body from '@/components/layout/Body/Body';
+import Body from '@/components/layout/body/Body';
 
 export type LayoutProps = {
   flex?: number;
