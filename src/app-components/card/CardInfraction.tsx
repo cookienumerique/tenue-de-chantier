@@ -36,10 +36,6 @@ export default function CardInfraction(
         value={infraction?.sousCategorie}
       />
       <LabelValue
-        label="cpg"
-        value={infraction?.cpg?.value}
-      />
-      <LabelValue
         label="libelle"
         value={infraction?.libelle}
       />

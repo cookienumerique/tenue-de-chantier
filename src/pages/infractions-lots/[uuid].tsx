@@ -85,6 +85,9 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
             <TitleInfractionLot
               statut={infractionLot?.statut?.value}
               urgence={infractionLot?.urgence?.value}
+              nbJoursDepuisCreation={
+                infractionLot?.nbJoursDepuisCreation
+              }
               isLoading={isLoadingInfractionLot}
             />
 
@@ -114,19 +117,21 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
           />
         </GridItem>
 
+        <GridItem
+          colSpan={{ base: 12, md: 6, lg: 4 }}
+          rowSpan={{ base: 1, xl: 2 }}
+        >
+          <CardEvenement
+            isError={false}
+            isLoading={false}
+          />
+        </GridItem>
+
         <GridItem colSpan={{ base: 12, lg: 12, xl: 8 }}>
           <CardInfraction
             infraction={infraction}
             isError={isErrorInfraction}
             isLoading={isLoadingInfraction}
-          />
-        </GridItem>
-        <GridItem
-          colSpan={{ base: 12, md: 12, lg: 4, xl: 4 }}
-        >
-          <CardEvenement
-            isError={false}
-            isLoading={false}
           />
         </GridItem>
       </Grid>

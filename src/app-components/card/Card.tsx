@@ -39,6 +39,9 @@ export default function Card(
     color = 'gray.700',
   } = props;
 
+  const paddingY = '2xs';
+  const paddingX = 'xs';
+
   if (isError) {
     return (
       <Alert>
@@ -56,6 +59,7 @@ export default function Card(
       borderColor={color}
       backgroundColor={color}
       height="100%"
+      boxShadow="lg"
       {...cardProps}
     >
       {title ? (
@@ -63,6 +67,8 @@ export default function Card(
           borderTopRadius="inherit"
           fontWeight="bold"
           color="white"
+          paddingX={paddingX}
+          paddingY={paddingY}
           {...propsHeader}
         >
           <Stack
@@ -80,7 +86,9 @@ export default function Card(
 
       <CardBody
         borderBottomRadius="inherit"
-        backgroundColor="gray.50"
+        paddingX={paddingX}
+        paddingY={paddingX}
+        backgroundColor="white"
       >
         <Stack spacing="2xs">
           {isLoading ? (

@@ -17,4 +17,5 @@ export default interface InfractionLot {
   utilisateur: Utilisateur;
   infraction: Infraction;
   lotId: number;
+  nbJoursDepuisCreation: number;
 }
