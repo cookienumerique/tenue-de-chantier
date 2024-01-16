@@ -8,18 +8,21 @@ import FindByIdReturn from '@/types/query/FindByReturn';
 /**
  * @description Retrieve all Lot by ZacId and transform them into LabelValue[]
  */
-export default function useFindLotsByZacIdOptions({
+export default function useFindLotsNonLivresByZacIdOptions({
   id,
 }: FindByIdProps): FindByIdReturn<LabelValue[]> {
   const { data, isLoading, isError, invalidate } =
     useFindLotByZacId({ id, enabled: !!id });
 
-  const options = data?.map(
-    (lot: Lot): LabelValue => ({
-      label: capitalize(lot?.libLot),
-      value: lot.id,
-    })
-  );
+  // Filtrer les lots livrés / non livrés
+  const options = data
+    ?.filter((lotItem) => !lotItem?.livre)
+    ?.map(
+      (lot: Lot): LabelValue => ({
+        label: capitalize(lot?.libLot),
+        value: lot.id,
+      })
+    );
 
   return {
     data: options,

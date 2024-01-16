@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 import Select from '@/components/form/Select';
-import useFindLotsByZacId from '@/hooks/lots/useFindLotsByZacIdOptions';
+import useFindLotsNonLivresByZacIdOptions from '@/hooks/lots/useFindLotsNonLivresByZacIdOptions';
 
 type SelectLotProps = {
   defaultValue?: string | number;
@@ -26,7 +26,7 @@ export default function SelectLotByZacId(
     data: options,
     isError: isErrorLot,
     isLoading,
-  } = useFindLotsByZacId({ id: zacId });
+  } = useFindLotsNonLivresByZacIdOptions({ id: zacId });
 
   return (
     <Select

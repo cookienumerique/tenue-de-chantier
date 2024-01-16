@@ -13,6 +13,7 @@ import FindListReturn from '@/types/query/FindListReturn';
  */
 const useFindAllLot = ({
   enabled = true,
+  queryParams,
 }: FindListProps = {}): FindListReturn<Lot[]> => {
   const queryKey = ['lots'];
   const queryClient = useQueryClient();
@@ -21,7 +22,10 @@ const useFindAllLot = ({
     queryKey,
     () =>
       axios.get(
-        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/lots`
+        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/lots`,
+        {
+          params: queryParams,
+        }
       ),
     { enabled }
   );
