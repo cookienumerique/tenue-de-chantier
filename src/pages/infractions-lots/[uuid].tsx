@@ -9,6 +9,7 @@ import CardZac from '@/app-components/card/CardZac';
 import TitleInfractionLot from '@/app-components/text/TitleInfractionLot';
 import Layout from '@/components/layout/Layout';
 import CreatedByOn from '@/components/text/CreatedByOn';
+import useFindEvenementsByInfractionLotId from '@/hooks/evenement/useFindEvenementsByInfractionLotId';
 import useFindInfractionLotById from '@/hooks/infractionLots/useFindInfractionLotById';
 import useFindInfractionById from '@/hooks/infractions/useFindInfractionById';
 import useFindLotById from '@/hooks/lots/useFindLotById';
@@ -67,6 +68,15 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
       enabled: !!infractionLot?.infraction?.id,
     });
 
+    const {
+      data: evenements,
+      isLoading: isLoadingEvenements,
+      isError: isErrorEvenements,
+    } = useFindEvenementsByInfractionLotId({
+      id: infractionLot?.id,
+      enabled: !!infractionLot?.id,
+    });
+
     return (
       <Grid
         templateColumns="repeat(12, 1fr)"
@@ -122,8 +132,9 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
           rowSpan={{ base: 1, xl: 2 }}
         >
           <CardEvenement
-            isError={false}
-            isLoading={false}
+            isError={isErrorEvenements}
+            isLoading={isLoadingEvenements}
+            evenements={evenements}
           />
         </GridItem>
 
