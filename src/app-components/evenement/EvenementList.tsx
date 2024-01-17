@@ -1,4 +1,4 @@
-import { Stack } from '@chakra-ui/react';
+import { Stack, Text } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
 
 import EvenementItem from '@/app-components/evenement/EvenementItem';
@@ -18,12 +18,23 @@ export default function EvenementList(
 
   return (
     <Stack spacing="xs">
-      {evenements?.map((evenement) => (
-        <EvenementItem
-          evenement={evenement}
-          key={evenement?.id}
-        />
-      ))}
+      {evenements?.length === 0 ? (
+        <Text
+          as="i"
+          textAlign="center"
+        >
+          Aucun événement enregistré
+        </Text>
+      ) : (
+        <>
+          {evenements?.map((evenement) => (
+            <EvenementItem
+              evenement={evenement}
+              key={evenement?.id}
+            />
+          ))}
+        </>
+      )}
     </Stack>
   );
 }
