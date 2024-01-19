@@ -7,6 +7,10 @@ Axios.interceptors.response.use(
 
 Axios.interceptors.request.use(
   async (config) => {
+    const token = window.sessionStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => Promise.reject(error)

@@ -8,7 +8,6 @@ import { NextPageWithLayout } from './_app';
 
 const HomePage: NextPageWithLayout = (): ReactElement => {
   const router = useRouter();
-
   const handleRedirect = (
     id: number | null
   ): Promise<boolean> => {
@@ -17,6 +16,7 @@ const HomePage: NextPageWithLayout = (): ReactElement => {
     else
       return router.push(`/infractions-lots?lotId=${id}`);
   };
+
   return (
     <Stack>
       <Text as="u">
