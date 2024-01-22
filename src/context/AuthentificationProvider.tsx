@@ -57,6 +57,9 @@ export const AuthentificationProvider = ({
   );
   const isLogged = !!token && !!user;
 
+  /**
+   * @description Login the user
+   */
   const login = ({
     utilisateur,
     token,

@@ -25,7 +25,7 @@ const useValidateTicketPhpCAS = ({
     queryKey,
     async () => {
       return axios.get(
-        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/authentification/login?ticket=${ticket}`
+        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/authentification?ticket=${ticket}`
       );
     },
     { enabled: !!ticket, retry: false }

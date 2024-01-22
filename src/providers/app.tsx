@@ -31,15 +31,16 @@ export const AppProvider = (props: AppProviderProps) => {
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <AuthentificationProvider>
-          <CheckAuthentification />
-          <GlobalStyle />
-          <Stack
-            // className={myFont.className}
-            id="__next"
-            height="100%"
-          >
-            {children}
-          </Stack>
+          <CheckAuthentification>
+            <GlobalStyle />
+            <Stack
+              // className={myFont.className}
+              id="__next"
+              height="100%"
+            >
+              {children}
+            </Stack>
+          </CheckAuthentification>
         </AuthentificationProvider>
       </QueryClientProvider>
     </ChakraProvider>

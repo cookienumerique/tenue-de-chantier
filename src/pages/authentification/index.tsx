@@ -5,7 +5,7 @@ import type { ReactElement } from 'react';
 import { useAuthentification } from '@/context/AuthentificationProvider';
 import useValidateTicketPhpCAS from '@/hooks/authentification/useValidateTicketPhpCAS';
 
-const LoginPage = (): ReactElement => {
+const AuthenticatePage = (): ReactElement => {
   const queryParams = useSearchParams();
   const ticket = queryParams?.get('ticket');
   const { data, isLoading, isError } =
@@ -31,4 +31,4 @@ const LoginPage = (): ReactElement => {
   return <></>;
 };
 
-export default LoginPage;
+export default AuthenticatePage;
