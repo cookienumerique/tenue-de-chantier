@@ -23,6 +23,7 @@ interface AuthentiticationState {
     utilisateur: Utilisateur | undefined;
     token: string | undefined;
   }) => void;
+  logout: () => void;
   isLogged: boolean;
   user: Utilisateur | null;
   token: string | null;
@@ -34,6 +35,7 @@ interface AuthentiticationState {
 const AuthentificationContext =
   createContext<AuthentiticationState>({
     login: () => {},
+    logout: () => {},
     isLogged: false,
     user: null,
     token: null,
@@ -74,9 +76,19 @@ export const AuthentificationProvider = ({
     router?.push('/');
   };
 
+  const logout = () => {
+    window.sessionStorage.removeItem('token');
+    router
+      .push(
+        `${process.env.NEXT_PUBLIC_APP_PHP_CAS_HOST}/logout`
+      )
+      .then((r) => r);
+  };
+
   // Value to be provided by the context
   const contextValue = {
     login,
+    logout,
     isLogged,
     token,
     user,

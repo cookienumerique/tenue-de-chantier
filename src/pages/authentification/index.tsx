@@ -1,6 +1,7 @@
 import { Text } from '@chakra-ui/react';
 import { useSearchParams } from 'next/navigation';
 import type { ReactElement } from 'react';
+import { useEffect } from 'react';
 
 import { useAuthentification } from '@/context/AuthentificationProvider';
 import useValidateTicketPhpCAS from '@/hooks/authentification/useValidateTicketPhpCAS';
@@ -15,6 +16,10 @@ const AuthenticatePage = (): ReactElement => {
   const { utilisateur, token } = data ?? {};
   const { login } = useAuthentification();
 
+  useEffect(() => {
+    login({ utilisateur, token });
+  }, [utilisateur, token, login]);
+
   if (isLoading)
     return <Text>Authentification en cours ...</Text>;
 
@@ -25,8 +30,6 @@ const AuthenticatePage = (): ReactElement => {
         l&apos;authentification
       </Text>
     );
-
-  login({ utilisateur, token });
 
   return <></>;
 };

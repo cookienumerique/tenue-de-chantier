@@ -11,11 +11,11 @@ export const CheckAuthentification = ({
 }: CheckAuthentificateProps) => {
   const router = useRouter();
   const { isLogged } = useAuthentification();
-
+  const authentificateURL = '/authentification';
+  const currentURL = router.pathname;
   useEffect(() => {
     const userShouldBeAuthenticated =
-      !isLogged &&
-      router?.pathname !== '/authentification';
+      !isLogged && currentURL !== authentificateURL;
 
     if (window && userShouldBeAuthenticated) {
       // If we are in dev mode, we fake the ticket, because the ticket won't be verified
@@ -29,12 +29,12 @@ export const CheckAuthentification = ({
         // If we are in prod mode, we redirect to the php cas server login page
         router
           ?.push(
-            `${process.env.NEXT_PUBLIC_APP_PHP_CAS_HOST}?service=${process.env.NEXT_PUBLIC_APP_HOST}/authentification`
+            `${process.env.NEXT_PUBLIC_APP_PHP_CAS_HOST}/login?service=${process.env.NEXT_PUBLIC_APP_HOST}/authentification`
           )
           .then((r) => r);
       }
     }
-  }, [router, isLogged]);
+  }, [currentURL, isLogged, authentificateURL, router]);
 
   // If we are not logged and we are not on the authentification page, we don't display anything
   if (
