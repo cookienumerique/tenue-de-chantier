@@ -8,6 +8,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactNode } from 'react';
 
 import { theme } from '@/config/theme';
+import { AuthentificationProvider } from '@/context/AuthentificationProvider';
+import { CheckAuthentification } from '@/context/CheckAuthentification';
 import { queryClient } from '@/lib/react-query';
 
 // const myFont = localFont({
@@ -20,6 +22,7 @@ type AppProviderProps = {
 
 export const AppProvider = (props: AppProviderProps) => {
   const { children } = props;
+
   return (
     <ChakraProvider
       resetCSS
@@ -27,14 +30,18 @@ export const AppProvider = (props: AppProviderProps) => {
     >
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
-        <GlobalStyle />
-        <Stack
-          // className={myFont.className}
-          id="__next"
-          height="100%"
-        >
-          {children}
-        </Stack>
+        <AuthentificationProvider>
+          <CheckAuthentification>
+            <GlobalStyle />
+            <Stack
+              // className={myFont.className}
+              id="__next"
+              height="100%"
+            >
+              {children}
+            </Stack>
+          </CheckAuthentification>
+        </AuthentificationProvider>
       </QueryClientProvider>
     </ChakraProvider>
   );

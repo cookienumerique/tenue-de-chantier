@@ -2,7 +2,7 @@ import { Stack } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 
 import ButtonShortCut from '@/components/button/ButtonShortCut';
-import HeaderMobile from '@/components/layout/_partials/HeaderMobile';
+import LayoutHeader from '@/components/layout/_partials/LayoutHeader';
 import { LayoutProps } from '@/components/layout/_partials/LayoutLarge';
 import Body from '@/components/layout/body/Body';
 
@@ -22,7 +22,7 @@ export default function LayoutMobile(
       gap={gap}
     >
       {/* Header */}
-      <HeaderMobile />
+      <LayoutHeader />
       {/* Content */}
       <Body
         paddingY="xs"

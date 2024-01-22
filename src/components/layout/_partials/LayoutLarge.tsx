@@ -2,7 +2,7 @@ import { Stack } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 
 import ButtonShortCut from '@/components/button/ButtonShortCut';
-import HeaderLarge from '@/components/layout/_partials/HeaderLarge';
+import LayoutHeader from '@/components/layout/_partials/LayoutHeader';
 import Body from '@/components/layout/body/Body';
 
 export type LayoutProps = {
@@ -27,7 +27,7 @@ export default function LayoutLarge(
       gap={gap}
     >
       {/* Header */}
-      <HeaderLarge />
+      <LayoutHeader />
       {/* Body */}
       <Body
         paddingY="sm"
