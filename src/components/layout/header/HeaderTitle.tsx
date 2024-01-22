@@ -1,8 +1,10 @@
-import { Text } from '@chakra-ui/react';
+import { ResponsiveValue, Text } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 
 type HeaderTitleProps = {
-  fontSize: string;
+  fontSize?: ResponsiveValue<
+    string & NonNullable<unknown>
+  >;
 };
 export default function HeaderTitle(
   props: HeaderTitleProps
