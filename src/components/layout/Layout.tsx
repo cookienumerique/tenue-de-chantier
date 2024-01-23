@@ -23,7 +23,7 @@ export default function Layout(
 
   const layout = isMobile ? LayoutMobile : LayoutLarge;
   const content = (
-    <Stack>
+    <Stack flex="1">
       <Head>
         <link
           rel="icon"

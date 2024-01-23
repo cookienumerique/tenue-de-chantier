@@ -1,46 +1,37 @@
-import { Badge, Stack, Text } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+import { Box, Stack, Text } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
 
 import Layout from '@/components/layout/Layout';
+import Section from '@/components/section/Section';
 
 import { NextPageWithLayout } from './_app';
 
 const HomePage: NextPageWithLayout = (): ReactElement => {
-  const router = useRouter();
-  const handleRedirect = (
-    id: number | null
-  ): Promise<boolean> => {
-    if (id === null)
-      return router.push(`/infractions-lots`);
-    else
-      return router.push(`/infractions-lots?lotId=${id}`);
-  };
+  const idZacUtilisateur = 95;
 
   return (
-    <Stack>
-      <Text as="u">
-        Simulation de la sélection d&apos;un lot:
-      </Text>
-      <Text
-        cursor="pointer"
-        onClick={() => handleRedirect(null)}
+    <Stack
+      direction={{ base: 'column', lg: 'row' }}
+      gap={6}
+      flex="1"
+    >
+      <Section
+        title="Sélectionner un lot pour débuter votre"
+        flex="1"
+        overflowY="scroll"
       >
-        Créer une infraction from scratch {` `}{' '}
-        <Badge colorScheme="green">Nouveau</Badge>
-      </Text>
-      <Text
-        cursor="pointer"
-        onClick={() => handleRedirect(1)}
+        <Box
+          as="iframe"
+          src={`${process?.env?.NEXT_PUBLIC_APP_CARTO_URL}?id_zac=${idZacUtilisateur}`}
+          height="70vh"
+        />
+      </Section>
+      <Section
+        title="ZAC en favoris"
+        flex="1"
       >
-        Créer une infraction pour le lot 1
-      </Text>
-      <Text
-        cursor="pointer"
-        onClick={() => handleRedirect(2)}
-      >
-        Créer une infraction pour le lot 2
-      </Text>
+        <Text as="i">En cours de développement</Text>
+      </Section>
     </Stack>
   );
 };

@@ -6,6 +6,7 @@ declare global {
       NEXT_PUBLIC_APP_API_HOST: string;
       NEXT_PUBLIC_APP_HOST: string;
       NEXT_PUBLIC_APP_PHP_CAS_HOST: string;
+      NEXT_PUBLIC_APP_CARTO_URL: string;
     }
   }
 }
