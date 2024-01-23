@@ -10,12 +10,14 @@ export const CheckAuthentification = ({
   children,
 }: CheckAuthentificateProps) => {
   const router = useRouter();
-  const { isLogged } = useAuthentification();
+  const { needAuthentification } = useAuthentification();
   const authentificateURL = '/authentification';
   const currentURL = router.pathname;
+  console.log(needAuthentification);
   useEffect(() => {
     const userShouldBeAuthenticated =
-      !isLogged && currentURL !== authentificateURL;
+      needAuthentification &&
+      currentURL !== authentificateURL;
 
     if (window && userShouldBeAuthenticated) {
       // If we are in dev mode, we fake the ticket, because the ticket won't be verified
@@ -34,14 +36,19 @@ export const CheckAuthentification = ({
           .then((r) => r);
       }
     }
-  }, [currentURL, isLogged, authentificateURL, router]);
+  }, [
+    currentURL,
+    needAuthentification,
+    authentificateURL,
+    router,
+  ]);
 
   // If we are not logged and we are not on the authentification page, we don't display anything
-  if (
-    !isLogged &&
-    router.pathname !== '/authentification'
-  )
-    return null;
+  // if (
+  //   !needAuthentification &&
+  //   router.pathname !== '/authentification'
+  // )
+  //   return null;
 
   return children;
 };

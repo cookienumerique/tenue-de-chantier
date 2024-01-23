@@ -16,7 +16,7 @@ const HomePage: NextPageWithLayout = (): ReactElement => {
       flex="1"
     >
       <Section
-        title="Sélectionner un lot pour débuter votre"
+        title="Sélectionner un lot pour débuter votre navigation"
         flex="1"
         overflowY="scroll"
       >

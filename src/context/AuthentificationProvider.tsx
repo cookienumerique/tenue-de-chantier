@@ -6,6 +6,7 @@ import {
   ReactNode,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from 'react';
 
@@ -24,7 +25,7 @@ interface AuthentiticationState {
     token: string | undefined;
   }) => void;
   logout: () => void;
-  isLogged: boolean;
+  needAuthentification: boolean;
   user: Utilisateur | null;
   token: string | null;
   setToken: Dispatch<SetStateAction<string | null>>;
@@ -36,7 +37,7 @@ const AuthentificationContext =
   createContext<AuthentiticationState>({
     login: () => {},
     logout: () => {},
-    isLogged: false,
+    needAuthentification: false,
     user: null,
     token: null,
     setToken: () => {},
@@ -54,10 +55,20 @@ export const AuthentificationProvider = ({
 }: AuthentiticationContextProps) => {
   const router = useRouter();
   const [token, setToken] = useState<string | null>(null);
+  const [needAuthentification, setNeedAuthentification] =
+    useState<boolean>(false);
   const [user, setUser] = useState<Utilisateur | null>(
     null
   );
-  const isLogged = !!token && !!user;
+
+  useEffect(() => {
+    if (window) {
+      if (!token) {
+        setNeedAuthentification(true);
+      }
+      setNeedAuthentification(false);
+    }
+  }, [token]);
 
   /**
    * @description Login the user
@@ -69,7 +80,7 @@ export const AuthentificationProvider = ({
     token: string | undefined;
     utilisateur: Utilisateur | undefined;
   }) => {
-    if (isLogged || !utilisateur || !token) return;
+    if (!utilisateur || !token) return;
     setToken(token);
     window.sessionStorage.setItem('token', token);
     setUser(utilisateur);
@@ -89,7 +100,7 @@ export const AuthentificationProvider = ({
   const contextValue = {
     login,
     logout,
-    isLogged,
+    needAuthentification,
     token,
     user,
     setToken,
