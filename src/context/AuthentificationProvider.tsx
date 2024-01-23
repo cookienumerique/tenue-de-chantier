@@ -11,6 +11,7 @@ import {
 } from 'react';
 
 import Utilisateur from '@/interfaces/Utilisateur';
+import findMe from '@/services/FindMe';
 
 interface AuthentiticationContextProps {
   children: ReactNode;
@@ -25,7 +26,7 @@ interface AuthentiticationState {
     token: string | undefined;
   }) => void;
   logout: () => void;
-  needAuthentification: boolean;
+  isLogged: boolean;
   user: Utilisateur | null;
   token: string | null;
   setToken: Dispatch<SetStateAction<string | null>>;
@@ -37,7 +38,7 @@ const AuthentificationContext =
   createContext<AuthentiticationState>({
     login: () => {},
     logout: () => {},
-    needAuthentification: false,
+    isLogged: false,
     user: null,
     token: null,
     setToken: () => {},
@@ -55,18 +56,38 @@ export const AuthentificationProvider = ({
 }: AuthentiticationContextProps) => {
   const router = useRouter();
   const [token, setToken] = useState<string | null>(null);
-  const [needAuthentification, setNeedAuthentification] =
-    useState<boolean>(false);
+
+  const [isLogged, setIsLogged] = useState<boolean>(true);
   const [user, setUser] = useState<Utilisateur | null>(
     null
   );
+  // Get the user from the API
+  useEffect(() => {
+    if (
+      window &&
+      window.sessionStorage.getItem('token')
+    ) {
+      findMe().then(({ utilisateur, token }) => {
+        setUser(utilisateur);
+        setToken(token);
+      });
+    }
+  }, [isLogged, token]);
 
+  // Get the token from the session storage
+  useEffect(() => {
+    if (window && !token) {
+      setToken(window.sessionStorage.getItem('token'));
+    }
+  }, [token]);
+
+  // Check if the user is logged
   useEffect(() => {
     if (window) {
-      if (!token) {
-        setNeedAuthentification(true);
-      }
-      setNeedAuthentification(false);
+      const tokenInSessionStorage =
+        window.sessionStorage.getItem('token');
+      // If the token is in storage, the user is logged
+      setIsLogged(!!tokenInSessionStorage);
     }
   }, [token]);
 
@@ -100,7 +121,7 @@ export const AuthentificationProvider = ({
   const contextValue = {
     login,
     logout,
-    needAuthentification,
+    isLogged,
     token,
     user,
     setToken,
