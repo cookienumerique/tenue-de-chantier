@@ -10,6 +10,7 @@ import {
   useState,
 } from 'react';
 
+import usePhpCAS from '@/functions/authentification/usePhpCAS';
 import Utilisateur from '@/interfaces/Utilisateur';
 import findMe from '@/services/FindMe';
 
@@ -55,40 +56,39 @@ export const AuthentificationProvider = ({
   children,
 }: AuthentiticationContextProps) => {
   const router = useRouter();
-  const [token, setToken] = useState<string | null>(null);
+  const { redirectToLoginPage } = usePhpCAS();
 
+  // State auth
   const [isLogged, setIsLogged] = useState<boolean>(true);
+  const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<Utilisateur | null>(
     null
   );
+
   // Get the user from the API
   useEffect(() => {
-    if (
-      window &&
-      window.sessionStorage.getItem('token')
-    ) {
-      findMe().then(({ utilisateur, token }) => {
+    if (user || !token) return;
+    findMe()
+      .then(({ utilisateur, token }) => {
         setUser(utilisateur);
         setToken(token);
-      });
-    }
-  }, [isLogged, token]);
+      })
+      .catch(() => redirectToLoginPage());
+  }, [isLogged, redirectToLoginPage, token, user]);
 
   // Get the token from the session storage
   useEffect(() => {
     if (window && !token) {
-      setToken(window.sessionStorage.getItem('token'));
+      setToken(window?.sessionStorage?.getItem('token'));
     }
   }, [token]);
 
   // Check if the user is logged
   useEffect(() => {
-    if (window) {
-      const tokenInSessionStorage =
-        window.sessionStorage.getItem('token');
-      // If the token is in storage, the user is logged
-      setIsLogged(!!tokenInSessionStorage);
-    }
+    // If the token is in storage, the user is logged
+    setIsLogged(
+      !!window?.sessionStorage?.getItem('token')
+    );
   }, [token]);
 
   /**

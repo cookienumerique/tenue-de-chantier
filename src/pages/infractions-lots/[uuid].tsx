@@ -13,7 +13,7 @@ import useFindEvenementsByInfractionLotId from '@/hooks/evenement/useFindEveneme
 import useFindInfractionLotById from '@/hooks/infractionLots/useFindInfractionLotById';
 import useFindInfractionById from '@/hooks/infractions/useFindInfractionById';
 import useFindLotById from '@/hooks/lots/useFindLotById';
-import useFindUtilisateurById from '@/hooks/utilisateur/useFindUtilisateurById';
+import useFindUtilisateurById from '@/hooks/utilisateurs/useFindUtilisateurById';
 import useFindZacById from '@/hooks/zacs/useFindZacById';
 
 import { NextPageWithLayout } from '../_app';
