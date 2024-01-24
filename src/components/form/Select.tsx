@@ -113,6 +113,7 @@ export default function Select(
         {label}
       </FormLabel>
       <ReactSelect
+        instanceId={props?.name}
         key={defaultValue as Key}
         // @ts-expect-error todo
         onChange={handleChange}
