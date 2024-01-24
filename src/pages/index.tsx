@@ -21,7 +21,6 @@ const HomePage: NextPageWithLayout = (): ReactElement => {
         overflowY="scroll"
       >
         <Box
-          border="1px solid"
           as="iframe"
           src={`${process?.env?.NEXT_PUBLIC_APP_CARTO_URL}?id_zac=${idZacUtilisateur}`}
           height="75vh"
