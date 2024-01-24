@@ -111,13 +111,16 @@ const CreationInfractionPage: NextPageWithLayout =
           <SectionDocuments />
 
           {/* Soumission du formulaire */}
-          <Button
-            isLoading={isLoadingCreation}
-            type="submit"
-            onClick={form.submit}
-          >
-            Créer l&apos;infraction
-          </Button>
+          <Stack marginLeft="auto">
+            <Button
+              width="fit-content"
+              isLoading={isLoadingCreation}
+              type="submit"
+              onClick={form.submit}
+            >
+              Créer l&apos;infraction
+            </Button>
+          </Stack>
         </Formiz>
       </Stack>
     );

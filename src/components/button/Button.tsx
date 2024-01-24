@@ -15,6 +15,7 @@ export default function Button(
     colorScheme = 'primary',
     type = 'button',
     onClick,
+    width,
   } = props;
   return (
     <ButtonChakra
@@ -22,6 +23,7 @@ export default function Button(
       colorScheme={colorScheme}
       onClick={onClick}
       type={type}
+      width={width}
     >
       {children}
     </ButtonChakra>

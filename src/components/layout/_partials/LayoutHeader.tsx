@@ -13,6 +13,9 @@ export default function LayoutHeader(): ReactElement {
     <Stack
       paddingY="xs"
       paddingX={{ base: 'sm', md: 'md' }}
+      position="sticky"
+      top="0"
+      backgroundColor="white"
     >
       <Stack
         display="flex"
