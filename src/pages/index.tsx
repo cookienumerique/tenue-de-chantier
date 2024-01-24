@@ -17,13 +17,14 @@ const HomePage: NextPageWithLayout = (): ReactElement => {
     >
       <Section
         title="Sélectionner un lot pour débuter votre navigation"
-        flex="1"
+        flex={{ base: '1', lg: '2', xl: '4' }}
         overflowY="scroll"
       >
         <Box
+          border="1px solid"
           as="iframe"
           src={`${process?.env?.NEXT_PUBLIC_APP_CARTO_URL}?id_zac=${idZacUtilisateur}`}
-          height="70vh"
+          height="75vh"
         />
       </Section>
       <Section
