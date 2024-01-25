@@ -1,4 +1,3 @@
-import capitalize from '@/functions/capitalize';
 import useFindLotByZacId from '@/hooks/lots/useFindLotByZacId';
 import LabelValue from '@/interfaces/LabelValue';
 import Lot from '@/interfaces/Lot';
@@ -19,7 +18,7 @@ export default function useFindLotsNonLivresByZacIdOptions({
     ?.filter((lotItem) => !lotItem?.livre)
     ?.map(
       (lot: Lot): LabelValue => ({
-        label: capitalize(lot?.libLot),
+        label: lot?.libLot,
         value: lot.id,
       })
     );

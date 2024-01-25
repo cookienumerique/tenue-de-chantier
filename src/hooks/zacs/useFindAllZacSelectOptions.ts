@@ -1,4 +1,3 @@
-import capitalize from '@/functions/capitalize';
 import useFindAllZac from '@/hooks/zacs/useFindAllZac';
 import LabelValue from '@/interfaces/LabelValue';
 import Zac from '@/interfaces/Zac';
@@ -15,7 +14,7 @@ export default function useFindAllZacSelectOptions(): FindListReturn<
 
   const options = data?.map(
     (zac: Zac): LabelValue => ({
-      label: capitalize(zac?.libZacMin),
+      label: zac?.libZacMin,
       value: zac.id,
     })
   );

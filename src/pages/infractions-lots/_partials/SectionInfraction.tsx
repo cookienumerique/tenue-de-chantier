@@ -10,7 +10,6 @@ import Select from '@/components/form/Select';
 import Section from '@/components/section/Section';
 import LabelValueComponent from '@/components/text/LabelValue';
 import CpgEnum from '@/enums/CpgEnum';
-import capitalize from '@/functions/capitalize';
 import uniqueOptions from '@/functions/uniqueOptions';
 import useFindAllInfractionsByCpg from '@/hooks/infractions/useFindAllInfractionsByCpg';
 import Infraction from '@/interfaces/Infraction';
@@ -77,7 +76,7 @@ export default function SectionInfraction(
   const optionsLibelle = infractions?.map(
     (infraction: Infraction) => {
       return {
-        label: capitalize(infraction?.libelle),
+        label: infraction?.libelle,
         value: infraction.id,
       };
     }
@@ -86,7 +85,7 @@ export default function SectionInfraction(
   const optionsCategorie = infractions?.map(
     (infraction: Infraction) => {
       return {
-        label: capitalize(infraction?.categorie),
+        label: infraction?.categorie,
         value: infraction.id,
       };
     }
@@ -102,7 +101,7 @@ export default function SectionInfraction(
     )
     ?.map((infraction: Infraction) => {
       return {
-        label: capitalize(infraction?.sousCategorie),
+        label: infraction?.sousCategorie,
         value: infraction.id,
       };
     });
@@ -117,7 +116,7 @@ export default function SectionInfraction(
     )
     ?.map((infraction: Infraction) => {
       return {
-        label: capitalize(infraction?.libelle),
+        label: infraction?.libelle,
         value: infraction.id,
       };
     });
