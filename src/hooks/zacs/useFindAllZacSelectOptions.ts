@@ -15,7 +15,7 @@ export default function useFindAllZacSelectOptions(): FindListReturn<
 
   const options = data?.map(
     (zac: Zac): LabelValue => ({
-      label: capitalize(zac?.libZac),
+      label: capitalize(zac?.libZacMin),
       value: zac.id,
     })
   );
