@@ -88,8 +88,6 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
       enabled: !!infractionLot?.id,
     });
 
-    console.log(actions);
-
     return (
       <Grid
         templateColumns="repeat(12, 1fr)"
