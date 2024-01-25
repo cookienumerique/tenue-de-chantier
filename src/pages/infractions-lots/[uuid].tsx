@@ -10,6 +10,7 @@ import TitleInfractionLot from '@/app-components/text/TitleInfractionLot';
 import Layout from '@/components/layout/Layout';
 import CreatedByOn from '@/components/text/CreatedByOn';
 import useFindEvenementsByInfractionLotId from '@/hooks/evenement/useFindEvenementsByInfractionLotId';
+import useFindActionsByInfractionLotId from '@/hooks/infractionLots/useFindActionsByInfractionLotId';
 import useFindInfractionLotById from '@/hooks/infractionLots/useFindInfractionLotById';
 import useFindInfractionById from '@/hooks/infractions/useFindInfractionById';
 import useFindLotById from '@/hooks/lots/useFindLotById';
@@ -77,6 +78,18 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
       enabled: !!infractionLot?.id,
     });
 
+    // Retrieve actions possibles for infractionLot
+    const {
+      data: actions,
+      isLoading: isLoadingActions,
+      isError: isErrorActions,
+    } = useFindActionsByInfractionLotId({
+      id: infractionLot?.id,
+      enabled: !!infractionLot?.id,
+    });
+
+    console.log(actions);
+
     return (
       <Grid
         templateColumns="repeat(12, 1fr)"
@@ -98,7 +111,12 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
               nbJoursDepuisCreation={
                 infractionLot?.nbJoursDepuisCreation
               }
-              isLoading={isLoadingInfractionLot}
+              isLoadingInfractionsLot={
+                isLoadingInfractionLot
+              }
+              actions={actions}
+              isLoadingActions={isLoadingActions}
+              isErrorActions={isErrorActions}
             />
 
             <CreatedByOn

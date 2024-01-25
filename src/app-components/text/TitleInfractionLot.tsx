@@ -2,8 +2,10 @@ import { Icon, Stack, Text } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 import { CiTimer } from 'react-icons/ci';
 
+import ButtonActionsInfractionLot from '@/app-components/button/ButtonActionsInfractionLot';
 import TagUrgence from '@/app-components/tag/infraction-lot/TagUrgence';
 import SkeletonText from '@/components/skeleton/SkeletonText';
+import ActionInfractionEnum from '@/enums/ActionInfractionEnum';
 import InfractionLotStatutEnum from '@/enums/InfractionLotStatutEnum';
 import InfractionLotUrgenceEnum from '@/enums/InfractionLotUrgenceEnum';
 
@@ -11,7 +13,10 @@ type TitleProps = {
   statut: InfractionLotStatutEnum | undefined;
   urgence: InfractionLotUrgenceEnum | undefined;
   nbJoursDepuisCreation: number | undefined;
-  isLoading: boolean;
+  isLoadingInfractionsLot: boolean;
+  actions: ActionInfractionEnum[] | undefined;
+  isLoadingActions: boolean;
+  isErrorActions: boolean;
 };
 
 /**
@@ -24,10 +29,13 @@ export default function TitleInfractionLot(
     statut,
     urgence,
     nbJoursDepuisCreation,
-    isLoading,
+    isLoadingInfractionsLot,
+    actions,
+    isLoadingActions,
+    isErrorActions,
   } = props;
 
-  if (isLoading) {
+  if (isLoadingInfractionsLot) {
     return (
       <Stack direction="row">
         <SkeletonText width="7em" />
@@ -57,21 +65,30 @@ export default function TitleInfractionLot(
           </Text>
           <TagUrgence urgence={urgence} />
         </Stack>
-        {/* Section nb jours depuis création */}
-        <Stack
-          direction="row"
-          alignItems="center"
-          color="gray.700"
-          fontSize="xs"
-        >
-          <Icon
-            color="inherit"
-            as={CiTimer}
-            boxSize={4}
-          />
-          <Text color="inherit">
-            {`${nbJoursDepuisCreation} jours depuis la détection`}
-          </Text>
+        <Stack alignItems="end">
+          {/* Section nb jours depuis création */}
+          <Stack>
+            <ButtonActionsInfractionLot
+              actions={actions}
+              isLoading={isLoadingActions}
+              isError={isErrorActions}
+            />
+          </Stack>
+          <Stack
+            direction="row"
+            alignItems="center"
+            color="gray.700"
+            fontSize="xs"
+          >
+            <Icon
+              color="inherit"
+              as={CiTimer}
+              boxSize={4}
+            />
+            <Text color="inherit">
+              {`${nbJoursDepuisCreation} jours depuis la détection`}
+            </Text>
+          </Stack>
         </Stack>
       </Stack>
     </Stack>
