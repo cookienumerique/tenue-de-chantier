@@ -21,8 +21,8 @@ export default function ButtonShortCut(): ReactElement {
   const { push } = useRouter();
 
   const fontSizeBreakPoint = useBreakpointValue({
-    base: '20px',
-    lg: '25px',
+    base: '18px',
+    lg: '20px',
   });
 
   /**
