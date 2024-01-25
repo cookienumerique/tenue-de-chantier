@@ -58,7 +58,7 @@ export default function ButtonShortCut(): ReactElement {
     <Stack
       position="fixed"
       alignItems="center"
-      bottom="3.5em"
+      bottom="8.5em"
       right="1em"
       gap="1.5em"
       backgroundColor="white"
