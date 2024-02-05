@@ -1,5 +1,4 @@
 import {
-  Alert,
   Card as CardChakra,
   CardBody,
   CardHeader,
@@ -10,6 +9,8 @@ import {
   Text,
 } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
+
+import AlertErrorFetchData from '@/components/alert/AlertErrorFetchData';
 
 type CardProps = {
   isLoading: boolean;
@@ -43,12 +44,7 @@ export default function Card(
   const paddingX = 'xs';
 
   if (isError) {
-    return (
-      <Alert>
-        Une erreur est survenue lors de la récupération
-        des données
-      </Alert>
-    );
+    return <AlertErrorFetchData />;
   }
 
   return (
