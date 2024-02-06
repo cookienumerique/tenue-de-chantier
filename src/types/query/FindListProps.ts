@@ -1,7 +1,7 @@
 type FindListProps = {
   key?: string[];
   enabled?: boolean;
-  queryParams?: URLSearchParams;
+  queryParameters?: URLSearchParams;
 };
 
 export default FindListProps;

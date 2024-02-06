@@ -1,4 +1,4 @@
-import useFindLotByZacId from '@/hooks/lots/useFindLotByZacId';
+import useFindAllLot from '@/hooks/lots/useFindAllLot';
 import LabelValue from '@/interfaces/LabelValue';
 import Lot from '@/interfaces/Lot';
 import FindByIdProps from '@/types/query/FindByIdProps';
@@ -10,8 +10,12 @@ import FindByIdReturn from '@/types/query/FindByReturn';
 export default function useFindLotsNonLivresByZacIdOptions({
   id,
 }: FindByIdProps): FindByIdReturn<LabelValue[]> {
+  const queryParameters = new URLSearchParams({
+    zacId: id?.toString() as string,
+    livre: 'no',
+  });
   const { data, isLoading, isError, invalidate } =
-    useFindLotByZacId({ id, enabled: !!id });
+    useFindAllLot({ queryParameters, enabled: !!id });
 
   // Filtrer les lots livrés / non livrés
   const options = data

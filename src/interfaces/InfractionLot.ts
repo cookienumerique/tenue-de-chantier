@@ -1,7 +1,9 @@
 import InfractionLotStatutEnum from '@/enums/InfractionLotStatutEnum';
 import InfractionLotUrgenceEnum from '@/enums/InfractionLotUrgenceEnum';
 import Infraction from '@/interfaces/Infraction';
+import Lot from '@/interfaces/Lot';
 import Utilisateur from '@/interfaces/Utilisateur';
+import Zac from '@/interfaces/Zac';
 
 export default interface InfractionLot {
   id: string;
@@ -18,4 +20,6 @@ export default interface InfractionLot {
   infraction: Infraction;
   lotId: number;
   nbJoursDepuisCreation: number;
+  zac: Zac;
+  lot: Lot;
 }

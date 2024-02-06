@@ -14,6 +14,7 @@ import InfractionLotUrgenceEnum from '@/enums/InfractionLotUrgenceEnum';
 
 type TagUrgenceProps = {
   urgence: InfractionLotUrgenceEnum | undefined;
+  width?: string;
 };
 
 /**
@@ -22,7 +23,7 @@ type TagUrgenceProps = {
 export default function TagUrgence(
   props: TagUrgenceProps
 ): ReactElement {
-  const { urgence } = props;
+  const { urgence, width = 'fit-content' } = props;
 
   let colorScheme = 'gray';
   let icon = RiAlarmWarningFill;
@@ -37,7 +38,10 @@ export default function TagUrgence(
   }
 
   return (
-    <Stack spacing={4}>
+    <Stack
+      spacing={4}
+      width={width}
+    >
       <Tag
         colorScheme={colorScheme}
         size="sm"

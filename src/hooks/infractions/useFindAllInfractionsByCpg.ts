@@ -13,7 +13,7 @@ import FindListReturn from '@/types/query/FindListReturn';
  */
 const useFindAllInfractionsByCpg = ({
   enabled,
-  queryParams,
+  queryParameters,
   key,
 }: FindListProps = {}): FindListReturn<Infraction[]> => {
   const queryKey = key ?? ['infractions'];
@@ -25,7 +25,7 @@ const useFindAllInfractionsByCpg = ({
       return axios.get(
         `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/infractions/`,
         {
-          params: queryParams,
+          params: queryParameters,
         }
       );
     },

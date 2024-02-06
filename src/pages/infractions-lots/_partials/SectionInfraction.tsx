@@ -31,7 +31,7 @@ export default function SectionInfraction(
     'libelle' | 'categorie'
   >('libelle');
 
-  const queryParams = new URLSearchParams({
+  const queryParameters = new URLSearchParams({
     cpg: cpg ?? '',
   });
 
@@ -52,7 +52,7 @@ export default function SectionInfraction(
     isLoading: isLoadingInfraction,
     isError: isErrorInfraction,
   } = useFindAllInfractionsByCpg({
-    queryParams,
+    queryParameters,
     key: ['infraction', cpg ?? ''],
     enabled: !!cpg,
   });

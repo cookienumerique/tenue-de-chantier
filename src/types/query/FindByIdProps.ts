@@ -1,5 +1,5 @@
 type FindByIdProps = {
-  id: string | number | Array<string> | undefined;
+  id: string | number | Array<string> | undefined | null;
   key?: string;
   enabled?: boolean;
 };
