@@ -2,7 +2,7 @@ import { Stack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
 
-import ListeInfractionsLot from '@/app-components/infraction-lot/ListeInfractionsLot';
+import ListInfractionsLot from '@/app-components/infraction-lot/ListInfractionsLot';
 import Layout from '@/components/layout/Layout';
 import TitlePage from '@/components/text/TitlePage';
 import useFindInfractionLot from '@/hooks/infractionLots/useFindInfractionLot';
@@ -29,7 +29,7 @@ const ListeInfractionsLotsPage = () => {
       <Stack>
         <TitlePage>Liste des infractions</TitlePage>
       </Stack>
-      <ListeInfractionsLot
+      <ListInfractionsLot
         isLoading={isLoading}
         isError={isError}
         data={infractionsLot}
