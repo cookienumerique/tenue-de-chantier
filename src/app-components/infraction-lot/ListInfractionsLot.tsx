@@ -21,7 +21,7 @@ type ListeInfractionsLotProps = {
  * @param props
  * @constructor
  */
-const ListeInfractionsLot = (
+const ListInfractionsLot = (
   props: ListeInfractionsLotProps
 ): ReactElement => {
   const {
@@ -57,4 +57,4 @@ const ListeInfractionsLot = (
   );
 };
 
-export default ListeInfractionsLot;
+export default ListInfractionsLot;
