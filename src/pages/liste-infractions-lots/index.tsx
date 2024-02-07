@@ -21,7 +21,6 @@ const ListeInfractionsLotsPage = () => {
     isError,
   } = useFindInfractionLot({
     queryParameters: searchParams,
-    enabled: !!zacId || !!lotId,
   });
 
   return (
