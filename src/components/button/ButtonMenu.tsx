@@ -1,11 +1,13 @@
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
   Button,
+  Icon,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
 } from '@chakra-ui/react';
+import { IconType } from 'react-icons/lib';
 
 type ButtonMenuProps = {
   width?: string;
@@ -13,7 +15,11 @@ type ButtonMenuProps = {
   colorScheme?: string;
   size?: string;
   items:
-    | Array<{ label: string; onClick: () => void }>
+    | Array<{
+        label: string;
+        onClick: () => void;
+        icon: IconType | undefined;
+      }>
     | undefined;
   isLoading?: boolean;
 };
@@ -51,6 +57,14 @@ const ButtonMenu = (props: ButtonMenuProps) => {
           <MenuItem
             key={actionItem?.label}
             onClick={actionItem?.onClick}
+            icon={
+              actionItem?.icon ? (
+                <Icon
+                  boxSize={5}
+                  as={actionItem?.icon}
+                />
+              ) : undefined
+            }
           >
             {actionItem?.label}
           </MenuItem>

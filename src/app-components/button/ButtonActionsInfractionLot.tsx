@@ -1,10 +1,12 @@
 import { Text } from '@chakra-ui/react';
 
+import ModalFiles from '@/app-components/infraction-lot/ModalFiles';
 import ButtonMenu from '@/components/button/ButtonMenu';
 import ActionInfractionEnum from '@/enums/ActionInfractionEnum';
-import buildMenuActionInfractionLot from '@/functions/infraction-lot/buildMenuActionInfractionLot';
+import useBuildMenuActionInfractionLot from '@/hooks/infractionLots/useBuildMenuActionInfractionLot';
 
 type ButtonActionsInfractionLotProps = {
+  infractionLotId: string | undefined;
   actions: ActionInfractionEnum[] | undefined;
   isLoading: boolean;
   isError: boolean;
@@ -17,29 +19,39 @@ type ButtonActionsInfractionLotProps = {
 const ButtonActionsInfractionLot = (
   props: ButtonActionsInfractionLotProps
 ) => {
-  const { actions, isLoading, isError } = props;
+  const { infractionLotId, actions, isLoading, isError } =
+    props;
 
+  // Check if action is in enum
+  const actionsMenu = actions?.filter((actionItem) =>
+    Object.values(ActionInfractionEnum).includes(
+      actionItem
+    )
+  );
+
+  const {
+    actions: optionsActions,
+    isOpenModalFiles,
+    onCloseModalFiles,
+  } = useBuildMenuActionInfractionLot({
+    actions: actionsMenu,
+  });
   if (isError) {
     return <Text>Une erreur est survenue</Text>;
   }
 
-  // Check if action is in enum
-  const actionsMenu = actions
-    ?.filter((actionItem) =>
-      Object.values(ActionInfractionEnum).includes(
-        actionItem
-      )
-    )
-    // Get callback and label by action
-    ?.map((action) => {
-      return buildMenuActionInfractionLot(action);
-    });
-
   return (
-    <ButtonMenu
-      items={actionsMenu}
-      isLoading={isLoading}
-    />
+    <>
+      <ModalFiles
+        isOpen={isOpenModalFiles}
+        onClose={onCloseModalFiles}
+        infractionLotId={infractionLotId}
+      />
+      <ButtonMenu
+        items={optionsActions}
+        isLoading={isLoading}
+      />
+    </>
   );
 };
 

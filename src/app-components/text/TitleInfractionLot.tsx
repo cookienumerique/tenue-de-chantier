@@ -10,6 +10,7 @@ import InfractionLotStatutEnum from '@/enums/InfractionLotStatutEnum';
 import InfractionLotUrgenceEnum from '@/enums/InfractionLotUrgenceEnum';
 
 type TitleProps = {
+  id: string | undefined;
   statut: InfractionLotStatutEnum | undefined;
   urgence: InfractionLotUrgenceEnum | undefined;
   nbJoursDepuisCreation: number | undefined;
@@ -26,6 +27,7 @@ export default function TitleInfractionLot(
   props: TitleProps
 ): ReactElement {
   const {
+    id,
     statut,
     urgence,
     nbJoursDepuisCreation,
@@ -72,6 +74,7 @@ export default function TitleInfractionLot(
               actions={actions}
               isLoading={isLoadingActions}
               isError={isErrorActions}
+              infractionLotId={id}
             />
           </Stack>
           <Stack

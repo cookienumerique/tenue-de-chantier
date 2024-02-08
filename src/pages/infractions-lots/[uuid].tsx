@@ -104,6 +104,7 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
           >
             {/* Header*/}
             <TitleInfractionLot
+              id={infractionLot?.id}
               statut={infractionLot?.statut?.value}
               urgence={infractionLot?.urgence?.value}
               nbJoursDepuisCreation={
