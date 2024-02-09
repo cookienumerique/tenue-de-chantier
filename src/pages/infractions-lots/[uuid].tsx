@@ -2,6 +2,7 @@ import { Grid, GridItem, Stack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 
+import CardDocument from '@/app-components/card/CardDocument';
 import CardEvenement from '@/app-components/card/CardEvenement';
 import CardInfraction from '@/app-components/card/CardInfraction';
 import CardLot from '@/app-components/card/CardLot';
@@ -10,6 +11,7 @@ import TitleInfractionLot from '@/app-components/text/TitleInfractionLot';
 import Layout from '@/components/layout/Layout';
 import CreatedByOn from '@/components/text/CreatedByOn';
 import useFindEvenementsByInfractionLotId from '@/hooks/evenement/useFindEvenementsByInfractionLotId';
+import useFindFilesInfractionLotById from '@/hooks/file/useFindFilesInfractionLotById';
 import useFindActionsByInfractionLotId from '@/hooks/infractionLots/useFindActionsByInfractionLotId';
 import useFindInfractionLotById from '@/hooks/infractionLots/useFindInfractionLotById';
 import useFindInfractionById from '@/hooks/infractions/useFindInfractionById';
@@ -88,6 +90,14 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
       enabled: !!infractionLot?.id,
     });
 
+    const {
+      data: files,
+      isLoading: isLoadingFiles,
+      isError: isErrorFiles,
+    } = useFindFilesInfractionLotById({
+      infractionLotId: infractionLot?.id,
+    });
+
     return (
       <Grid
         templateColumns="repeat(12, 1fr)"
@@ -160,6 +170,18 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
             infraction={infraction}
             isError={isErrorInfraction}
             isLoading={isLoadingInfraction}
+          />
+        </GridItem>
+
+        <GridItem
+          colSpan={{ base: 12, md: 6, lg: 4 }}
+          rowSpan={{ base: 1, xl: 2 }}
+        >
+          <CardDocument
+            isError={isErrorFiles}
+            isLoading={isLoadingFiles}
+            files={files}
+            infractionLotId={infractionLot?.id}
           />
         </GridItem>
       </Grid>

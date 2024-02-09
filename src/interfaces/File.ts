@@ -5,4 +5,5 @@ export default interface File {
   nom: string;
   path: string;
   utilisateur: Utilisateur;
+  dateCreation: string;
 }

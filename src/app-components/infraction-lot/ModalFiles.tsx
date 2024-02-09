@@ -9,7 +9,11 @@ import {
   ModalOverlay,
   Stack,
 } from '@chakra-ui/react';
-import { Formiz, useForm } from '@formiz/core';
+import {
+  Formiz,
+  useForm,
+  useFormFields,
+} from '@formiz/core';
 import { ReactElement } from 'react';
 
 import InputFiles from '@/components/form/InputFiles';
@@ -20,6 +24,7 @@ type ModalFilesProps = {
   isOpen: boolean;
   onClose: () => void;
   infractionLotId: string | undefined;
+  callbackOnUploadFile: () => void;
 };
 
 /**
@@ -30,13 +35,21 @@ type ModalFilesProps = {
 export default function ModalFiles(
   props: ModalFilesProps
 ): ReactElement {
-  const { infractionLotId, isOpen, onClose } = props;
+  const {
+    infractionLotId,
+    isOpen,
+    onClose,
+    callbackOnUploadFile,
+  } = props;
 
   const {
     mutate: uploadFiles,
     isLoading: isLoadingUpload,
   } = useUploadFiles({
-    callbackOnSuccess: onClose,
+    callbackOnSuccess: () => {
+      onClose();
+      callbackOnUploadFile();
+    },
   });
   const handleSubmit = ({
     files,
@@ -65,6 +78,13 @@ export default function ModalFiles(
   const form = useForm({
     onValidSubmit: handleSubmit,
   });
+
+  // Retrieve the value of the field file for disable submit button
+  const { files: valueFormFile } = useFormFields({
+    connect: form,
+    fields: ['files'],
+  }) as { files: { value: FileList[] } };
+
   return (
     <Modal
       isOpen={isOpen}
@@ -104,6 +124,7 @@ export default function ModalFiles(
               colorScheme="primary"
               onClick={form.submit}
               isLoading={isLoadingUpload}
+              isDisabled={!valueFormFile?.value}
             >
               Enregistrer
             </Button>

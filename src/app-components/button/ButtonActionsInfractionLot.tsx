@@ -3,6 +3,7 @@ import { Text } from '@chakra-ui/react';
 import ModalFiles from '@/app-components/infraction-lot/ModalFiles';
 import ButtonMenu from '@/components/button/ButtonMenu';
 import ActionInfractionEnum from '@/enums/ActionInfractionEnum';
+import useFindFilesInfractionLotById from '@/hooks/file/useFindFilesInfractionLotById';
 import useBuildMenuActionInfractionLot from '@/hooks/infractionLots/useBuildMenuActionInfractionLot';
 
 type ButtonActionsInfractionLotProps = {
@@ -36,6 +37,12 @@ const ButtonActionsInfractionLot = (
   } = useBuildMenuActionInfractionLot({
     actions: actionsMenu,
   });
+
+  const { invalidate: invalidateFilesInfractionLot } =
+    useFindFilesInfractionLotById({
+      infractionLotId,
+    });
+
   if (isError) {
     return <Text>Une erreur est survenue</Text>;
   }
@@ -46,6 +53,9 @@ const ButtonActionsInfractionLot = (
         isOpen={isOpenModalFiles}
         onClose={onCloseModalFiles}
         infractionLotId={infractionLotId}
+        callbackOnUploadFile={
+          invalidateFilesInfractionLot
+        }
       />
       <ButtonMenu
         items={optionsActions}

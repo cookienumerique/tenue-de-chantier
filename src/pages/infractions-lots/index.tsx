@@ -16,7 +16,6 @@ import useCreateInfractionLot, {
 import useFindLotById from '@/hooks/lots/useFindLotById';
 import LabelValue from '@/interfaces/LabelValue';
 import Lot from '@/interfaces/Lot';
-import SectionDocuments from '@/pages/infractions-lots/_partials/SectionDocuments';
 import SectionInfraction from '@/pages/infractions-lots/_partials/SectionInfraction';
 import SectionLocalisation from '@/pages/infractions-lots/_partials/SectionLocalisation';
 
@@ -106,9 +105,6 @@ const CreationInfractionPage: NextPageWithLayout =
 
           {/* Section infraction */}
           <SectionInfraction cpg={lot?.cpg?.value} />
-
-          {/* Section documents */}
-          <SectionDocuments />
 
           {/* Soumission du formulaire */}
           <Stack marginLeft="auto">
