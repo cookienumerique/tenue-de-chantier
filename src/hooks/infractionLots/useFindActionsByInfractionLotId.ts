@@ -4,7 +4,7 @@ import {
 } from '@tanstack/react-query';
 import axios from 'axios';
 
-import ActionInfractionEnum from '@/enums/ActionInfractionEnum';
+import ActionInfractionType from '@/types/action/ActionInfractionType';
 import FindByIdProps from '@/types/query/FindByIdProps';
 import FindByIdReturn from '@/types/query/FindByReturn';
 
@@ -16,7 +16,7 @@ const useFindActionsByInfractionLotId = ({
   key,
   enabled,
 }: FindByIdProps): FindByIdReturn<
-  ActionInfractionEnum[] | undefined
+  ActionInfractionType | undefined
 > => {
   const queryKey = [
     key ?? `actions-infractions-lots-${uuid}`,
@@ -38,7 +38,7 @@ const useFindActionsByInfractionLotId = ({
 
   const { actions } =
     (data as unknown as {
-      actions: ActionInfractionEnum[] | undefined;
+      actions: ActionInfractionType | undefined;
     }) ?? {};
 
   return {

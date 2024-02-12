@@ -1,4 +1,5 @@
 import { useDisclosure } from '@chakra-ui/hooks';
+import { CgArrowsExchange } from 'react-icons/cg';
 import { HiLockClosed, HiLockOpen } from 'react-icons/hi';
 import { IoMailOutline } from 'react-icons/io5';
 import { IconType } from 'react-icons/lib';
@@ -7,14 +8,17 @@ import { RiDownloadCloudLine } from 'react-icons/ri';
 import { TbPhotoShare } from 'react-icons/tb';
 
 import ActionInfractionEnum from '@/enums/ActionInfractionEnum';
+import ActionInfractionType from '@/types/action/ActionInfractionType';
 
 type BuildMenuActionInfractionLotProps = {
-  actions: ActionInfractionEnum[] | undefined;
+  actions: ActionInfractionType | undefined;
 };
 
 type BuildMenuActionInfractionLotReturn = {
   isOpenModalFiles: boolean;
   onCloseModalFiles: () => void;
+  isOpenModalStatutInfraction: boolean;
+  onCloseModalStatutInfraction: () => void;
   actions:
     | {
         label: string;
@@ -33,6 +37,12 @@ const useBuildMenuActionInfractionLot = ({
     isOpen: isOpenModalFiles,
     onOpen: onOpenModalFiles,
     onClose: onCloseModalFiles,
+  } = useDisclosure();
+
+  const {
+    isOpen: isOpenModalStatutInfraction,
+    onOpen: onOpenModalStatutInfraction,
+    onClose: onCloseModalStatutInfraction,
   } = useDisclosure();
 
   const data = {
@@ -85,12 +95,27 @@ const useBuildMenuActionInfractionLot = ({
       icon: HiLockOpen,
       onClick: () => alert('Réouvrir l’infraction'),
     },
+    [ActionInfractionEnum.CHANGER_STATUT]: {
+      label: 'Changer de statut',
+      icon: CgArrowsExchange,
+      onClick: () => onOpenModalStatutInfraction(),
+    },
   };
 
   return {
     isOpenModalFiles,
     onCloseModalFiles,
-    actions: actions?.map((action) => data[action]),
+    isOpenModalStatutInfraction,
+    onCloseModalStatutInfraction,
+    actions: Object.entries(actions ?? {})?.map(
+      (action) => {
+        const [key] = action as [
+          ActionInfractionEnum,
+          string | string[],
+        ];
+        return data?.[key];
+      }
+    ),
   };
 };
 

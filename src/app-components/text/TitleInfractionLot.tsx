@@ -5,9 +5,9 @@ import { CiTimer } from 'react-icons/ci';
 import ButtonActionsInfractionLot from '@/app-components/button/ButtonActionsInfractionLot';
 import TagUrgence from '@/app-components/tag/infraction-lot/TagUrgence';
 import SkeletonText from '@/components/skeleton/SkeletonText';
-import ActionInfractionEnum from '@/enums/ActionInfractionEnum';
 import InfractionLotStatutEnum from '@/enums/InfractionLotStatutEnum';
 import InfractionLotUrgenceEnum from '@/enums/InfractionLotUrgenceEnum';
+import ActionInfractionType from '@/types/action/ActionInfractionType';
 
 type TitleProps = {
   id: string | undefined;
@@ -15,7 +15,7 @@ type TitleProps = {
   urgence: InfractionLotUrgenceEnum | undefined;
   nbJoursDepuisCreation: number | undefined;
   isLoadingInfractionsLot: boolean;
-  actions: ActionInfractionEnum[] | undefined;
+  actions: ActionInfractionType | undefined;
   isLoadingActions: boolean;
   isErrorActions: boolean;
 };

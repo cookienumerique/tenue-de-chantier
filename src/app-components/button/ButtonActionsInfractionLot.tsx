@@ -1,14 +1,17 @@
 import { Text } from '@chakra-ui/react';
 
 import ModalFiles from '@/app-components/infraction-lot/ModalFiles';
+import ModalStatutInfraction from '@/app-components/infraction-lot/ModalStatutInfraction';
 import ButtonMenu from '@/components/button/ButtonMenu';
-import ActionInfractionEnum from '@/enums/ActionInfractionEnum';
 import useFindFilesInfractionLotById from '@/hooks/file/useFindFilesInfractionLotById';
 import useBuildMenuActionInfractionLot from '@/hooks/infractionLots/useBuildMenuActionInfractionLot';
+import useFindActionsByInfractionLotId from '@/hooks/infractionLots/useFindActionsByInfractionLotId';
+import useFindInfractionLotById from '@/hooks/infractionLots/useFindInfractionLotById';
+import ActionInfractionType from '@/types/action/ActionInfractionType';
 
 type ButtonActionsInfractionLotProps = {
   infractionLotId: string | undefined;
-  actions: ActionInfractionEnum[] | undefined;
+  actions: ActionInfractionType | undefined;
   isLoading: boolean;
   isError: boolean;
 };
@@ -23,19 +26,14 @@ const ButtonActionsInfractionLot = (
   const { infractionLotId, actions, isLoading, isError } =
     props;
 
-  // Check if action is in enum
-  const actionsMenu = actions?.filter((actionItem) =>
-    Object.values(ActionInfractionEnum).includes(
-      actionItem
-    )
-  );
-
   const {
     actions: optionsActions,
     isOpenModalFiles,
     onCloseModalFiles,
+    isOpenModalStatutInfraction,
+    onCloseModalStatutInfraction,
   } = useBuildMenuActionInfractionLot({
-    actions: actionsMenu,
+    actions: actions,
   });
 
   const { invalidate: invalidateFilesInfractionLot } =
@@ -43,9 +41,33 @@ const ButtonActionsInfractionLot = (
       infractionLotId,
     });
 
+  const { invalidate: invalidateInfractionLot } =
+    useFindInfractionLotById({
+      id: infractionLotId,
+    });
+
+  const { invalidate: invalidateActions } =
+    useFindActionsByInfractionLotId({
+      id: infractionLotId,
+    });
+
+  const callbackOnSuccesssUpdateStatut = () => {
+    invalidateActions();
+    invalidateInfractionLot();
+  };
   if (isError) {
     return <Text>Une erreur est survenue</Text>;
   }
+
+  /**
+   * @description Build options status availables
+   */
+  const optionsStatut = actions?.['CHANGER_STATUT']?.map(
+    (statutEnum) => ({
+      label: statutEnum?.value,
+      value: statutEnum?.name,
+    })
+  );
 
   return (
     <>
@@ -56,6 +78,13 @@ const ButtonActionsInfractionLot = (
         callbackOnUploadFile={
           invalidateFilesInfractionLot
         }
+      />
+      <ModalStatutInfraction
+        optionsStatut={optionsStatut}
+        isOpen={isOpenModalStatutInfraction}
+        onClose={onCloseModalStatutInfraction}
+        infractionLotId={infractionLotId}
+        callbackOnUpdate={callbackOnSuccesssUpdateStatut}
       />
       <ButtonMenu
         items={optionsActions}
