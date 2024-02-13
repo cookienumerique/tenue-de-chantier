@@ -1,13 +1,12 @@
 import { useDisclosure } from '@chakra-ui/hooks';
 import { CgArrowsExchange } from 'react-icons/cg';
-import { HiLockClosed, HiLockOpen } from 'react-icons/hi';
 import { IoMailOutline } from 'react-icons/io5';
 import { IconType } from 'react-icons/lib';
-import { MdOutlineCheckBox } from 'react-icons/md';
 import { RiDownloadCloudLine } from 'react-icons/ri';
 import { TbPhotoShare } from 'react-icons/tb';
 
 import ActionInfractionEnum from '@/enums/ActionInfractionEnum';
+import downloadTemplate from '@/functions/file/downloadTemplate';
 import ActionInfractionType from '@/types/action/ActionInfractionType';
 
 type BuildMenuActionInfractionLotProps = {
@@ -61,40 +60,29 @@ const useBuildMenuActionInfractionLot = ({
         label: 'Ecrire un courrier de mise en demeure',
         icon: RiDownloadCloudLine,
         onClick: () =>
-          alert('Ecrire un courrier de mise en demeure'),
+          downloadTemplate({
+            fileName:
+              'courrier-constat-mise-en-demeure.docx',
+          }).then((r) => r),
       },
-    [ActionInfractionEnum.INDIQUER_PROBABLEMENT_RESOLU]: {
-      label: 'Indiquer probablement résolu',
-      icon: MdOutlineCheckBox,
-      onClick: () =>
-        alert('Indiquer probablement résolu'),
-    },
-    [ActionInfractionEnum.FERMER_INFRACTION]: {
-      label: 'Fermer l’infraction',
-      icon: HiLockClosed,
-      onClick: () => alert('Fermer l’infraction'),
-    },
     [ActionInfractionEnum.ECRIRE_COURRIER_CONSTAT_CARENCE]:
       {
         label: 'Ecrire un courrier de constat de carence',
         icon: RiDownloadCloudLine,
         onClick: () =>
-          alert(
-            'Ecrire un courrier de constat de carence'
-          ),
+          downloadTemplate({
+            fileName: 'courrier-constat-de-carence.docx',
+          }).then((r) => r),
       },
     [ActionInfractionEnum.ECRIRE_COURRIER_COMPLEMENTAIRE]:
       {
         label: 'Ecrire un courrier complémentaire',
         icon: RiDownloadCloudLine,
         onClick: () =>
-          alert('Ecrire un courrier complémentaire'),
+          downloadTemplate({
+            fileName: 'courrier-complementaire.docx',
+          }).then((r) => r),
       },
-    [ActionInfractionEnum.REOUVRIR_INFRACTION]: {
-      label: 'Réouvrir l’infraction',
-      icon: HiLockOpen,
-      onClick: () => alert('Réouvrir l’infraction'),
-    },
     [ActionInfractionEnum.CHANGER_STATUT]: {
       label: 'Changer de statut',
       icon: CgArrowsExchange,
