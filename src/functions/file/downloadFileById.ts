@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import downloadBlob from '@/functions/file/downloadBlob';
+
 /**
  * @description Download file
  */
@@ -17,22 +19,11 @@ const downloadFileById = async ({
         responseType: 'blob',
       }
     );
-    const url = window.URL.createObjectURL(
-      response as unknown as Blob
-    );
 
-    // Create a temporary link element
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = fileName; // Specify the file name
-    document.body.appendChild(link);
-
-    // Trigger the download
-    link.click();
-
-    // Cleanup
-    link.remove();
-    window.URL.revokeObjectURL(url);
+    return downloadBlob({
+      blob: response as unknown as Blob,
+      fileName,
+    });
   } catch (e) {
     console.error(e);
   }
