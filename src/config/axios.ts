@@ -2,7 +2,13 @@ import Axios from 'axios';
 
 Axios.interceptors.response.use(
   (response) => response?.data,
-  (error) => Promise.reject(error)
+  (error) => {
+    if (error.response?.status === 401) {
+      window.sessionStorage.removeItem('token');
+      return window.location.reload();
+    }
+    return Promise.reject(error);
+  }
 );
 
 Axios.interceptors.request.use(
