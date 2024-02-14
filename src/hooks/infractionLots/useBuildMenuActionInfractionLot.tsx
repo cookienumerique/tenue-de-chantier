@@ -1,6 +1,9 @@
 import { useDisclosure } from '@chakra-ui/hooks';
 import { CgArrowsExchange } from 'react-icons/cg';
-import { IoMailOutline } from 'react-icons/io5';
+import {
+  IoCalendarSharp,
+  IoMailOutline,
+} from 'react-icons/io5';
 import { IconType } from 'react-icons/lib';
 import { RiDownloadCloudLine } from 'react-icons/ri';
 import { TbPhotoShare } from 'react-icons/tb';
@@ -18,6 +21,8 @@ type BuildMenuActionInfractionLotReturn = {
   onCloseModalFiles: () => void;
   isOpenModalStatutInfraction: boolean;
   onCloseModalStatutInfraction: () => void;
+  isOpenModalDateButoire: boolean;
+  onCloseModalDateButoire: () => void;
   actions:
     | {
         label: string;
@@ -42,6 +47,12 @@ const useBuildMenuActionInfractionLot = ({
     isOpen: isOpenModalStatutInfraction,
     onOpen: onOpenModalStatutInfraction,
     onClose: onCloseModalStatutInfraction,
+  } = useDisclosure();
+
+  const {
+    isOpen: isOpenModalDateButoire,
+    onOpen: onOpenModalDateButoire,
+    onClose: onCloseModalDateButoire,
   } = useDisclosure();
 
   const data = {
@@ -88,6 +99,11 @@ const useBuildMenuActionInfractionLot = ({
       icon: CgArrowsExchange,
       onClick: () => onOpenModalStatutInfraction(),
     },
+    [ActionInfractionEnum.MODIFIER_DATE_BUTOIRE]: {
+      label: 'Modifier la date butoire',
+      icon: IoCalendarSharp,
+      onClick: () => onOpenModalDateButoire(),
+    },
   };
 
   return {
@@ -95,6 +111,8 @@ const useBuildMenuActionInfractionLot = ({
     onCloseModalFiles,
     isOpenModalStatutInfraction,
     onCloseModalStatutInfraction,
+    isOpenModalDateButoire,
+    onCloseModalDateButoire,
     actions: Object.entries(actions ?? {})?.map(
       (action) => {
         const [key] = action as [

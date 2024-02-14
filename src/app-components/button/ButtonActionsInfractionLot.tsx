@@ -1,5 +1,6 @@
 import { Text } from '@chakra-ui/react';
 
+import ModalDateButoire from '@/app-components/infraction-lot/ModalDateButoire';
 import ModalFiles from '@/app-components/infraction-lot/ModalFiles';
 import ModalStatutInfraction from '@/app-components/infraction-lot/ModalStatutInfraction';
 import ButtonMenu from '@/components/button/ButtonMenu';
@@ -32,6 +33,8 @@ const ButtonActionsInfractionLot = (
     onCloseModalFiles,
     isOpenModalStatutInfraction,
     onCloseModalStatutInfraction,
+    isOpenModalDateButoire,
+    onCloseModalDateButoire,
   } = useBuildMenuActionInfractionLot({
     actions: actions,
   });
@@ -41,10 +44,12 @@ const ButtonActionsInfractionLot = (
       infractionLotId,
     });
 
-  const { invalidate: invalidateInfractionLot } =
-    useFindInfractionLotById({
-      id: infractionLotId,
-    });
+  const {
+    invalidate: invalidateInfractionLot,
+    data: infractionLot,
+  } = useFindInfractionLotById({
+    id: infractionLotId,
+  });
 
   const { invalidate: invalidateActions } =
     useFindActionsByInfractionLotId({
@@ -86,6 +91,14 @@ const ButtonActionsInfractionLot = (
         infractionLotId={infractionLotId}
         callbackOnUpdate={callbackOnSuccesssUpdateStatut}
       />
+      <ModalDateButoire
+        isOpen={isOpenModalDateButoire}
+        onClose={onCloseModalDateButoire}
+        infractionLotId={infractionLotId}
+        callbackOnUpdate={callbackOnSuccesssUpdateStatut}
+        dateButoire={infractionLot?.dateButoire}
+      />
+
       <ButtonMenu
         items={optionsActions}
         isLoading={isLoading}
