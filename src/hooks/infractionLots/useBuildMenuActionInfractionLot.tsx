@@ -21,8 +21,8 @@ type BuildMenuActionInfractionLotReturn = {
   onCloseModalFiles: () => void;
   isOpenModalStatutInfraction: boolean;
   onCloseModalStatutInfraction: () => void;
-  isOpenModalDateButoire: boolean;
-  onCloseModalDateButoire: () => void;
+  isOpenModalDateButoir: boolean;
+  onCloseModalDateButoir: () => void;
   actions:
     | {
         label: string;
@@ -50,9 +50,9 @@ const useBuildMenuActionInfractionLot = ({
   } = useDisclosure();
 
   const {
-    isOpen: isOpenModalDateButoire,
-    onOpen: onOpenModalDateButoire,
-    onClose: onCloseModalDateButoire,
+    isOpen: isOpenModalDateButoir,
+    onOpen: onOpenModalDateButoir,
+    onClose: onCloseModalDateButoir,
   } = useDisclosure();
 
   const data = {
@@ -99,10 +99,10 @@ const useBuildMenuActionInfractionLot = ({
       icon: CgArrowsExchange,
       onClick: () => onOpenModalStatutInfraction(),
     },
-    [ActionInfractionEnum.MODIFIER_DATE_BUTOIRE]: {
-      label: 'Modifier la date butoire',
+    [ActionInfractionEnum.MODIFIER_DATE_BUTOIR]: {
+      label: 'Modifier la date butoir',
       icon: IoCalendarSharp,
-      onClick: () => onOpenModalDateButoire(),
+      onClick: () => onOpenModalDateButoir(),
     },
   };
 
@@ -111,8 +111,8 @@ const useBuildMenuActionInfractionLot = ({
     onCloseModalFiles,
     isOpenModalStatutInfraction,
     onCloseModalStatutInfraction,
-    isOpenModalDateButoire,
-    onCloseModalDateButoire,
+    isOpenModalDateButoir,
+    onCloseModalDateButoir,
     actions: Object.entries(actions ?? {})?.map(
       (action) => {
         const [key] = action as [

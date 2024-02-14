@@ -29,13 +29,13 @@ export default function EvenementItemByType(
         </Text>
       );
 
-    case 'CHANGER_DATE_BUTOIRE':
+    case 'CHANGER_DATE_BUTOIR':
       return (
         <Text
           as="i"
           fontSize="xs"
         >
-          {`La date butoire a été définie au ${
+          {`La date butoir a été définie au ${
             valeur ? formatDate(valeur) : '"Non définie"'
           }`}
         </Text>

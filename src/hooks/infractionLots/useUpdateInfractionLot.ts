@@ -8,7 +8,7 @@ import MutationProps from '@/types/query/MutationProps';
 export type UpdateInfractionLotPayload = {
   infractionLotId: string;
   statut?: string;
-  dateButoire?: string;
+  dateButoir?: string;
 };
 
 /**

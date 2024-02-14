@@ -15,25 +15,25 @@ import { ReactElement } from 'react';
 import Input from '@/components/form/Input';
 import useUpdateInfractionLot from '@/hooks/infractionLots/useUpdateInfractionLot';
 
-type ModalDateButoireProps = {
+type ModalDateButoirProps = {
   isOpen: boolean;
   onClose: () => void;
   infractionLotId: string | undefined;
   callbackOnUpdate: () => void;
-  dateButoire: string | undefined;
+  dateButoir: string | undefined;
 };
 
 /**
- * @description Modal for change dateButoire
+ * @description Modal for change dateButoir
  * @param props
  * @constructor
  */
-export default function ModalDateButoire(
-  props: ModalDateButoireProps
+export default function ModalDateButoir(
+  props: ModalDateButoirProps
 ): ReactElement {
   const {
     infractionLotId,
-    dateButoire,
+    dateButoir,
     isOpen,
     onClose,
     callbackOnUpdate,
@@ -54,13 +54,13 @@ export default function ModalDateButoire(
    * @param statut
    */
   const handleSubmit = ({
-    dateButoire,
+    dateButoir,
   }: {
-    dateButoire: string;
+    dateButoir: string;
   }) => {
-    if (!infractionLotId || !dateButoire) return;
+    if (!infractionLotId || !dateButoir) return;
     const payload = {
-      dateButoire,
+      dateButoir,
       infractionLotId,
     };
     updateInfractionLot(payload);
@@ -78,16 +78,16 @@ export default function ModalDateButoire(
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          Modifier la date butoire de l&apos;infraction
+          Modifier la date butoir de l&apos;infraction
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Formiz connect={form}>
             <Input
-              label="Date butoire"
+              label="Date butoir"
               type="date"
-              name="dateButoire"
-              defaultValue={dateButoire}
+              name="dateButoir"
+              defaultValue={dateButoir}
             />
           </Formiz>
         </ModalBody>
@@ -114,7 +114,7 @@ export default function ModalDateButoire(
               onClick={form.submit}
               isLoading={isLoadingUpdate}
             >
-              Modifier la date butoire
+              Modifier la date butoir
             </Button>
           </Stack>
         </ModalFooter>

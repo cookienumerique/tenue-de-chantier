@@ -1,6 +1,6 @@
 import { Text } from '@chakra-ui/react';
 
-import ModalDateButoire from '@/app-components/infraction-lot/ModalDateButoire';
+import ModalDateButoir from '@/app-components/infraction-lot/ModalDateButoir';
 import ModalFiles from '@/app-components/infraction-lot/ModalFiles';
 import ModalStatutInfraction from '@/app-components/infraction-lot/ModalStatutInfraction';
 import ButtonMenu from '@/components/button/ButtonMenu';
@@ -34,8 +34,8 @@ const ButtonActionsInfractionLot = (
     onCloseModalFiles,
     isOpenModalStatutInfraction,
     onCloseModalStatutInfraction,
-    isOpenModalDateButoire,
-    onCloseModalDateButoire,
+    isOpenModalDateButoir,
+    onCloseModalDateButoir,
   } = useBuildMenuActionInfractionLot({
     actions: actions,
   });
@@ -72,9 +72,9 @@ const ButtonActionsInfractionLot = (
   };
 
   /**
-   * @description Callback on success update dateButoire
+   * @description Callback on success update dateButoir
    */
-  const callbackOnSuccesssUpdateDateButoire = () => {
+  const callbackOnSuccesssUpdateDateButoir = () => {
     invalidateInfractionLot();
     invalidateEvenements();
   };
@@ -109,14 +109,14 @@ const ButtonActionsInfractionLot = (
         infractionLotId={infractionLotId}
         callbackOnUpdate={callbackOnSuccesssUpdateStatut}
       />
-      <ModalDateButoire
-        isOpen={isOpenModalDateButoire}
-        onClose={onCloseModalDateButoire}
+      <ModalDateButoir
+        isOpen={isOpenModalDateButoir}
+        onClose={onCloseModalDateButoir}
         infractionLotId={infractionLotId}
         callbackOnUpdate={
-          callbackOnSuccesssUpdateDateButoire
+          callbackOnSuccesssUpdateDateButoir
         }
-        dateButoire={infractionLot?.dateButoire}
+        dateButoir={infractionLot?.dateButoir}
       />
 
       <ButtonMenu
