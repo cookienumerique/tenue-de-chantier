@@ -116,7 +116,7 @@ export default function ModalStatutInfraction(
               onClick={form.submit}
               isLoading={isLoadingUpdate}
             >
-              Modifier
+              Modifier le statut
             </Button>
           </Stack>
         </ModalFooter>
