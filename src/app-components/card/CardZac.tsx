@@ -24,6 +24,7 @@ export default function CardZac(
       title={zac?.libZac ?? 'Zac'}
       color="zac.500"
       icon={<PiSquaresFourFill size={20} />}
+      cardProps={{ height: 'fit-content' }}
     >
       <LabelValue
         label="Libellé AMGR"

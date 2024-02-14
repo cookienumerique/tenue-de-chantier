@@ -26,6 +26,7 @@ export default function CardLot(
       title={lot?.libLot ?? 'Lot'}
       color="lot.600"
       icon={<RiSquareFill size={20} />}
+      cardProps={{ height: 'fit-content' }}
     >
       <LabelValue
         label="Code"

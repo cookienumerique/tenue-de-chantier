@@ -1,3 +1,4 @@
+import { Stack } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
 import { TbTimelineEventText } from 'react-icons/tb';
 
@@ -27,7 +28,12 @@ export default function CardEvenement(
       color="evenement.600"
       icon={<TbTimelineEventText size={20} />}
     >
-      <EvenementList evenements={evenements} />
+      <Stack
+        maxHeight="20em"
+        overflowY="scroll"
+      >
+        <EvenementList evenements={evenements} />
+      </Stack>
     </Card>
   );
 }
