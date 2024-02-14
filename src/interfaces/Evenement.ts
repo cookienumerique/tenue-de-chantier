@@ -6,4 +6,5 @@ export default interface Evenement {
   type: { name: string; value: EvenementTypeEnum };
   date: string;
   utilisateur: Utilisateur;
+  valeur: string;
 }

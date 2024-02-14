@@ -4,6 +4,7 @@ import ModalDateButoire from '@/app-components/infraction-lot/ModalDateButoire';
 import ModalFiles from '@/app-components/infraction-lot/ModalFiles';
 import ModalStatutInfraction from '@/app-components/infraction-lot/ModalStatutInfraction';
 import ButtonMenu from '@/components/button/ButtonMenu';
+import useFindEvenementsByInfractionLotId from '@/hooks/evenement/useFindEvenementsByInfractionLotId';
 import useFindFilesInfractionLotById from '@/hooks/file/useFindFilesInfractionLotById';
 import useBuildMenuActionInfractionLot from '@/hooks/infractionLots/useBuildMenuActionInfractionLot';
 import useFindActionsByInfractionLotId from '@/hooks/infractionLots/useFindActionsByInfractionLotId';
@@ -51,14 +52,31 @@ const ButtonActionsInfractionLot = (
     id: infractionLotId,
   });
 
+  const { invalidate: invalidateEvenements } =
+    useFindEvenementsByInfractionLotId({
+      id: infractionLot?.id,
+    });
+
   const { invalidate: invalidateActions } =
     useFindActionsByInfractionLotId({
       id: infractionLotId,
     });
 
+  /**
+   * @description Callback on success update statut
+   */
   const callbackOnSuccesssUpdateStatut = () => {
     invalidateActions();
     invalidateInfractionLot();
+    invalidateEvenements();
+  };
+
+  /**
+   * @description Callback on success update dateButoire
+   */
+  const callbackOnSuccesssUpdateDateButoire = () => {
+    invalidateInfractionLot();
+    invalidateEvenements();
   };
   if (isError) {
     return <Text>Une erreur est survenue</Text>;
@@ -95,7 +113,9 @@ const ButtonActionsInfractionLot = (
         isOpen={isOpenModalDateButoire}
         onClose={onCloseModalDateButoire}
         infractionLotId={infractionLotId}
-        callbackOnUpdate={callbackOnSuccesssUpdateStatut}
+        callbackOnUpdate={
+          callbackOnSuccesssUpdateDateButoire
+        }
         dateButoire={infractionLot?.dateButoire}
       />
 

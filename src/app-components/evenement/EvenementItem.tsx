@@ -39,14 +39,18 @@ export default function EvenementItem(
           {evenement?.type?.value}
         </Text>
       </Stack>
-      <EvenementItemByType type={evenement?.type} />
+      <EvenementItemByType
+        type={evenement?.type}
+        valeur={evenement?.valeur}
+      />
       <Text
         fontSize="xs"
         color="gray.500"
         textAlign="right"
       >
         {`Le ${formatDate(
-          evenement?.date
+          evenement?.date,
+          'DD/MM/YYYY à HH:mm'
         )} par ${evenement?.utilisateur
           ?.prenom} ${evenement?.utilisateur?.nom}.`}
       </Text>

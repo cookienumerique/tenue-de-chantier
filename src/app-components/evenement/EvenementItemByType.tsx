@@ -2,8 +2,10 @@ import { Text } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
 
 import EvenementTypeEnum from '@/enums/EvenementTypeEnum';
+import formatDate from '@/functions/date/formatDate';
 
 type EvenementItemByTypeProps = {
+  valeur: string | undefined;
   type:
     | { name: string; value: EvenementTypeEnum }
     | undefined;
@@ -15,7 +17,7 @@ type EvenementItemByTypeProps = {
 export default function EvenementItemByType(
   props: EvenementItemByTypeProps
 ): ReactElement {
-  const { type } = props;
+  const { type, valeur } = props;
   switch (type?.name) {
     case 'ECRIRE_EMAIL':
       return (
@@ -24,6 +26,18 @@ export default function EvenementItemByType(
           fontSize="xs"
         >
           Contenue dynamique pour un email
+        </Text>
+      );
+
+    case 'CHANGER_DATE_BUTOIRE':
+      return (
+        <Text
+          as="i"
+          fontSize="xs"
+        >
+          {`La date butoire a été définie au ${
+            valeur ? formatDate(valeur) : '"Non définie"'
+          }`}
         </Text>
       );
 

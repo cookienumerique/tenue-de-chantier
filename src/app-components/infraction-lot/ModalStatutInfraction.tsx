@@ -99,10 +99,12 @@ export default function ModalStatutInfraction(
         <ModalFooter>
           <Stack
             gap="xs"
-            direction="row"
+            direction={{ base: 'column', sm: 'row' }}
+            width="100%"
+            justifyContent="end"
           >
             <Button
-              width="fit-content"
+              width={{ base: '100%', sm: 'fit-content' }}
               type="button"
               colorScheme="gray"
               onClick={onClose}
@@ -110,7 +112,7 @@ export default function ModalStatutInfraction(
               Fermer
             </Button>
             <Button
-              width="fit-content"
+              width={{ base: '100%', sm: 'fit-content' }}
               type="button"
               colorScheme="primary"
               onClick={form.submit}

@@ -7,5 +7,6 @@ enum EvenementTypeEnum {
   PRODUIRE_COURRIER_REGULARISATION = "Production d'un courrier de régularisation",
   AJOUTER_DOCUMENT = 'Ajout de photos',
   AJOUTER_COMMENTAIRE = 'Ajout de commentaires',
+  CHANGER_DATE_BUTOIRE = 'Changement de la date butoire',
 }
 export default EvenementTypeEnum;

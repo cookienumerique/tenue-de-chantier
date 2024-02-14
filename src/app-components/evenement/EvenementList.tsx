@@ -16,6 +16,17 @@ export default function EvenementList(
 ): ReactElement {
   const { evenements } = props;
 
+  const evenementsSortedByDateCreation = evenements?.sort(
+    (a, b) => {
+      if (a.date && b.date) {
+        return (
+          new Date(b.date).getTime() -
+          new Date(a.date).getTime()
+        );
+      }
+      return 0;
+    }
+  );
   return (
     <Stack spacing="xs">
       {evenements?.length === 0 ? (
@@ -27,12 +38,14 @@ export default function EvenementList(
         </Text>
       ) : (
         <>
-          {evenements?.map((evenement) => (
-            <EvenementItem
-              evenement={evenement}
-              key={evenement?.id}
-            />
-          ))}
+          {evenementsSortedByDateCreation?.map(
+            (evenement) => (
+              <EvenementItem
+                evenement={evenement}
+                key={evenement?.id}
+              />
+            )
+          )}
         </>
       )}
     </Stack>
