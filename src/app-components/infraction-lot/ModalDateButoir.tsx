@@ -12,7 +12,7 @@ import {
 import { Formiz, useForm } from '@formiz/core';
 import { ReactElement } from 'react';
 
-import Input from '@/components/form/Input';
+import InputDateButoir from '@/app-components/form/InputDateButoir';
 import useUpdateInfractionLot from '@/hooks/infractionLots/useUpdateInfractionLot';
 
 type ModalDateButoirProps = {
@@ -83,12 +83,7 @@ export default function ModalDateButoir(
         <ModalCloseButton />
         <ModalBody>
           <Formiz connect={form}>
-            <Input
-              label="Date butoir"
-              type="date"
-              name="dateButoir"
-              defaultValue={dateButoir}
-            />
+            <InputDateButoir defaultValue={dateButoir} />
           </Formiz>
         </ModalBody>
 

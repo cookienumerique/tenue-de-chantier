@@ -12,6 +12,7 @@ import {
 import { Formiz, useForm } from '@formiz/core';
 import { ReactElement } from 'react';
 
+import InputDateButoir from '@/app-components/form/InputDateButoir';
 import Select from '@/components/form/Select';
 import useUpdateInfractionLot from '@/hooks/infractionLots/useUpdateInfractionLot';
 import LabelValue from '@/interfaces/LabelValue';
@@ -22,6 +23,7 @@ type ModalStatutInfractionProps = {
   infractionLotId: string | undefined;
   callbackOnUpdate: () => void;
   optionsStatut: LabelValue[] | undefined;
+  dateButoir: string | undefined;
 };
 
 /**
@@ -38,6 +40,7 @@ export default function ModalStatutInfraction(
     isOpen,
     onClose,
     callbackOnUpdate,
+    dateButoir,
   } = props;
 
   const {
@@ -53,18 +56,22 @@ export default function ModalStatutInfraction(
   /**
    * @description Handle the submit of the form
    * @param statut
+   * @param dateButoir
    */
   const handleSubmit = ({
     statut,
+    dateButoir,
   }: {
     infractionLotId: string;
     statut: LabelValue;
+    dateButoir: string;
   }) => {
     if (!infractionLotId || !statut?.label) return;
 
     const payload = {
       infractionLotId: infractionLotId,
       statut: statut?.label?.toString(),
+      dateButoir,
     };
     updateInfractionLot(payload);
   };
@@ -86,13 +93,19 @@ export default function ModalStatutInfraction(
         <ModalCloseButton />
         <ModalBody>
           <Formiz connect={form}>
-            <Select
-              label="Choisissez un nouveau statut"
-              placeholder={optionsStatut?.[0]?.label?.toString()}
-              options={optionsStatut}
-              name="statut"
-              required
-            />
+            <Stack>
+              <Select
+                label="Choisissez un nouveau statut"
+                placeholder={optionsStatut?.[0]?.label?.toString()}
+                options={optionsStatut}
+                name="statut"
+                required
+              />
+
+              <InputDateButoir
+                defaultValue={dateButoir}
+              />
+            </Stack>
           </Formiz>
         </ModalBody>
 

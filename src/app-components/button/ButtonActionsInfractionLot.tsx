@@ -108,6 +108,7 @@ const ButtonActionsInfractionLot = (
         onClose={onCloseModalStatutInfraction}
         infractionLotId={infractionLotId}
         callbackOnUpdate={callbackOnSuccesssUpdateStatut}
+        dateButoir={infractionLot?.dateButoir}
       />
       <ModalDateButoir
         isOpen={isOpenModalDateButoir}
