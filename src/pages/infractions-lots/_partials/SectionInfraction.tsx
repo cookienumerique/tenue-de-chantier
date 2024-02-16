@@ -6,10 +6,12 @@ import {
 import { ReactElement, useState } from 'react';
 
 import SelectInfractionLotUrgence from '@/app-components/form/SelectInfractionLotUrgence';
+import Input from '@/components/form/Input';
 import Select from '@/components/form/Select';
 import Section from '@/components/section/Section';
 import LabelValueComponent from '@/components/text/LabelValue';
 import CpgEnum from '@/enums/CpgEnum';
+import defineDateButoirByUrgence from '@/functions/infraction-lot/defineDateButoirByUrgence';
 import uniqueOptions from '@/functions/uniqueOptions';
 import useFindAllInfractionsByCpg from '@/hooks/infractions/useFindAllInfractionsByCpg';
 import Infraction from '@/interfaces/Infraction';
@@ -17,6 +19,7 @@ import LabelValue from '@/interfaces/LabelValue';
 
 type SectionInfractionProps = {
   cpg: CpgEnum | undefined;
+  urgence: string | undefined;
 };
 /**
  * @description Section du formulaire "infraction" pour la création d'une infraction
@@ -24,7 +27,7 @@ type SectionInfractionProps = {
 export default function SectionInfraction(
   props: SectionInfractionProps
 ): ReactElement {
-  const { cpg } = props;
+  const { cpg, urgence } = props;
 
   const { setValues } = useFormContext();
   const [modeSelection, setModeSelection] = useState<
@@ -148,13 +151,26 @@ export default function SectionInfraction(
 
   if (!cpg) return <></>;
 
+  const dateButoir = defineDateButoirByUrgence({
+    urgence,
+  });
+
   return (
     <Section title={`Infraction (${cpg})`}>
       <Stack
-        width={{ base: '100%', md: '50%', lg: '25%' }}
+        gap="inherit"
+        direction={{ base: 'column', md: 'row' }}
+        width={{ base: '100%', lg: '50%' }}
       >
         {/* Sélection du cractère d'urgence */}
         <SelectInfractionLotUrgence />
+        <Input
+          type="date"
+          name="dateButoir"
+          label="Date butoir"
+          defaultValue={dateButoir}
+          key={dateButoir}
+        />
       </Stack>
 
       <Stack gap="inherit">

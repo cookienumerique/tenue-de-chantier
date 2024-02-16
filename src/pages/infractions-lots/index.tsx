@@ -51,16 +51,22 @@ const CreationInfractionPage: NextPageWithLayout =
       optionLot: LabelValue;
       infraction: { optionLibelle: LabelValue };
       urgenceOption: LabelValue;
+      dateButoir: string;
     }) => {
       // Récupération des valeurs
-      const { optionLot, infraction, urgenceOption } =
-        values ?? {};
+      const {
+        optionLot,
+        infraction,
+        urgenceOption,
+        dateButoir,
+      } = values ?? {};
 
       // Construction de la payload
       const payload: CreateInfractionLotPayload = {
         lotId: optionLot?.value ?? lotIdInQueryParam,
         infractionId: infraction?.optionLibelle?.value,
-        urgence: urgenceOption?.value,
+        urgence: urgenceOption?.value?.toString(),
+        dateButoir,
       };
 
       // Creation de la ressource
@@ -69,10 +75,13 @@ const CreationInfractionPage: NextPageWithLayout =
     const form = useForm({
       onValidSubmit: handleSubmit,
     });
-    const { optionLot } = useFormFields({
+    const { optionLot, urgenceOption } = useFormFields({
       connect: form,
-      fields: ['optionLot'],
-    }) as { optionLot: Field<LabelValue> };
+      fields: ['optionLot', 'urgenceOption'],
+    }) as {
+      optionLot: Field<LabelValue>;
+      urgenceOption: Field<LabelValue>;
+    };
 
     // Lot sélectionné par l'utilisateur
     const loIdSelected = optionLot?.value?.value;
@@ -102,9 +111,11 @@ const CreationInfractionPage: NextPageWithLayout =
             isErrorLot={isErrorLot}
             isErrorZac={isErrorLot}
           />
-
           {/* Section infraction */}
-          <SectionInfraction cpg={lot?.cpg?.value} />
+          <SectionInfraction
+            cpg={lot?.cpg?.value}
+            urgence={urgenceOption?.value?.value?.toString()}
+          />
 
           {/* Soumission du formulaire */}
           <Stack marginLeft="auto">

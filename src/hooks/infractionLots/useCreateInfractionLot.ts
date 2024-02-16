@@ -8,7 +8,8 @@ import MutationProps from '@/types/query/MutationProps';
 export type CreateInfractionLotPayload = {
   lotId: number | string;
   infractionId: number | string;
-  urgence: string | number;
+  urgence: string;
+  dateButoir: string;
 };
 
 export type CreationInfractionLotResponse =
