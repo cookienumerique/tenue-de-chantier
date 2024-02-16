@@ -51,8 +51,9 @@ export default function EvenementItem(
         {`Le ${formatDate(
           evenement?.date,
           'DD/MM/YYYY à HH:mm'
-        )} par ${evenement?.utilisateur
-          ?.prenom} ${evenement?.utilisateur?.nom}.`}
+        )} par ${
+          evenement?.utilisateur?.prenom
+        } ${evenement?.utilisateur?.nom}.`}
       </Text>
     </Stack>
   );

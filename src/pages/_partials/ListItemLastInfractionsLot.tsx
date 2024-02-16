@@ -67,9 +67,11 @@ export default function ListItemLastInfractionsLot(
         fontStyle="italic"
         fontSize="xs"
       >
-        {`Détecté par ${infractionLot?.utilisateur
-          ?.nom} ${infractionLot?.utilisateur
-          ?.prenom}, le ${formatDate(
+        {`Détecté par ${
+          infractionLot?.utilisateur?.nom
+        } ${
+          infractionLot?.utilisateur?.prenom
+        }, le ${formatDate(
           infractionLot?.date,
           'DD/MM/YYYY à HH:mm'
         )} `}

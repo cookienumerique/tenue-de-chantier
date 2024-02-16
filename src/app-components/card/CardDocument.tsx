@@ -129,8 +129,9 @@ export default function CardDocument(
                   >
                     {`${formatDate(
                       file?.dateCreation
-                    )} - ${file?.utilisateur?.nom} ${file
-                      ?.utilisateur?.prenom}`}
+                    )} - ${file?.utilisateur?.nom} ${
+                      file?.utilisateur?.prenom
+                    }`}
                   </Text>
                 </Stack>
               </Stack>
