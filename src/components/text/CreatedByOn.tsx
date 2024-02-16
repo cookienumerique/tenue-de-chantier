@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react';
+import { Text, TextProps } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
 
 import SkeletonText from '@/components/skeleton/SkeletonText';
@@ -8,14 +8,19 @@ type CreatedByOnProps = {
   nom: string | undefined;
   date: string | undefined;
   isLoading: boolean;
-};
+} & TextProps;
 /**
  * @description Afficher le nom de l'utilisateur et la date de création
  */
 export default function CreatedByOn(
   props: CreatedByOnProps
 ): ReactElement {
-  const { nom, date, isLoading } = props;
+  const {
+    nom,
+    date,
+    isLoading,
+    textAlign = 'left',
+  } = props;
 
   if (isLoading) {
     return (
@@ -29,6 +34,7 @@ export default function CreatedByOn(
 
   return (
     <Text
+      textAlign={textAlign}
       fontSize="xs"
       color="gray.500"
     >{`Créé par ${nom}, le ${formatDate(date)}`}</Text>

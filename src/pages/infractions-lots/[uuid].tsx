@@ -9,7 +9,6 @@ import CardLot from '@/app-components/card/CardLot';
 import CardZac from '@/app-components/card/CardZac';
 import TitleInfractionLot from '@/app-components/text/TitleInfractionLot';
 import Layout from '@/components/layout/Layout';
-import CreatedByOn from '@/components/text/CreatedByOn';
 import useFindEvenementsByInfractionLotId from '@/hooks/evenement/useFindEvenementsByInfractionLotId';
 import useFindFilesInfractionLotById from '@/hooks/file/useFindFilesInfractionLotById';
 import useFindActionsByInfractionLotId from '@/hooks/infractionLots/useFindActionsByInfractionLotId';
@@ -120,21 +119,18 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
               nbJoursDepuisCreation={
                 infractionLot?.nbJoursDepuisCreation
               }
+              nbJoursDateButoir={
+                infractionLot?.nbJoursDateButoir
+              }
+              utilisateur={utilisateur}
+              date={infractionLot?.date}
+              isLoadingUtilisateur={isLoadingUtilisateur}
               isLoadingInfractionsLot={
                 isLoadingInfractionLot
               }
               actions={actions}
               isLoadingActions={isLoadingActions}
               isErrorActions={isErrorActions}
-            />
-
-            <CreatedByOn
-              nom={`${utilisateur?.nom} ${utilisateur?.prenom}`}
-              date={infractionLot?.date}
-              isLoading={
-                isLoadingUtilisateur ||
-                isLoadingInfractionLot
-              }
             />
           </Stack>
           {/* SubHeader informations utilisateurs */}

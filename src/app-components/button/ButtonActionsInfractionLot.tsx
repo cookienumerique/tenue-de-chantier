@@ -121,6 +121,7 @@ const ButtonActionsInfractionLot = (
       />
 
       <ButtonMenu
+        size="md"
         items={optionsActions}
         isLoading={isLoading}
       />

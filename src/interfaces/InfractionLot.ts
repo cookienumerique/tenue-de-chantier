@@ -20,6 +20,7 @@ export default interface InfractionLot {
   infraction: Infraction;
   lotId: number;
   nbJoursDepuisCreation: number;
+  nbJoursDateButoir: number;
   dateButoir: string;
   zac: Zac;
   lot: Lot;
