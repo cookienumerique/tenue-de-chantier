@@ -35,6 +35,7 @@ export default function CardDocument(
   const { invalidate: invalidateEvenements } =
     useFindEvenementsByInfractionLotId({
       id: infractionLotId,
+      enabled: !!infractionLotId,
     });
 
   const callbackOnDeleteFile = () => {

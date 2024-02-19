@@ -55,6 +55,7 @@ const ButtonActionsInfractionLot = (
   const { invalidate: invalidateEvenements } =
     useFindEvenementsByInfractionLotId({
       id: infractionLot?.id,
+      enabled: !!infractionLot?.id,
     });
 
   const { invalidate: invalidateActions } =
