@@ -80,7 +80,7 @@ export default function EvenementItemByType(
           as="i"
           fontSize="xs"
         >
-          Contenu dynamique pour un changement de statut
+          {`Le statut a été défini a "${valeur}"`}
         </Text>
       );
 
