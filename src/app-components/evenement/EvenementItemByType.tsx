@@ -1,14 +1,15 @@
-import { Text } from '@chakra-ui/react';
+import { Stack, Text } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
 
+import File from '@/app-components/file/File';
 import EvenementTypeEnum from '@/enums/EvenementTypeEnum';
 import formatDate from '@/functions/date/formatDate';
+import FileInterface from '@/interfaces/File';
 
 type EvenementItemByTypeProps = {
   valeur: string | undefined;
-  type:
-    | { name: string; value: EvenementTypeEnum }
-    | undefined;
+  type: EvenementTypeEnum | undefined;
+  files: FileInterface[] | undefined;
 };
 
 /**
@@ -17,9 +18,9 @@ type EvenementItemByTypeProps = {
 export default function EvenementItemByType(
   props: EvenementItemByTypeProps
 ): ReactElement {
-  const { type, valeur } = props;
-  switch (type?.name) {
-    case 'ECRIRE_EMAIL':
+  const { type, valeur, files } = props;
+  switch (type) {
+    case EvenementTypeEnum.ECRIRE_EMAIL:
       return (
         <Text
           as="i"
@@ -29,7 +30,7 @@ export default function EvenementItemByType(
         </Text>
       );
 
-    case 'CHANGER_DATE_BUTOIR':
+    case EvenementTypeEnum.CHANGER_DATE_BUTOIR:
       return (
         <Text
           as="i"
@@ -41,7 +42,7 @@ export default function EvenementItemByType(
         </Text>
       );
 
-    case 'CREER_INFRACTION':
+    case EvenementTypeEnum.CREER_INFRACTION:
       return (
         <Text
           as="i"
@@ -51,7 +52,7 @@ export default function EvenementItemByType(
         </Text>
       );
 
-    case 'PRODUIRE_MISE_EN_DEMEURE':
+    case EvenementTypeEnum.PRODUIRE_MISE_EN_DEMEURE:
       return (
         <Text
           as="i"
@@ -62,7 +63,7 @@ export default function EvenementItemByType(
         </Text>
       );
 
-    case 'PRODUIRE_CONSTAT_CARENCE':
+    case EvenementTypeEnum.PRODUIRE_CONSTAT_CARENCE:
       return (
         <Text
           as="i"
@@ -73,7 +74,7 @@ export default function EvenementItemByType(
         </Text>
       );
 
-    case 'CHANGER_DE_STATUT':
+    case EvenementTypeEnum.CHANGER_DE_STATUT:
       return (
         <Text
           as="i"
@@ -83,7 +84,7 @@ export default function EvenementItemByType(
         </Text>
       );
 
-    case 'PRODUIRE_COURRIER_REGULARISATION':
+    case EvenementTypeEnum.PRODUIRE_COURRIER_REGULARISATION:
       return (
         <Text
           as="i"
@@ -94,17 +95,23 @@ export default function EvenementItemByType(
         </Text>
       );
 
-    case 'AJOUTER_DOCUMENT':
+    case EvenementTypeEnum.AJOUTER_DOCUMENT:
       return (
-        <Text
-          as="i"
-          fontSize="xs"
+        <Stack
+          gap="2xs"
+          direction="row"
         >
-          Contenu dynamique sur les documents ajoutés
-        </Text>
+          {files?.map((file) => (
+            <File
+              key={file?.id}
+              file={file}
+              minTemplate
+            />
+          ))}
+        </Stack>
       );
 
-    case 'AJOUTER_COMMENTAIRE':
+    case EvenementTypeEnum.AJOUTER_COMMENTAIRE:
       return (
         <Text
           as="i"

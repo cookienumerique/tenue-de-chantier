@@ -78,6 +78,14 @@ const ButtonActionsInfractionLot = (
     invalidateInfractionLot();
     invalidateEvenements();
   };
+  /**
+   * @description Callback on success upload files
+   */
+  const callbackOnSuccesssUploadFiles = () => {
+    invalidateFilesInfractionLot();
+    invalidateEvenements();
+  };
+
   if (isError) {
     return <Text>Une erreur est survenue</Text>;
   }
@@ -99,7 +107,7 @@ const ButtonActionsInfractionLot = (
         onClose={onCloseModalFiles}
         infractionLotId={infractionLotId}
         callbackOnUploadFile={
-          invalidateFilesInfractionLot
+          callbackOnSuccesssUploadFiles
         }
       />
       <ModalStatutInfraction

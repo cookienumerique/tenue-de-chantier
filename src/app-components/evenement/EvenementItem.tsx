@@ -2,6 +2,7 @@ import { Stack, Text } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
 
 import EvenementItemByType from '@/app-components/evenement/EvenementItemByType';
+import EvenementTypeEnum from '@/enums/EvenementTypeEnum';
 import formatDate from '@/functions/date/formatDate';
 import Evenement from '@/interfaces/Evenement';
 
@@ -18,6 +19,15 @@ export default function EvenementItem(
   const { evenement } = props;
 
   const color = 'gray.100';
+
+  // If the event is of type "Ajouter document" and there is no file, we don't display anything
+  if (
+    evenement?.type ===
+      EvenementTypeEnum.AJOUTER_DOCUMENT &&
+    evenement?.files?.length === 0
+  ) {
+    return <></>;
+  }
 
   return (
     <Stack
@@ -36,12 +46,13 @@ export default function EvenementItem(
           fontSize="sm"
           color="gray.800"
         >
-          {evenement?.type?.value}
+          {evenement?.type}
         </Text>
       </Stack>
       <EvenementItemByType
         type={evenement?.type}
         valeur={evenement?.valeur}
+        files={evenement?.files}
       />
       <Text
         fontSize="xs"
