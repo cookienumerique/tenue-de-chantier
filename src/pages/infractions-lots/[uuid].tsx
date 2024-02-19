@@ -122,6 +122,7 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
               nbJoursDateButoir={
                 infractionLot?.nbJoursDateButoir
               }
+              dateButoir={infractionLot?.dateButoir}
               utilisateur={utilisateur}
               date={infractionLot?.date}
               isLoadingUtilisateur={isLoadingUtilisateur}

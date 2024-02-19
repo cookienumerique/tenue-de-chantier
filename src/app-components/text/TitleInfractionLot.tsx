@@ -1,9 +1,9 @@
 import { Icon, Stack, Text } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 import { CiTimer } from 'react-icons/ci';
-import { IoCalendarSharp } from 'react-icons/io5';
 
 import ButtonActionsInfractionLot from '@/app-components/button/ButtonActionsInfractionLot';
+import CooldownDateButoir from '@/app-components/infraction-lot/CooldownDateButoir';
 import TagUrgence from '@/app-components/tag/infraction-lot/TagUrgence';
 import SkeletonText from '@/components/skeleton/SkeletonText';
 import CreatedByOn from '@/components/text/CreatedByOn';
@@ -25,6 +25,7 @@ type TitleProps = {
   actions: ActionInfractionType | undefined;
   isLoadingActions: boolean;
   isErrorActions: boolean;
+  dateButoir: string | undefined;
 };
 
 /**
@@ -46,6 +47,7 @@ export default function TitleInfractionLot(
     actions,
     isLoadingActions,
     isErrorActions,
+    dateButoir,
   } = props;
 
   if (isLoadingInfractionsLot) {
@@ -56,10 +58,11 @@ export default function TitleInfractionLot(
       </Stack>
     );
   }
+
   return (
     <Stack direction="row">
       <Stack
-        direction={{ base: 'column', sm: 'row' }}
+        direction={{ base: 'column', md: 'row' }}
         spacing={0}
         width="100%"
         justifyContent="space-between"
@@ -80,7 +83,6 @@ export default function TitleInfractionLot(
             <TagUrgence urgence={urgence} />
           </Stack>
           <CreatedByOn
-            textAlign={{ base: 'right', sm: 'left' }}
             nom={`${utilisateur?.nom} ${utilisateur?.prenom}`}
             date={date}
             isLoading={isLoadingUtilisateur}
@@ -93,7 +95,7 @@ export default function TitleInfractionLot(
           {/* Section nb jours depuis création */}
           <Stack
             direction={{ base: 'column', md: 'row' }}
-            gap="md"
+            gap={{ base: '2xs', md: 'xs' }}
           >
             <Stack
               color="gray.700"
@@ -114,26 +116,30 @@ export default function TitleInfractionLot(
                   {`${nbJoursDepuisCreation} jours depuis la détection`}
                 </Text>
               </Stack>
-              <Stack
-                direction="row"
-                alignItems="center"
-              >
-                <Icon
-                  color="inherit"
-                  as={IoCalendarSharp}
-                  boxSize={4}
-                />
-                <Text color="inherit">
-                  {`${nbJoursDateButoir} jours restants avant la date butoir`}
-                </Text>
-              </Stack>
+              {/* Cooldown date butoir */}
+              {dateButoir && nbJoursDateButoir ? (
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                >
+                  <CooldownDateButoir
+                    dateButoir={dateButoir}
+                    nbJoursDateButoir={nbJoursDateButoir}
+                  />
+                </Stack>
+              ) : (
+                <></>
+              )}
             </Stack>
-            <ButtonActionsInfractionLot
-              actions={actions}
-              isLoading={isLoadingActions}
-              isError={isErrorActions}
-              infractionLotId={id}
-            />
+            {/* Button with actions */}
+            <Stack marginLeft="auto">
+              <ButtonActionsInfractionLot
+                actions={actions}
+                isLoading={isLoadingActions}
+                isError={isErrorActions}
+                infractionLotId={id}
+              />
+            </Stack>
           </Stack>
         </Stack>
       </Stack>

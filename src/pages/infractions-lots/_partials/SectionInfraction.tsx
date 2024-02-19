@@ -5,8 +5,8 @@ import {
 } from '@formiz/core';
 import { ReactElement, useState } from 'react';
 
+import InputDateButoir from '@/app-components/form/InputDateButoir';
 import SelectInfractionLotUrgence from '@/app-components/form/SelectInfractionLotUrgence';
-import Input from '@/components/form/Input';
 import Select from '@/components/form/Select';
 import Section from '@/components/section/Section';
 import LabelValueComponent from '@/components/text/LabelValue';
@@ -164,13 +164,8 @@ export default function SectionInfraction(
       >
         {/* Sélection du cractère d'urgence */}
         <SelectInfractionLotUrgence />
-        <Input
-          type="date"
-          name="dateButoir"
-          label="Date butoir"
-          defaultValue={dateButoir}
-          key={dateButoir}
-        />
+
+        <InputDateButoir defaultValue={dateButoir} />
       </Stack>
 
       <Stack gap="inherit">
