@@ -37,7 +37,10 @@ export default function ButtonShortCut(): ReactElement {
     push('/').then((r) => r);
   };
 
-  const handleRedirectSearchPage = () => {};
+  const handleRedirectSearchPage = () => {
+    setIsOpenedMenu(false);
+    push('/liste-infractions-lots').then((r) => r);
+  };
 
   const handleRedirectCreateInfractionLotPage = () => {
     setIsOpenedMenu(false);
