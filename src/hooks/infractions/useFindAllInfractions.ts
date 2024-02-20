@@ -23,7 +23,7 @@ const useFindAllInfractions = ({
       axios.get(
         `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/infractions`
       ),
-    { enabled }
+    { enabled, refetchOnMount: false }
   );
 
   const invalidate = () =>

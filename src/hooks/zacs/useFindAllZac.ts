@@ -23,7 +23,7 @@ const useFindAllZac = ({
       axios.get(
         `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/zacs`
       ),
-    { enabled }
+    { enabled, refetchOnMount: false }
   );
 
   const invalidate = () =>

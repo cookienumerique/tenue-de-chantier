@@ -8,17 +8,18 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { FieldValidation, useField } from '@formiz/core';
-import { Key, ReactElement, useEffect } from 'react';
+import { ReactElement } from 'react';
 import {
   ActionMeta,
   default as ReactSelect,
+  OnChangeValue,
 } from 'react-select';
 
 import LabelValue from '@/interfaces/LabelValue';
 
 type SelectProps = {
   options: LabelValue[] | undefined;
-  defaultValue?: string | number;
+  defaultValue?: LabelValue | undefined;
   label?: string;
   name: string;
   helperMessage?: string;
@@ -26,7 +27,10 @@ type SelectProps = {
   isLoading?: boolean;
   isError?: boolean;
   onChange?: (
-    newValue: LabelValue,
+    newValue: OnChangeValue<
+      LabelValue | undefined,
+      false
+    >,
     meta: ActionMeta<string | number>
   ) => void;
   required?: boolean;
@@ -59,32 +63,25 @@ export default function Select(
     errorMessage,
     isValid,
     isSubmitted,
-  } = useField(props);
+  } = useField(props, {
+    defaultValue,
+    validations,
+    keepValue: true,
+    // @ts-expect-error to fix
+    formatValue: (labelValue: LabelValue | undefined) =>
+      labelValue,
+  });
 
   const handleChange = (
-    newValue: LabelValue,
+    newValue: OnChangeValue<
+      LabelValue | undefined,
+      false
+    >,
     meta: ActionMeta<string | number>
   ) => {
-    // @ts-expect-error todo
     setValue(newValue);
     onChange(newValue, meta);
   };
-
-  const optionDefault = options?.find(
-    (option: LabelValue) => {
-      // Check if option is instance of labelValue
-      return (
-        option?.value?.toString().toLowerCase() ===
-        defaultValue?.toString().toLowerCase()
-      );
-    }
-  );
-
-  useEffect(() => {
-    if (!optionDefault) return;
-    // @ts-expect-error todo
-    setValue(optionDefault);
-  }, [setValue, optionDefault]);
 
   if (isLoading)
     return (
@@ -114,17 +111,16 @@ export default function Select(
       </FormLabel>
       <ReactSelect
         instanceId={props?.name}
-        key={defaultValue as Key}
-        // @ts-expect-error todo
+        // @ts-expect-error to fix
         onChange={handleChange}
+        // @ts-expect-error to fix
         value={value}
-        // @ts-expect-error todo
+        // @ts-expect-error to fix
         options={options}
         placeholder={placeholder}
         required={required}
         aria-invalid={!isValid}
         noOptionsMessage={() => optionMessage}
-        validations={validations}
         isDisabled={isDisabled}
       />
       {helperMessage ? (

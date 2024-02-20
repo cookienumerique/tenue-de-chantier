@@ -3,20 +3,20 @@ import { ReactElement } from 'react';
 import Select from '@/components/form/Select';
 import useFindEnumsByEnumName from '@/hooks/enums/useFindEnumsByEnum';
 
-type SelectInfractionLotUrgenceProps = {
+type SelectInfractionLotStatutProps = {
   defaultValue?: string | number | null;
   name?: string;
   required?: boolean;
 };
 /**
- * @description Select les dégrés d'urgence infraction_lot
+ * @description Select les statuts infraction_lot
  */
-export default function SelectInfractionLotUrgence(
-  props: SelectInfractionLotUrgenceProps
+export default function SelectInfractionLotStatut(
+  props: SelectInfractionLotStatutProps
 ): ReactElement {
   const {
     defaultValue,
-    name = 'optionUrgence',
+    name = 'optionStatut',
     required = false,
   } = props;
 
@@ -25,7 +25,7 @@ export default function SelectInfractionLotUrgence(
     isLoading,
     isError,
   } = useFindEnumsByEnumName({
-    enumName: 'InfractionLotUrgenceEnum',
+    enumName: 'InfractionLotStatutEnum',
   });
 
   const options = enums?.map((enumItem) => ({
@@ -35,7 +35,7 @@ export default function SelectInfractionLotUrgence(
 
   return (
     <Select
-      label="Degré d'urgence"
+      label="Statut de l'infraction"
       placeholder={options?.[0]?.label}
       isLoading={isLoading}
       isError={isError}

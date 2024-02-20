@@ -3,6 +3,7 @@ import {
   useFormContext,
   useFormFields,
 } from '@formiz/core';
+import dayjs from 'dayjs';
 import { ReactElement, useState } from 'react';
 
 import InputDateButoir from '@/app-components/form/InputDateButoir';
@@ -163,9 +164,12 @@ export default function SectionInfraction(
         width={{ base: '100%', lg: '50%' }}
       >
         {/* Sélection du cractère d'urgence */}
-        <SelectInfractionLotUrgence />
+        <SelectInfractionLotUrgence required />
 
-        <InputDateButoir defaultValue={dateButoir} />
+        <InputDateButoir
+          defaultValue={dateButoir}
+          min={dayjs().format('YYYY-MM-DD')}
+        />
       </Stack>
 
       <Stack gap="inherit">

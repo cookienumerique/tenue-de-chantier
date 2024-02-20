@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 Axios.interceptors.response.use(
-  (response) => response?.data,
+  (response) => response?.data ?? {},
   (error) => {
     if (error.response?.status === 401) {
       window.sessionStorage.removeItem('token');

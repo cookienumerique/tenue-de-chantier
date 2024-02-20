@@ -16,14 +16,22 @@ export default function Button(
     type = 'button',
     onClick,
     width,
+    leftIcon,
+    isDisabled = false,
+    size,
+    variant,
   } = props;
   return (
     <ButtonChakra
+      variant={variant}
       isLoading={isLoading}
       colorScheme={colorScheme}
       onClick={onClick}
       type={type}
       width={width}
+      leftIcon={leftIcon}
+      isDisabled={isDisabled}
+      size={size}
     >
       {children}
     </ButtonChakra>

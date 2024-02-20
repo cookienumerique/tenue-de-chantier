@@ -66,6 +66,7 @@ export default function SectionLocalisation(
           >
             <SelectZac
               callbackOnChange={handleChangeZac}
+              required
             />
           </Stack>
         )}

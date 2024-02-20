@@ -1,22 +1,28 @@
-import dayjs from 'dayjs';
 import { ReactElement } from 'react';
 
 import Input from '@/components/form/Input';
 
 type InputDateButoirProps = {
-  defaultValue: string | undefined;
+  name?: string;
+  defaultValue?: string | undefined;
+  min?: string;
 };
 export default function InputDateButoir(
   props: InputDateButoirProps
 ): ReactElement {
-  const { defaultValue } = props;
+  const {
+    defaultValue,
+    name = 'dateButoir',
+    min,
+  } = props;
 
   return (
     <Input
-      min={dayjs().format('YYYY-MM-DD')}
+      key={defaultValue}
+      min={min}
       label="Date butoir"
       type="date"
-      name="dateButoir"
+      name={name}
       defaultValue={defaultValue}
     />
   );

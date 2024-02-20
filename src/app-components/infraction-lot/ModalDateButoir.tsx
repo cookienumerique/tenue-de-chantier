@@ -10,6 +10,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { Formiz, useForm } from '@formiz/core';
+import dayjs from 'dayjs';
 import { ReactElement } from 'react';
 
 import InputDateButoir from '@/app-components/form/InputDateButoir';
@@ -83,7 +84,10 @@ export default function ModalDateButoir(
         <ModalCloseButton />
         <ModalBody>
           <Formiz connect={form}>
-            <InputDateButoir defaultValue={dateButoir} />
+            <InputDateButoir
+              defaultValue={dateButoir}
+              min={dayjs().format('YYYY-MM-DD')}
+            />
           </Formiz>
         </ModalBody>
 

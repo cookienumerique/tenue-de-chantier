@@ -18,7 +18,14 @@ type InputProps = InputChakraProps & {
 export default function Input(
   props: InputProps
 ): ReactElement {
-  const { required, label, helperMessage, min } = props;
+  const {
+    required,
+    label,
+    helperMessage,
+    min,
+    defaultValue,
+    key,
+  } = props;
   const ref = useRef<HTMLInputElement>();
   const {
     value,
@@ -48,6 +55,8 @@ export default function Input(
         ref={ref}
         onChange={handleChange}
         min={min}
+        defaultValue={defaultValue}
+        key={key}
         {...props}
       />
 
