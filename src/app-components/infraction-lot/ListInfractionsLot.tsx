@@ -1,9 +1,11 @@
 import {
   getCoreRowModel,
+  getSortedRowModel,
+  SortingState,
   useReactTable,
 } from '@tanstack/react-table';
 import { useRouter } from 'next/router';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 
 import AlertErrorFetchData from '@/components/alert/AlertErrorFetchData';
 import SkeletonList from '@/components/skeleton/SkeletonList';
@@ -31,11 +33,19 @@ const ListInfractionsLot = (
   } = props;
   const { columns } = useBuildColumns();
   const { push } = useRouter();
-
+  const [sorting, setSorting] = useState<SortingState>(
+    []
+  );
   const table = useReactTable({
     columns,
     data: infractionsLot as InfractionLot[],
     getCoreRowModel: getCoreRowModel(),
+    enableSorting: true,
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
   });
 
   const onClickRow = (infractionLot: InfractionLot) =>

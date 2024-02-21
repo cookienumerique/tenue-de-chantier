@@ -46,16 +46,16 @@ export default function useBuildColumns() {
       }
     ),
     columnHelper.accessor(
-      (infractionLot) => (
-        <TagStatutInfractionLot
-          statut={infractionLot?.statut?.value}
-          width="fit-content"
-        />
-      ),
+      (infractionLot) => infractionLot?.statut?.value,
       {
         id: 'statut',
         header: () => <Text>Statut</Text>,
-        cell: (row) => row?.getValue(),
+        cell: (row) => (
+          <TagStatutInfractionLot
+            statut={row?.getValue()}
+            width="fit-content"
+          />
+        ),
       }
     ),
     columnHelper.accessor(
