@@ -31,7 +31,7 @@ const useFindAllUtilisateurs = ({
           params: queryParameters,
         }
       ),
-    { enabled, refetchOnMount: false }
+    { enabled }
   );
 
   const invalidate = () =>
