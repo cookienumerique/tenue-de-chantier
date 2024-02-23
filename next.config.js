@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental:{
+  experimental: {
     cpus: 1,
-    workerThreads: true
-  }
+    workerThreads: true,
+  },
 };
 
 module.exports = nextConfig;

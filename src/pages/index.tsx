@@ -1,15 +1,15 @@
 import {
   Box,
-  Stack,
-  Text,
   Grid,
   GridItem,
+  Stack,
 } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
 
 import Layout from '@/components/layout/Layout';
 import Section from '@/components/section/Section';
 import CardLastInfractionsLot from '@/pages/_partials/CardLastInfractionsLot';
+import CardZacFavoris from '@/pages/_partials/CardZacFavoris';
 
 import { NextPageWithLayout } from './_app';
 
@@ -38,12 +38,7 @@ const HomePage: NextPageWithLayout = (): ReactElement => {
         <Stack gap={gap}>
           {/* Last infractions created */}
           <CardLastInfractionsLot />
-          <Section
-            title="ZAC en favoris"
-            flex="1"
-          >
-            <Text as="i">En cours de développement</Text>
-          </Section>
+          <CardZacFavoris />
         </Stack>
       </GridItem>
     </Grid>
