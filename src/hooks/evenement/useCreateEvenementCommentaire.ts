@@ -16,7 +16,7 @@ const useCreateEvenementCommentaire = (
   } = props ?? {};
   const toastSuccess = useToastSuccess();
   return useMutation(
-    (payload: { value: string }) => {
+    (payload: { commentaire: string }) => {
       return Axios.post(
         `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/evenements/commentaires`,
         payload

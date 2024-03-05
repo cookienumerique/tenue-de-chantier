@@ -52,17 +52,16 @@ export default function ModalStatutInfraction(
    * @param commentaire
    */
   const handleSubmit = ({
-    value,
+    commentaire,
   }: {
     infractionLotId: string;
-    value: string;
+    commentaire: string;
   }) => {
-    console.log(value);
-    if (!infractionLotId || !value) return;
+    if (!infractionLotId || !commentaire) return;
 
     const payload = {
       infractionLotId: infractionLotId,
-      value,
+      commentaire,
     };
     createEvenementCommentaire(payload);
   };
@@ -84,7 +83,7 @@ export default function ModalStatutInfraction(
           <Formiz connect={form}>
             <Stack>
               <Textarea
-                name="value"
+                name="commentaire"
                 label="Commentaire"
                 required
               />
