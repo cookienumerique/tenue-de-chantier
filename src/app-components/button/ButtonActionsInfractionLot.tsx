@@ -1,5 +1,6 @@
 import { Text } from '@chakra-ui/react';
 
+import ModalCommentaireInfraction from '@/app-components/infraction-lot/ModalCommentaireInfraction';
 import ModalDateButoir from '@/app-components/infraction-lot/ModalDateButoir';
 import ModalFiles from '@/app-components/infraction-lot/ModalFiles';
 import ModalStatutInfraction from '@/app-components/infraction-lot/ModalStatutInfraction';
@@ -36,6 +37,8 @@ const ButtonActionsInfractionLot = (
     onCloseModalStatutInfraction,
     isOpenModalDateButoir,
     onCloseModalDateButoir,
+    isOpenModalCommentaireInfraction,
+    onCloseModalCommentaireInfraction,
   } = useBuildMenuActionInfractionLot({
     actions: actions,
   });
@@ -118,6 +121,12 @@ const ButtonActionsInfractionLot = (
         infractionLotId={infractionLotId}
         callbackOnUpdate={callbackOnSuccesssUpdateStatut}
         dateButoir={infractionLot?.dateButoir}
+      />
+      <ModalCommentaireInfraction
+        isOpen={isOpenModalCommentaireInfraction}
+        onClose={onCloseModalCommentaireInfraction}
+        infractionLotId={infractionLotId}
+        callbackOnUpdate={callbackOnSuccesssUpdateStatut}
       />
       <ModalDateButoir
         isOpen={isOpenModalDateButoir}

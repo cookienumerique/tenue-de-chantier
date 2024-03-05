@@ -1,5 +1,6 @@
 import { Stack, Text } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
+import nl2br from 'react-nl2br';
 
 import File from '@/app-components/file/File';
 import EvenementTypeEnum from '@/enums/EvenementTypeEnum';
@@ -117,7 +118,7 @@ export default function EvenementItemByType(
           as="i"
           fontSize="xs"
         >
-          Contenu dynamique pour un commentaire ajouté
+          {nl2br(valeur ?? 'Commentaire supprimé.')}
         </Text>
       );
 

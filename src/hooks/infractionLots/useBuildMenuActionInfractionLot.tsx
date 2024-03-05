@@ -1,4 +1,5 @@
 import { useDisclosure } from '@chakra-ui/hooks';
+import { AiOutlineComment } from 'react-icons/ai';
 import { CgArrowsExchange } from 'react-icons/cg';
 import {
   IoCalendarSharp,
@@ -23,6 +24,8 @@ type BuildMenuActionInfractionLotReturn = {
   onCloseModalStatutInfraction: () => void;
   isOpenModalDateButoir: boolean;
   onCloseModalDateButoir: () => void;
+  isOpenModalCommentaireInfraction: boolean;
+  onCloseModalCommentaireInfraction: () => void;
   actions:
     | {
         label: string;
@@ -50,6 +53,12 @@ const useBuildMenuActionInfractionLot = ({
   } = useDisclosure();
 
   const {
+    isOpen: isOpenModalCommentaireInfraction,
+    onOpen: onOpenModalCommentaireInfraction,
+    onClose: onCloseModalCommentaireInfraction,
+  } = useDisclosure();
+
+  const {
     isOpen: isOpenModalDateButoir,
     onOpen: onOpenModalDateButoir,
     onClose: onCloseModalDateButoir,
@@ -60,6 +69,11 @@ const useBuildMenuActionInfractionLot = ({
       label: 'Ajouter des photos',
       icon: TbPhotoShare,
       onClick: () => onOpenModalFiles(),
+    },
+    [ActionInfractionEnum.AJOUTER_COMMENTAIRE]: {
+      label: 'Ajouter un commentaire',
+      icon: AiOutlineComment,
+      onClick: () => onOpenModalCommentaireInfraction(),
     },
     [ActionInfractionEnum.ECRIRE_EMAIL]: {
       label: 'Ecrire un email',
@@ -113,6 +127,8 @@ const useBuildMenuActionInfractionLot = ({
     onCloseModalStatutInfraction,
     isOpenModalDateButoir,
     onCloseModalDateButoir,
+    isOpenModalCommentaireInfraction,
+    onCloseModalCommentaireInfraction,
     actions: Object.entries(actions ?? {})?.map(
       (action) => {
         const [key] = action as [
