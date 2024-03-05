@@ -14,7 +14,12 @@ type TextareaProps = TextareaChakraProps & {
   required?: boolean;
   label: string;
   helperMessage?: string;
+  validations: Array<{
+    handler: (value?: never, rawValue?: never) => boolean;
+    message: string;
+  }>;
 };
+
 export default function Textarea(
   props: TextareaProps
 ): ReactElement {

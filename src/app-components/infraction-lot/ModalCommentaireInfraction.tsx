@@ -10,6 +10,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { Formiz, useForm } from '@formiz/core';
+import { isMaxLength } from '@formiz/validations';
 import { ReactElement } from 'react';
 
 import Textarea from '@/components/form/Textarea';
@@ -86,6 +87,12 @@ export default function ModalStatutInfraction(
                 name="commentaire"
                 label="Commentaire"
                 required
+                validations={[
+                  {
+                    handler: isMaxLength(255),
+                    message: '255 caractères maximum',
+                  },
+                ]}
               />
             </Stack>
           </Formiz>
