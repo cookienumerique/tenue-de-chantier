@@ -14,7 +14,7 @@ type TextareaProps = TextareaChakraProps & {
   required?: boolean;
   label: string;
   helperMessage?: string;
-  validations: Array<{
+  validations?: Array<{
     handler: (value?: never, rawValue?: never) => boolean;
     message: string;
   }>;
