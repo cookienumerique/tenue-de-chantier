@@ -52,7 +52,6 @@ export default function SelectZac(
       name={name}
       onChange={callbackOnChange}
       required={required}
-      key={defaultValue}
     />
   );
 }

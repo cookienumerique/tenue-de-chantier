@@ -10,11 +10,11 @@ export default function defineDateButoirByUrgence({
   const date = dayjs();
 
   if (urgence === InfractionLotUrgenceEnum.NON_CRITIQUE) {
-    return date.add(2, 'day').format('YYYY-MM-DD');
+    return date.add(5, 'day').format('YYYY-MM-DD');
   }
 
   if (urgence === InfractionLotUrgenceEnum.URGENT) {
-    return date.add(5, 'day').format('YYYY-MM-DD');
+    return date.add(2, 'day').format('YYYY-MM-DD');
   }
 
   return date.format('YYYY-MM-DD');

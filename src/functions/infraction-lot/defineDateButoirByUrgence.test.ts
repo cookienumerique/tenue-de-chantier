@@ -20,7 +20,7 @@ describe('defineDateButoirByUrgence', () => {
     });
 
     const expected = dayjs()
-      .add(2, 'day')
+      .add(5, 'day')
       .format('YYYY-MM-DD');
 
     expect(actual).toBe(expected);
@@ -32,7 +32,7 @@ describe('defineDateButoirByUrgence', () => {
     });
 
     const expected = dayjs()
-      .add(5, 'day')
+      .add(2, 'day')
       .format('YYYY-MM-DD');
 
     expect(actual).toBe(expected);
