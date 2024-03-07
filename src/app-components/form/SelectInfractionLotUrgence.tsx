@@ -45,7 +45,6 @@ export default function SelectInfractionLotUrgence(
       )}
       name={name}
       required={required}
-      key={defaultValue}
     />
   );
 }
