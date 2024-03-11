@@ -1,4 +1,4 @@
-import { Stack, Text } from '@chakra-ui/react';
+import { Stack } from '@chakra-ui/react';
 import {
   useFormContext,
   useFormFields,
@@ -17,6 +17,7 @@ import uniqueOptions from '@/functions/uniqueOptions';
 import useFindAllInfractionsByCpg from '@/hooks/infractions/useFindAllInfractionsByCpg';
 import Infraction from '@/interfaces/Infraction';
 import LabelValue from '@/interfaces/LabelValue';
+import ToggleSelectInfraction from '@/pages/infractions-lots/_partials/ToggleSelectInfraction';
 
 type SectionInfractionProps = {
   cpg: CpgEnum | undefined;
@@ -167,6 +168,7 @@ export default function SectionInfraction(
         <SelectInfractionLotUrgence required />
 
         <InputDateButoir
+          required
           defaultValue={dateButoir}
           min={dayjs().format('YYYY-MM-DD')}
         />
@@ -178,91 +180,85 @@ export default function SectionInfraction(
           display={{ lg: 'flex' }}
           flexDir={{ base: 'column' }}
         >
-          {modeSelection === 'libelle' ? (
-            <>
-              {infractionSelected ? (
-                <Stack>
-                  <LabelValueComponent
-                    label="categorie"
-                    value={infractionSelected?.categorie}
-                  />
-                  <LabelValueComponent
-                    label="sous categorie"
-                    value={
-                      infractionSelected?.sousCategorie
-                    }
-                  />
-                </Stack>
-              ) : (
-                <></>
-              )}
-              <Select
-                label="Libellé de l'infraction"
-                name="infraction.optionLibelle"
-                placeholder="Sélectionnez une infraction"
-                isLoading={isLoadingInfraction}
-                isError={isErrorInfraction}
-                options={uniqueOptions(optionsLibelle)}
-                required
-              />
-            </>
-          ) : (
-            <Stack>
-              <Select
-                label="Catégorie de l'infraction"
-                name="infraction.optionCategorie"
-                placeholder="Sélectionnez une catégorie"
-                isLoading={isLoadingInfraction}
-                isError={isErrorInfraction}
-                options={uniqueOptions(optionsCategorie)}
-                required
-                onChange={handleChangeCategorie}
-              />
-
-              <Select
-                label="Sous catégorie de l'infraction"
-                name="infraction.optionSousCategorie"
-                placeholder="Sélectionnez une sous-catégorie"
-                isLoading={isLoadingInfraction}
-                isError={isErrorInfraction}
-                options={uniqueOptions(
-                  optionsSousCategorie
-                )}
-                required
-                isDisabled={
-                  !infraction?.optionCategorie?.value
-                }
-                onChange={handleChangeSousCategorie}
-              />
-
-              <Select
-                label="Libellé de l'infraction"
-                name="infraction.optionLibelle"
-                placeholder="Sélectionnez une infraction"
-                isLoading={isLoadingInfraction}
-                isError={isErrorInfraction}
-                options={uniqueOptions(
-                  optionsLibelleModeCategorie
-                )}
-                required
-                isDisabled={
-                  !infraction?.optionSousCategorie?.value
-                }
-              />
-            </Stack>
-          )}
-
-          <Text
-            as="i"
-            cursor="pointer"
-            _hover={{ textDecoration: 'underline' }}
+          <ToggleSelectInfraction
+            selection={modeSelection}
             onClick={handleChangeModeSelection}
-          >
-            {modeSelection === 'categorie'
-              ? "Sélectionner l'infraction par le libellé"
-              : "Sélectionner l'infraction par catégorie et sous catégorie"}
-          </Text>
+          />
         </Stack>
+
+        {modeSelection === 'libelle' ? (
+          <>
+            {infractionSelected ? (
+              <Stack>
+                <LabelValueComponent
+                  label="categorie"
+                  value={infractionSelected?.categorie}
+                />
+                <LabelValueComponent
+                  label="sous categorie"
+                  value={
+                    infractionSelected?.sousCategorie
+                  }
+                />
+              </Stack>
+            ) : (
+              <></>
+            )}
+            <Select
+              label="Libellé de l'infraction"
+              name="infraction.optionLibelle"
+              placeholder="Sélectionnez une infraction"
+              isLoading={isLoadingInfraction}
+              isError={isErrorInfraction}
+              options={uniqueOptions(optionsLibelle)}
+              required
+            />
+          </>
+        ) : (
+          <Stack>
+            <Select
+              label="Catégorie de l'infraction"
+              name="infraction.optionCategorie"
+              placeholder="Sélectionnez une catégorie"
+              isLoading={isLoadingInfraction}
+              isError={isErrorInfraction}
+              options={uniqueOptions(optionsCategorie)}
+              required
+              onChange={handleChangeCategorie}
+            />
+
+            <Select
+              label="Sous catégorie de l'infraction"
+              name="infraction.optionSousCategorie"
+              placeholder="Sélectionnez une sous-catégorie"
+              isLoading={isLoadingInfraction}
+              isError={isErrorInfraction}
+              options={uniqueOptions(
+                optionsSousCategorie
+              )}
+              required
+              isDisabled={
+                !infraction?.optionCategorie?.value
+              }
+              onChange={handleChangeSousCategorie}
+            />
+
+            <Select
+              label="Libellé de l'infraction"
+              name="infraction.optionLibelle"
+              placeholder="Sélectionnez une infraction"
+              isLoading={isLoadingInfraction}
+              isError={isErrorInfraction}
+              options={uniqueOptions(
+                optionsLibelleModeCategorie
+              )}
+              required
+              isDisabled={
+                !infraction?.optionSousCategorie?.value
+              }
+            />
+          </Stack>
+        )}
       </Stack>
     </Section>
   );

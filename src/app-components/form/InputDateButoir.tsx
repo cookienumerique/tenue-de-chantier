@@ -6,6 +6,7 @@ type InputDateButoirProps = {
   name?: string;
   defaultValue?: string | undefined;
   min?: string;
+  required?: boolean;
 };
 export default function InputDateButoir(
   props: InputDateButoirProps
@@ -14,6 +15,7 @@ export default function InputDateButoir(
     defaultValue,
     name = 'dateButoir',
     min,
+    required = false,
   } = props;
 
   return (
@@ -24,6 +26,7 @@ export default function InputDateButoir(
       type="date"
       name={name}
       defaultValue={defaultValue}
+      required={required}
     />
   );
 }
