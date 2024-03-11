@@ -16,6 +16,7 @@ import useCreateInfractionLot, {
 import useFindLotById from '@/hooks/lots/useFindLotById';
 import LabelValue from '@/interfaces/LabelValue';
 import Lot from '@/interfaces/Lot';
+import SectionComplementaire from '@/pages/infractions-lots/_partials/SectionComplementaire';
 import SectionInfraction from '@/pages/infractions-lots/_partials/SectionInfraction';
 import SectionLocalisation from '@/pages/infractions-lots/_partials/SectionLocalisation';
 
@@ -52,6 +53,8 @@ const CreationInfractionPage: NextPageWithLayout =
       infraction: { optionLibelle: LabelValue };
       optionUrgence: LabelValue;
       dateButoir: string;
+      description: string;
+      mesuresCorrectives: string;
     }) => {
       // Récupération des valeurs
       const {
@@ -59,6 +62,8 @@ const CreationInfractionPage: NextPageWithLayout =
         infraction,
         optionUrgence,
         dateButoir,
+        description,
+        mesuresCorrectives,
       } = values ?? {};
 
       // Construction de la payload
@@ -67,6 +72,8 @@ const CreationInfractionPage: NextPageWithLayout =
         infractionId: infraction?.optionLibelle?.value,
         urgence: optionUrgence?.value?.toString(),
         dateButoir,
+        description,
+        mesuresCorrectives,
       };
 
       // Creation de la ressource
@@ -116,6 +123,8 @@ const CreationInfractionPage: NextPageWithLayout =
             cpg={lot?.cpg?.value}
             urgence={optionUrgence?.value?.value?.toString()}
           />
+
+          <SectionComplementaire cpg={lot?.cpg?.value} />
 
           {/* Soumission du formulaire */}
           <Stack marginLeft="auto">

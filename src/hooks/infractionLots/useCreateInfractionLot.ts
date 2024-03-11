@@ -10,6 +10,8 @@ export type CreateInfractionLotPayload = {
   infractionId: number | string;
   urgence: string;
   dateButoir: string;
+  description: string;
+  mesuresCorrectives: string;
 };
 
 export type CreationInfractionLotResponse =
