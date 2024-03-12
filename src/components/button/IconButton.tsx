@@ -2,6 +2,7 @@ import {
   IconButton as IconButtonChakra,
   IconButtonProps as IconButtonPropsChakra,
   PlacementWithLogical,
+  ResponsiveValue,
   Stack,
   Tooltip,
 } from '@chakra-ui/react';
@@ -10,6 +11,7 @@ import { ReactElement } from 'react';
 type IconButtonProps = {
   label: string;
   placement?: PlacementWithLogical;
+  size?: ResponsiveValue<'sm' | 'md' | 'lg' | 'xl'>;
 } & IconButtonPropsChakra;
 export default function IconButton(
   props: IconButtonProps
@@ -19,6 +21,7 @@ export default function IconButton(
     backgroundColor,
     color,
     placement = 'left',
+    size = 'sm',
     ...rest
   } = props;
   return (
@@ -30,9 +33,11 @@ export default function IconButton(
         backgroundColor={backgroundColor}
       >
         <IconButtonChakra
+          borderRadius="50%"
           color={color}
           backgroundColor={backgroundColor}
           _active={{ backgroundColor: 'none' }}
+          size={size}
           {...rest}
         />
       </Tooltip>
