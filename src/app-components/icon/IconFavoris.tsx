@@ -1,5 +1,8 @@
-import { Spinner } from '@chakra-ui/react';
-import { ReactElement } from 'react';
+import {
+  ResponsiveValue,
+  Spinner,
+} from '@chakra-ui/react';
+import { MouseEvent, ReactElement } from 'react';
 import {
   MdFavoriteBorder,
   MdOutlineFavorite,
@@ -10,8 +13,9 @@ import { theme } from '@/config/theme';
 
 type IconFavorisProps = {
   variant: 'add' | 'remove';
-  onClick: () => void;
+  onClick: (event: MouseEvent<HTMLButtonElement>) => void;
   isLoading: boolean;
+  size?: ResponsiveValue<'sm' | 'md' | 'lg' | 'xl'>;
 };
 /**
  * @description Icon for add or remove from favorites
@@ -21,7 +25,12 @@ type IconFavorisProps = {
 export default function IconFavoris(
   props: IconFavorisProps
 ): ReactElement {
-  const { variant, onClick, isLoading = false } = props;
+  const {
+    variant,
+    onClick,
+    isLoading = false,
+    size = 'sm',
+  } = props;
   const { colors } = theme;
 
   const commonProps = {
@@ -31,7 +40,7 @@ export default function IconFavoris(
 
   return (
     <IconButton
-      colorScheme="none"
+      size={size}
       label={
         variant === 'add'
           ? 'Enlever des favoris'
@@ -45,7 +54,7 @@ export default function IconFavoris(
           <MdOutlineFavorite {...commonProps} />
         )
       }
-      onClick={onClick}
+      onClick={(e) => onClick(e)}
       disabled
       isLoading={isLoading}
       spinner={
