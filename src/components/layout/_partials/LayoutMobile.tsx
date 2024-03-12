@@ -1,7 +1,6 @@
 import { Stack } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 
-import ButtonShortCut from '@/components/button/ButtonShortCut';
 import LayoutHeader from '@/components/layout/_partials/LayoutHeader';
 import { LayoutProps } from '@/components/layout/_partials/LayoutLarge';
 import Body from '@/components/layout/body/Body';
@@ -30,10 +29,6 @@ export default function LayoutMobile(
       >
         {children}
       </Body>
-      {/* Footer */}
-      <Stack>
-        <ButtonShortCut />
-      </Stack>
     </Stack>
   );
 }
