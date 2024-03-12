@@ -38,6 +38,7 @@ export default function IconButton(
           backgroundColor={backgroundColor}
           _active={{ backgroundColor: 'none' }}
           size={size}
+          _hover={{ backgroundColor: 'none' }}
           {...rest}
         />
       </Tooltip>

@@ -4,6 +4,7 @@ import {
   GridItem,
   Stack,
 } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 
 import Layout from '@/components/layout/Layout';
@@ -14,8 +15,12 @@ import CardZacFavoris from '@/pages/_partials/CardZacFavoris';
 import { NextPageWithLayout } from './_app';
 
 const HomePage: NextPageWithLayout = (): ReactElement => {
-  const idZacUtilisateur = 95;
+  const { query } = useRouter();
+  const { zacId } = query ?? {};
+
+  const idZacUtilisateur = zacId ?? 95;
   const gap = 8;
+
   return (
     <Grid
       gap={gap}

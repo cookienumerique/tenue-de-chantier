@@ -34,12 +34,13 @@ export default function IconFavoris(
   const { colors } = theme;
 
   const commonProps = {
-    color: colors?.primary[500],
-    size: 20,
+    color: 'white',
+    size: 18,
   };
 
   return (
     <IconButton
+      backgroundColor={colors?.primary[500]}
       size={size}
       label={
         variant === 'add'

@@ -1,5 +1,10 @@
 import { Stack, Text } from '@chakra-ui/react';
-import { ReactElement, useState } from 'react';
+import { useRouter } from 'next/router';
+import {
+  MouseEvent,
+  ReactElement,
+  useState,
+} from 'react';
 
 import ListZacFavorisItem from '@/app-components/zac-favoris/ListZacFavorisItem';
 import AlertErrorFetchData from '@/components/alert/AlertErrorFetchData';
@@ -22,11 +27,13 @@ type ListZacFavoris = {
 export default function ListZacFavoris(
   props: ListZacFavoris
 ): ReactElement {
+  const { push } = useRouter();
   const {
     isLoading: isLoadingZacFavoris,
     zacFavoris,
     callbackOnSuccessDelete,
   } = props;
+
   const {
     mutate: deleteZacFavoris,
     isLoading: isLoadingDelete,
@@ -44,9 +51,39 @@ export default function ListZacFavoris(
    * @description Delete zac-favoris
    * @param id
    */
-  const handleDelete = (id: string) => {
-    setZacFavorisId(id);
-    deleteZacFavoris(id);
+  const handleDelete = ({
+    zacId,
+    event,
+  }: {
+    zacId: string;
+    event: MouseEvent<HTMLButtonElement>;
+  }) => {
+    event?.preventDefault();
+    setZacFavorisId(zacId);
+    deleteZacFavoris(zacId);
+  };
+
+  const handleClick = (zacId: string) => {
+    const queryParams = new URLSearchParams();
+    queryParams.set('zacId', zacId);
+
+    push(`?${queryParams?.toString()}`).then((r) => r);
+  };
+
+  const handleClickList = ({
+    zacId,
+    event,
+  }: {
+    zacId: string;
+    event: MouseEvent<HTMLButtonElement>;
+  }) => {
+    const queryParams = new URLSearchParams();
+    queryParams.set('zacId', zacId);
+    event?.preventDefault();
+
+    push(
+      `/liste-infractions-lots?${queryParams?.toString()}`
+    ).then((r) => r);
   };
   return (
     <Stack>
@@ -72,6 +109,8 @@ export default function ListZacFavoris(
               key={zacFavoris?.id}
               zacFavoris={zacFavoris}
               handleDelete={handleDelete}
+              handleClickList={handleClickList}
+              handleClick={handleClick}
               isLoadingDeleteZacFavoris={
                 isLoadingDelete &&
                 zacFavorisId === zacFavoris?.id
