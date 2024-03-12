@@ -23,8 +23,6 @@ export default function ListItemLastInfractionsLot(
     <Stack
       gap="3xs"
       key={infractionLot?.id}
-      border="1px solid"
-      borderColor="gray.100"
       backgroundColor="gray.50"
       borderRadius="md"
       paddingY="2xs"
@@ -32,7 +30,6 @@ export default function ListItemLastInfractionsLot(
       cursor="pointer"
       _hover={{
         backgroundColor: 'gray.100',
-        borderColor: 'gray.200',
       }}
       onClick={() => onRowClicked(infractionLot?.id)}
       fontSize="sm"
