@@ -19,16 +19,18 @@ import Lot from '@/interfaces/Lot';
 import SectionComplementaire from '@/pages/infractions-lots/_partials/SectionComplementaire';
 import SectionInfraction from '@/pages/infractions-lots/_partials/SectionInfraction';
 import SectionLocalisation from '@/pages/infractions-lots/_partials/SectionLocalisation';
+import useFindMe from '@/services/useFindMe';
 
 import { NextPageWithLayout } from '../_app';
 
 const CreationInfractionPage: NextPageWithLayout =
   (): ReactElement => {
     const router = useRouter();
-
+    const { invalidate: invalidateUser } = useFindMe();
     const callbackOnSuccess = (data: {
       infractions_lots: Lot;
     }) => {
+      invalidateUser();
       const { id: infractionLotId } =
         data?.infractions_lots as Lot;
       router

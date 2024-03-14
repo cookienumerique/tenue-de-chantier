@@ -17,14 +17,11 @@ export const CheckAuthentification = ({
   const isLoginPage = currentURL === authentificateURL;
   const { redirectToLoginPage } = usePhpCAS();
 
-  const userMustBeAuthenticated =
-    !isLogged && !isLoginPage;
-
   useEffect(() => {
-    if (userMustBeAuthenticated) {
+    if (!isLogged && !isLoginPage) {
       redirectToLoginPage().then((r) => r);
     }
-  }, [redirectToLoginPage, userMustBeAuthenticated]);
+  }, [redirectToLoginPage]);
 
   return children;
 };

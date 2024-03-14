@@ -12,7 +12,7 @@ import {
 
 import usePhpCAS from '@/functions/authentification/usePhpCAS';
 import Utilisateur from '@/interfaces/Utilisateur';
-import findMe from '@/services/FindMe';
+import useFindMe from '@/services/useFindMe';
 
 interface AuthentiticationContextProps {
   children: ReactNode;
@@ -32,6 +32,7 @@ interface AuthentiticationState {
   token: string | null;
   setToken: Dispatch<SetStateAction<string | null>>;
   setUser: Dispatch<SetStateAction<Utilisateur | null>>;
+  invalidateUser: () => void;
 }
 
 // Create the AuthentificationContext
@@ -44,6 +45,7 @@ const AuthentificationContext =
     token: null,
     setToken: () => {},
     setUser: () => {},
+    invalidateUser: () => {},
   });
 
 // Create a custom hook to use the AuthentificationContext
@@ -64,17 +66,28 @@ export const AuthentificationProvider = ({
   const [user, setUser] = useState<Utilisateur | null>(
     null
   );
+  const {
+    utilisateur,
+    invalidate: invalidateUser,
+    isError,
+  } = useFindMe({ enabled: !!token });
 
   // Get the user from the API
   useEffect(() => {
-    if (user || !token) return;
-    findMe()
-      .then(({ utilisateur, token }) => {
-        setUser(utilisateur);
-        setToken(token);
-      })
-      .catch(() => redirectToLoginPage());
-  }, [isLogged, redirectToLoginPage, token, user]);
+    if (isError) {
+      //redirectToLoginPage().then((r) => r);
+      return;
+    }
+    setUser(utilisateur);
+    setToken(token);
+  }, [
+    setToken,
+    isLogged,
+    redirectToLoginPage,
+    token,
+    utilisateur,
+    isError,
+  ]);
 
   // Get the token from the session storage
   useEffect(() => {
@@ -126,6 +139,7 @@ export const AuthentificationProvider = ({
     user,
     setToken,
     setUser,
+    invalidateUser,
   };
 
   return (

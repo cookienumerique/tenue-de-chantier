@@ -5,6 +5,7 @@ import ModalDateButoir from '@/app-components/infraction-lot/ModalDateButoir';
 import ModalFiles from '@/app-components/infraction-lot/ModalFiles';
 import ModalStatutInfraction from '@/app-components/infraction-lot/ModalStatutInfraction';
 import ButtonMenu from '@/components/button/ButtonMenu';
+import { useAuthentification } from '@/context/AuthentificationProvider';
 import useFindEvenementsByInfractionLotId from '@/hooks/evenement/useFindEvenementsByInfractionLotId';
 import useFindFilesInfractionLotById from '@/hooks/file/useFindFilesInfractionLotById';
 import useBuildMenuActionInfractionLot from '@/hooks/infractionLots/useBuildMenuActionInfractionLot';
@@ -66,10 +67,13 @@ const ButtonActionsInfractionLot = (
       id: infractionLotId,
     });
 
+  const { invalidateUser } = useAuthentification();
+
   /**
    * @description Callback on success update statut
    */
   const callbackOnSuccesssUpdateStatut = () => {
+    invalidateUser();
     invalidateActions();
     invalidateInfractionLot();
     invalidateEvenements();
@@ -79,6 +83,7 @@ const ButtonActionsInfractionLot = (
    * @description Callback on success update dateButoir
    */
   const callbackOnSuccesssUpdateDateButoir = () => {
+    invalidateUser();
     invalidateInfractionLot();
     invalidateEvenements();
   };
@@ -86,6 +91,7 @@ const ButtonActionsInfractionLot = (
    * @description Callback on success upload files
    */
   const callbackOnSuccesssUploadFiles = () => {
+    invalidateUser();
     invalidateFilesInfractionLot();
     invalidateEvenements();
   };

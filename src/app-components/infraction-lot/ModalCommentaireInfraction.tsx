@@ -13,6 +13,7 @@ import { Formiz, useForm } from '@formiz/core';
 import { ReactElement } from 'react';
 
 import Textarea from '@/components/form/Textarea';
+import { useAuthentification } from '@/context/AuthentificationProvider';
 import useCreateEvenementCommentaire from '@/hooks/evenement/useCreateEvenementCommentaire';
 
 type ModalStatutInfractionProps = {
@@ -36,12 +37,13 @@ export default function ModalStatutInfraction(
     onClose,
     callbackOnUpdate,
   } = props;
-
+  const { invalidateUser } = useAuthentification();
   const {
     mutate: createEvenementCommentaire,
     isLoading: isLoadingCreationEvenementCommentaire,
   } = useCreateEvenementCommentaire({
     callbackOnSuccess: () => {
+      invalidateUser();
       onClose();
       callbackOnUpdate();
     },

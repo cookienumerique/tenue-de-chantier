@@ -8,4 +8,5 @@ export default interface Utilisateur {
   email: string;
   identifiant: string;
   nomEntreprise: string;
+  lastZacIdUsed: number | undefined;
 }

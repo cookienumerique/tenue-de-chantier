@@ -6,21 +6,32 @@ import {
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
+import { useEffect, useState } from 'react';
 
 import Layout from '@/components/layout/Layout';
 import Section from '@/components/section/Section';
 import CardLastInfractionsLot from '@/pages/_partials/CardLastInfractionsLot';
 import CardZacFavoris from '@/pages/_partials/CardZacFavoris';
+import useFindMe from '@/services/useFindMe';
 
 import { NextPageWithLayout } from './_app';
 
 const HomePage: NextPageWithLayout = (): ReactElement => {
-  const { query } = useRouter();
-  const { zacId } = query ?? {};
+  const { query, push } = useRouter();
+  const { zacId: zacInQueryParam } = query ?? {};
+  const { utilisateur, isLoading } = useFindMe();
+  const { lastZacIdUsed } = utilisateur ?? {};
 
-  const idZacUtilisateur = zacId ?? 95;
+  const [idZacUtilisateur, setIdZacUtilisateur] =
+    useState<number>();
   const gap = 8;
 
+  useEffect(() => {
+    if (!lastZacIdUsed) return;
+    setIdZacUtilisateur(lastZacIdUsed);
+  }, [lastZacIdUsed, push]);
+
+  const zacId = zacInQueryParam ?? idZacUtilisateur;
   return (
     <Grid
       gap={gap}
@@ -32,11 +43,19 @@ const HomePage: NextPageWithLayout = (): ReactElement => {
           flex={{ base: '1', lg: '2', xl: '4' }}
           overflowY="scroll"
         >
-          <Box
-            as="iframe"
-            src={`${process?.env?.NEXT_PUBLIC_APP_CARTO_URL}?id_zac=${idZacUtilisateur}`}
-            height="75vh"
-          />
+          {isLoading ? (
+            <>Chargement...</>
+          ) : (
+            <Box
+              as="iframe"
+              src={
+                zacId
+                  ? `${process?.env?.NEXT_PUBLIC_APP_CARTO_URL}?id_zac=${zacId}`
+                  : ''
+              }
+              height="75vh"
+            />
+          )}
         </Section>
       </GridItem>
       <GridItem colSpan={{ base: 12, lg: 4 }}>
