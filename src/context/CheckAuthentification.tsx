@@ -21,7 +21,7 @@ export const CheckAuthentification = ({
     if (!isLogged && !isLoginPage) {
       redirectToLoginPage().then((r) => r);
     }
-  }, [redirectToLoginPage]);
+  }, [redirectToLoginPage, isLogged, isLoginPage]);
 
   return children;
 };

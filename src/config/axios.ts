@@ -4,7 +4,7 @@ Axios.interceptors.response.use(
   (response) => response?.data ?? {},
   (error) => {
     if (error.response?.status === 401) {
-      window.sessionStorage.removeItem('token');
+      window.localStorage.removeItem('token');
       return window.location.reload();
     }
     return Promise.reject(error);
@@ -13,7 +13,7 @@ Axios.interceptors.response.use(
 
 Axios.interceptors.request.use(
   async (config) => {
-    const token = window.sessionStorage.getItem('token');
+    const token = window.localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

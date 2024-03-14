@@ -75,7 +75,7 @@ export const AuthentificationProvider = ({
   // Get the user from the API
   useEffect(() => {
     if (isError) {
-      //redirectToLoginPage().then((r) => r);
+      redirectToLoginPage().then((r) => r);
       return;
     }
     setUser(utilisateur);
@@ -89,19 +89,17 @@ export const AuthentificationProvider = ({
     isError,
   ]);
 
-  // Get the token from the session storage
+  // Get the token from the local storage
   useEffect(() => {
     if (window && !token) {
-      setToken(window?.sessionStorage?.getItem('token'));
+      setToken(window?.localStorage?.getItem('token'));
     }
   }, [token]);
 
   // Check if the user is logged
   useEffect(() => {
     // If the token is in storage, the user is logged
-    setIsLogged(
-      !!window?.sessionStorage?.getItem('token')
-    );
+    setIsLogged(!!window?.localStorage?.getItem('token'));
   }, [token]);
 
   /**
@@ -116,13 +114,13 @@ export const AuthentificationProvider = ({
   }) => {
     if (!utilisateur || !token) return;
     setToken(token);
-    window.sessionStorage.setItem('token', token);
+    window.localStorage.setItem('token', token);
     setUser(utilisateur);
     router?.push('/');
   };
 
   const logout = () => {
-    window.sessionStorage.removeItem('token');
+    window.localStorage.removeItem('token');
     router
       .push(
         `${process.env.NEXT_PUBLIC_APP_PHP_CAS_HOST}/logout`
