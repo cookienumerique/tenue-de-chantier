@@ -124,7 +124,7 @@ export default function ModalStatutInfraction(
               colorScheme="gray"
               onClick={onClose}
             >
-              Fermer
+              Annuler
             </Button>
             <Button
               width={{ base: '100%', sm: 'fit-content' }}

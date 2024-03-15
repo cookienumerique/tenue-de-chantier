@@ -116,7 +116,7 @@ export default function ModalFiles(
               colorScheme="gray"
               onClick={onClose}
             >
-              Fermer
+              Annuler
             </Button>
             <Button
               width="fit-content"
