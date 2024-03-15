@@ -1,5 +1,6 @@
 import {
   IconButton,
+  Image,
   Menu,
   MenuButton,
   MenuItem,
@@ -35,6 +36,11 @@ export default function LayoutHeader(): ReactElement {
   const isMobile = useBreakpointValue({
     base: true,
     lg: false,
+  });
+
+  const isTabletteAndMore = useBreakpointValue({
+    base: false,
+    sm: true,
   });
 
   const navData = [
@@ -98,10 +104,31 @@ export default function LayoutHeader(): ReactElement {
           ) : (
             <></>
           )}
-          <HeaderTitle
-            fontSize={{ base: 'sm', md: 'md' }}
+
+          <Image
+            src="/images/epa-logo.png"
+            alt="logo-epa"
+            width={{
+              base: '140px',
+              sm: '140px',
+              md: '150px',
+              lg: '120px',
+              xl: '120px',
+            }}
           />
+          {isTabletteAndMore ? (
+            <HeaderTitle
+              fontSize={{
+                base: '2xs',
+                sm: 'xs',
+                xl: 'sm',
+              }}
+            />
+          ) : (
+            <></>
+          )}
         </Stack>
+
         <Stack direction="row">
           {isDesktop ? (
             <Stack
@@ -113,6 +140,7 @@ export default function LayoutHeader(): ReactElement {
                   key={item?.label}
                   onClick={item?.onClick}
                   icon={item?.icon}
+                  fontSize={{ base: '2xs', xl: 'sm' }}
                 >
                   {item?.label}
                 </NavigationItem>

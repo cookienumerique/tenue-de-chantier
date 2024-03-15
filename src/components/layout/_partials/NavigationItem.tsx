@@ -1,15 +1,27 @@
-import { Stack, Text } from '@chakra-ui/react';
+import {
+  ResponsiveValue,
+  Stack,
+  Text,
+} from '@chakra-ui/react';
 import React from 'react';
 
 type NavigationProps = {
   children: string;
   onClick: () => void;
   icon: React.ReactNode;
+  fontSize?: ResponsiveValue<
+    string & NonNullable<unknown>
+  >;
 };
 export const NavigationItem = (
   props: NavigationProps
 ) => {
-  const { children, onClick, icon } = props;
+  const {
+    children,
+    onClick,
+    icon,
+    fontSize = 'sm',
+  } = props;
   return (
     <Stack
       onClick={onClick}
@@ -27,7 +39,7 @@ export const NavigationItem = (
     >
       {icon}
       <Text
-        fontSize="sm"
+        fontSize={fontSize}
         color="gray.600"
       >
         {children}
