@@ -12,6 +12,7 @@ import {
 import { Formiz, useForm } from '@formiz/core';
 import { ReactElement } from 'react';
 
+import ButtonCancel from '@/app-components/button/ButtonCancel';
 import Textarea from '@/components/form/Textarea';
 import { useAuthentification } from '@/context/AuthentificationProvider';
 import useCreateEvenementCommentaire from '@/hooks/evenement/useCreateEvenementCommentaire';
@@ -100,14 +101,11 @@ export default function ModalStatutInfraction(
             width="100%"
             justifyContent="end"
           >
-            <Button
-              width={{ base: '100%', sm: 'fit-content' }}
-              type="button"
-              colorScheme="gray"
+            <ButtonCancel
               onClick={onClose}
-            >
-              Annuler
-            </Button>
+              width={{ base: '100%', sm: 'fit-content' }}
+            />
+
             <Button
               width={{ base: '100%', sm: 'fit-content' }}
               type="button"

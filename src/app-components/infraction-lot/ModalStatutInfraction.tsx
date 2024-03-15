@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Modal,
   ModalBody,
@@ -8,12 +7,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Popover,
-  PopoverBody,
-  PopoverContent,
-  PopoverTrigger,
   Stack,
-  Text,
 } from '@chakra-ui/react';
 import {
   Field,
@@ -24,7 +18,9 @@ import {
 import dayjs from 'dayjs';
 import { ReactElement } from 'react';
 
+import ButtonCancel from '@/app-components/button/ButtonCancel';
 import InputDateButoir from '@/app-components/form/InputDateButoir';
+import PopoverCloseInfraction from '@/app-components/popover/PopoverCloseInfraction';
 import Select from '@/components/form/Select';
 import InfractionLotStatutEnum from '@/enums/InfractionLotStatutEnum';
 import useUpdateInfractionLot from '@/hooks/infractionLots/useUpdateInfractionLot';
@@ -101,10 +97,7 @@ export default function ModalStatutInfraction(
   const infractionWillBeClosed =
     statut?.value?.label ===
     InfractionLotStatutEnum.INFRACTION_FERMEE;
-  console.log(
-    statut?.value?.label,
-    InfractionLotStatutEnum.INFRACTION_FERMEE
-  );
+
   return (
     <Modal
       isOpen={isOpen}
@@ -112,12 +105,12 @@ export default function ModalStatutInfraction(
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>
-          Modifier le statut de l&apos;infraction
-        </ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <Formiz connect={form}>
+        <Formiz connect={form}>
+          <ModalHeader>
+            Modifier le statut de l&apos;infraction
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
             <Stack>
               <Select
                 label="Choisissez un nouveau statut"
@@ -132,108 +125,44 @@ export default function ModalStatutInfraction(
                 min={dayjs().format('YYYY-MM-DD')}
               />
             </Stack>
-          </Formiz>
-        </ModalBody>
+          </ModalBody>
 
-        <ModalFooter>
-          <Stack
-            gap="xs"
-            direction={{ base: 'column', sm: 'row' }}
-            width="100%"
-            justifyContent="end"
-          >
-            <Button
-              width={{ base: '100%', sm: 'fit-content' }}
-              type="button"
-              colorScheme="gray"
-              onClick={onClose}
+          <ModalFooter>
+            <Stack
+              gap="xs"
+              direction={{ base: 'column', sm: 'row' }}
+              width="100%"
+              justifyContent="end"
             >
-              Annuler
-            </Button>
-            {infractionWillBeClosed ? (
-              <Popover>
-                {({ onClose }) => (
-                  <>
-                    <PopoverTrigger>
-                      <Button
-                        width={{
-                          base: '100%',
-                          sm: 'fit-content',
-                        }}
-                        type="button"
-                        colorScheme="red"
-                        isLoading={isLoadingUpdate}
-                      >
-                        Fermer l&apos;infraction
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent>
-                      <PopoverBody>
-                        <Stack gap="2xs">
-                          <Text
-                            fontSize="sm"
-                            color="gray.600"
-                          >
-                            Êtes-vous sûr de vouloir
-                            fermer cette infraction?{' '}
-                            <Box
-                              as="span"
-                              fontWeight="bold"
-                            >
-                              Cette action est
-                              irréversible.
-                            </Box>
-                          </Text>
-                          <Stack
-                            direction={{ md: 'row' }}
-                            justifyContent="end"
-                          >
-                            <Button
-                              width={{
-                                base: '100%',
-                                sm: 'fit-content',
-                              }}
-                              type="button"
-                              colorScheme="gray"
-                              onClick={onClose}
-                            >
-                              Annuler
-                            </Button>
-                            <Button
-                              width={{
-                                base: '100%',
-                                sm: 'fit-content',
-                              }}
-                              type="button"
-                              colorScheme="green"
-                              onClick={form.submit}
-                              isLoading={isLoadingUpdate}
-                            >
-                              Confirmer
-                            </Button>
-                          </Stack>
-                        </Stack>
-                      </PopoverBody>
-                    </PopoverContent>
-                  </>
-                )}
-              </Popover>
-            ) : (
-              <Button
+              <ButtonCancel
+                onClick={onClose}
                 width={{
                   base: '100%',
                   sm: 'fit-content',
                 }}
-                type="button"
-                colorScheme="primary"
-                onClick={form.submit}
-                isLoading={isLoadingUpdate}
-              >
-                Modifier le statut
-              </Button>
-            )}
-          </Stack>
-        </ModalFooter>
+              />
+
+              {infractionWillBeClosed ? (
+                <PopoverCloseInfraction
+                  isLoading={isLoadingUpdate}
+                />
+              ) : (
+                <Button
+                  width={{
+                    base: '100%',
+                    sm: 'fit-content',
+                  }}
+                  type="button"
+                  colorScheme="primary"
+                  onClick={form.submit}
+                  isLoading={isLoadingUpdate}
+                >
+                  Modifier le statut
+                </Button>
+              )}
+            </Stack>
+          </ModalFooter>
+        </Formiz>
       </ModalContent>
     </Modal>
   );

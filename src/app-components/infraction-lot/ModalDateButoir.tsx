@@ -13,6 +13,7 @@ import { Formiz, useForm } from '@formiz/core';
 import dayjs from 'dayjs';
 import { ReactElement } from 'react';
 
+import ButtonCancel from '@/app-components/button/ButtonCancel';
 import InputDateButoir from '@/app-components/form/InputDateButoir';
 import useUpdateInfractionLot from '@/hooks/infractionLots/useUpdateInfractionLot';
 
@@ -98,14 +99,10 @@ export default function ModalDateButoir(
             width="100%"
             justifyContent="end"
           >
-            <Button
-              width={{ base: '100%', sm: 'fit-content' }}
-              type="button"
-              colorScheme="gray"
+            <ButtonCancel
               onClick={onClose}
-            >
-              Annuler
-            </Button>
+              width={{ base: '100%', sm: 'fit-content' }}
+            />
             <Button
               width={{ base: '100%', sm: 'fit-content' }}
               type="button"

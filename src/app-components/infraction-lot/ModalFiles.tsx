@@ -16,6 +16,7 @@ import {
 } from '@formiz/core';
 import { ReactElement } from 'react';
 
+import ButtonCancel from '@/app-components/button/ButtonCancel';
 import InputFiles from '@/components/form/InputFiles';
 import getReferenceTable from '@/functions/file/getReferenceTable';
 import useUploadFiles from '@/hooks/file/useUploadFiles';
@@ -110,14 +111,10 @@ export default function ModalFiles(
             gap="xs"
             direction="row"
           >
-            <Button
-              width="fit-content"
-              type="button"
-              colorScheme="gray"
+            <ButtonCancel
               onClick={onClose}
-            >
-              Annuler
-            </Button>
+              width="fit-content"
+            />
             <Button
               width="fit-content"
               type="button"

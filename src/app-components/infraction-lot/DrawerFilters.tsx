@@ -13,6 +13,7 @@ import { Formiz, useForm } from '@formiz/core';
 import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
 
+import ButtonCancel from '@/app-components/button/ButtonCancel';
 import InputDateButoir from '@/app-components/form/InputDateButoir';
 import InputDateCreation from '@/app-components/form/InputDateCreation';
 import SelectInfractionLotStatut from '@/app-components/form/SelectInfractionLotStatut';
@@ -159,14 +160,11 @@ export default function DrawerFilters(
         </DrawerBody>
 
         <DrawerFooter gap="xs">
-          <Button
-            width={{ base: '100%', sm: 'fit-content' }}
-            type="button"
-            colorScheme="gray"
+          <ButtonCancel
             onClick={onClose}
-          >
-            Annuler
-          </Button>
+            width={{ base: '100%', sm: 'fit-content' }}
+          />
+
           <Button
             width={{ base: '100%', sm: 'fit-content' }}
             type="button"
