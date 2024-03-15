@@ -52,7 +52,7 @@ export default function LayoutHeader(): ReactElement {
     {
       label: 'Créer une infraction',
       icon: <IoAddSharp />,
-      onClick: () => push('infractions-lots'),
+      onClick: () => push('/infractions-lots'),
     },
     {
       label: 'Rechercher des infractions',
@@ -68,6 +68,7 @@ export default function LayoutHeader(): ReactElement {
       position="sticky"
       top="0"
       backgroundColor="white"
+      zIndex={1}
     >
       <Stack
         display="flex"
@@ -79,6 +80,7 @@ export default function LayoutHeader(): ReactElement {
           direction="row"
           alignItems="center"
           gap="sm"
+          zIndex={1}
         >
           {isMobile ? (
             <Menu>
