@@ -39,7 +39,6 @@ const HomePage: NextPageWithLayout = (): ReactElement => {
     >
       <GridItem colSpan={{ base: 12, lg: 8 }}>
         <Section
-          title="Sélectionner un lot pour débuter votre navigation"
           flex={{ base: '1', lg: '2', xl: '4' }}
           overflowY="scroll"
         >

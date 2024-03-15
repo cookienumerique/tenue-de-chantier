@@ -7,7 +7,7 @@ import { ReactElement } from 'react';
 
 type SectionProps = {
   children: ReactElement | ReactElement[];
-  title: string;
+  title?: string;
 } & StackProps;
 
 export default function Section(
@@ -26,13 +26,18 @@ export default function Section(
       gap="sm"
       {...rest}
     >
-      <Text
-        fontSize="lg"
-        fontWeight="bold"
-        color="gray.700"
-      >
-        {title}
-      </Text>
+      {title ? (
+        <Text
+          fontSize="lg"
+          fontWeight="bold"
+          color="gray.700"
+        >
+          {title}
+        </Text>
+      ) : (
+        <></>
+      )}
+
       <Stack gap="sm">{children}</Stack>
     </Stack>
   );
