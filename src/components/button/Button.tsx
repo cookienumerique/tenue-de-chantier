@@ -32,6 +32,7 @@ export default function Button(
       leftIcon={leftIcon}
       isDisabled={isDisabled}
       size={size}
+      whiteSpace="normal"
     >
       {children}
     </ButtonChakra>
