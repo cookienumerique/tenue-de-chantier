@@ -7,7 +7,7 @@ Axios.interceptors.response.use(
       window.localStorage.removeItem('token');
       return window.location.reload();
     }
-    return Promise.reject(error);
+    return error.response ?? {};
   }
 );
 
