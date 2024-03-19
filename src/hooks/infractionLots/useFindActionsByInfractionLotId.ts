@@ -23,7 +23,11 @@ const useFindActionsByInfractionLotId = ({
   ];
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError } = useQuery(
+  const {
+    data: response,
+    isLoading,
+    isError,
+  } = useQuery(
     queryKey,
     async () => {
       return axios.get(
@@ -37,7 +41,7 @@ const useFindActionsByInfractionLotId = ({
     queryClient.invalidateQueries(queryKey);
 
   const { actions } =
-    (data as unknown as {
+    (response?.data as unknown as {
       actions: ActionInfractionType | undefined;
     }) ?? {};
 

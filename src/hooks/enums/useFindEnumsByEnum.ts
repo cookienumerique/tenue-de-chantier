@@ -21,7 +21,11 @@ const useFindEnumsByEnumName = (
   const queryKey = key ?? ['enums', enumName];
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError } = useQuery(
+  const {
+    data: response,
+    isLoading,
+    isError,
+  } = useQuery(
     queryKey,
     () => {
       return axios.get(
@@ -35,7 +39,7 @@ const useFindEnumsByEnumName = (
     queryClient.invalidateQueries(queryKey);
 
   const { enums } =
-    (data as unknown as {
+    (response?.data as unknown as {
       enums: string[];
     }) ?? {};
 

@@ -18,7 +18,11 @@ const useFindZacFavoris = ({
   const queryKey = [key ?? ['zac-favoris']];
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError } = useQuery(
+  const {
+    data: response,
+    isLoading,
+    isError,
+  } = useQuery(
     queryKey,
     async () => {
       return axios.get(
@@ -32,7 +36,7 @@ const useFindZacFavoris = ({
     queryClient.invalidateQueries(queryKey);
 
   const { zac_favoris } =
-    (data as unknown as {
+    (response?.data as unknown as {
       zac_favoris: ZacFavoris[] | undefined;
     }) ?? {};
 

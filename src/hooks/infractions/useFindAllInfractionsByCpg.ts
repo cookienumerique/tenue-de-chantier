@@ -19,7 +19,11 @@ const useFindAllInfractionsByCpg = ({
   const queryKey = key ?? ['infractions'];
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError } = useQuery(
+  const {
+    data: response,
+    isLoading,
+    isError,
+  } = useQuery(
     queryKey,
     () => {
       return axios.get(
@@ -36,7 +40,7 @@ const useFindAllInfractionsByCpg = ({
     queryClient.invalidateQueries(queryKey);
 
   const { infractions } =
-    (data as unknown as {
+    (response?.data as unknown as {
       infractions: Infraction[] | undefined;
     }) ?? {};
 
