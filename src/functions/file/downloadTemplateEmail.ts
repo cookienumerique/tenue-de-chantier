@@ -1,4 +1,5 @@
 import axios from 'axios';
+import dayjs from 'dayjs';
 
 import downloadBlob from '@/functions/file/downloadBlob';
 
@@ -18,9 +19,11 @@ const downloadTemplateEmail = async ({
       }
     );
 
+    // format y m d h i s with dayjs
+    const date = dayjs().format('YYYYMMDD_HHmmss');
     return downloadBlob({
-      blob: response as unknown as Blob,
-      fileName: 'template-email.docx',
+      blob: response?.data as unknown as Blob,
+      fileName: `${date}_template-email.docx`,
     });
   } catch (e) {
     console.error(e);
