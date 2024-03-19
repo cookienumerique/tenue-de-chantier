@@ -42,6 +42,7 @@ const ButtonActionsInfractionLot = (
     onCloseModalCommentaireInfraction,
   } = useBuildMenuActionInfractionLot({
     actions: actions,
+    infractionLotId,
   });
 
   const { invalidate: invalidateFilesInfractionLot } =
