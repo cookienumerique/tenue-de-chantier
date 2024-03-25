@@ -37,13 +37,22 @@ export default function SelectZac(
     isError,
   } = useFindAllZacSelectOptions();
 
+  const zacListOrdered = options?.sort((a, b) => {
+    if (!a?.label || !b?.label) {
+      return 0;
+    }
+    return a?.label
+      ?.toString()
+      ?.localeCompare(b?.label?.toString());
+  });
+
   return (
     <Select
       label="ZAC"
       placeholder="Sélection de la ZAC"
       isLoading={isLoading}
       isError={isError}
-      options={options}
+      options={zacListOrdered}
       defaultValue={options?.find(
         (option) =>
           option?.value?.toString() ===

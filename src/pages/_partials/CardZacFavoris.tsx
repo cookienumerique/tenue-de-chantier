@@ -61,7 +61,11 @@ export default function CardZacFavoris(): ReactElement {
       <ListZacFavoris
         isLoading={isLoading}
         isError={isError}
-        zacFavoris={zacFavoris}
+        zacFavoris={zacFavoris?.sort((a, b) =>
+          a.zac?.libZacMin?.localeCompare(
+            b?.zac?.libZacMin
+          )
+        )}
         callbackOnSuccessDelete={invalidateZacFavoris}
       />
     </Section>
