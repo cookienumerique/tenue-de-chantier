@@ -15,7 +15,9 @@ export type CreateInfractionLotPayload = {
 };
 
 export type CreationInfractionLotResponse =
-  AxiosResponse<{ infractions_lot: Lot }>;
+  AxiosResponse<{
+    data: { infractions_lot: Lot };
+  }>;
 /**
  * @description Création d'une infraction lot
  */
@@ -28,7 +30,6 @@ const useCreateInfractionLot = (
   } = props ?? {};
   const toastSuccess = useToastSuccess();
   return useMutation(
-    // @ts-expect-error todo
     (payload: CreateInfractionLotPayload) => {
       return Axios.post(
         `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/infractions-lots`,
@@ -39,9 +40,12 @@ const useCreateInfractionLot = (
       onError: (error) => {
         callbackOnError(error);
       },
-      onSuccess: async (data: {
-        infractions_lots: Lot;
+      onSuccess: async ({
+        data,
+      }: {
+        data: { infractions_lots: Lot };
       }) => {
+        console.log(data);
         toastSuccess({
           title: 'Création réussie',
           description:
