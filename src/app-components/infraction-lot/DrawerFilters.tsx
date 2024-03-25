@@ -45,7 +45,7 @@ export default function DrawerFilters(
     optionUrgence: LabelValue | undefined;
     optionSousCategorie: LabelValue | undefined;
     optionUtilisateur: LabelValue | undefined;
-    optionStatut: LabelValue | undefined;
+    optionStatut: Array<LabelValue> | undefined;
     dateButoir: string | undefined;
     date: string | undefined;
   }) => {
@@ -66,14 +66,29 @@ export default function DrawerFilters(
       urgence: optionUrgence?.label,
       sousCategorie: optionSousCategorie?.label,
       utilisateur: optionUtilisateur?.value,
-      statut: optionStatut?.label,
       dateButoir,
       date,
     };
+    // Remove nulls values
+    const noNullsValues = removeNullsProperties(payload);
 
-    const queryString = new URLSearchParams(
-      removeNullsProperties(payload)
-    )?.toString();
+    const queryParams = new URLSearchParams(
+      noNullsValues
+    );
+
+    // For each optionStatut, add it to the query parameters
+    if (optionStatut) {
+      optionStatut.forEach((statut) => {
+        if (statut?.label) {
+          queryParams.append(
+            `statut`,
+            statut.label?.toString()
+          );
+        }
+      });
+    }
+    const queryString = queryParams?.toString();
+
     push(`${pathname}?${queryString}`).then((r) => r);
     onClose();
   };
@@ -103,7 +118,7 @@ export default function DrawerFilters(
           <Formiz connect={form}>
             <Stack gap="sm">
               <SelectZac
-                name="optionZac"
+                name="optionZac[]"
                 defaultValue={queryParamsUrl?.get(
                   'zacId'
                 )}
@@ -121,9 +136,13 @@ export default function DrawerFilters(
               />
 
               <SelectInfractionLotStatut
-                defaultValue={queryParamsUrl?.get(
-                  'statut'
-                )}
+                defaultValue={queryParamsUrl
+                  ?.get('statut')
+                  ?.split(',')
+                  ?.map((statut) => ({
+                    value: statut,
+                    label: statut,
+                  }))}
               />
 
               <SelectInfraction

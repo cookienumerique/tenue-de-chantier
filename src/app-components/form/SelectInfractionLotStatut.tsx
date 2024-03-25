@@ -2,9 +2,13 @@ import { ReactElement } from 'react';
 
 import Select from '@/components/form/Select';
 import useFindEnumsByEnumName from '@/hooks/enums/useFindEnumsByEnum';
+import LabelValue from '@/interfaces/LabelValue';
 
 type SelectInfractionLotStatutProps = {
-  defaultValue?: string | number | null;
+  defaultValue?:
+    | Array<LabelValue>
+    | LabelValue
+    | undefined;
   name?: string;
   required?: boolean;
 };
@@ -33,19 +37,28 @@ export default function SelectInfractionLotStatut(
     label: enumItem,
   }));
 
+  // Generate a key for the defaultValue for refresh component
+  const generateKey = () => {
+    // If the default values are array of objects, we need to return a string like "value1,value2"
+    if (Array.isArray(defaultValue)) {
+      return defaultValue?.reduce((acc, value) => {
+        return `${acc},${value.value}`;
+      }, '');
+    }
+  };
+
   return (
     <Select
+      isMulti
       label="Statut de l'infraction"
       placeholder={options?.[0]?.label}
       isLoading={isLoading}
       isError={isError}
       options={options}
-      defaultValue={options?.find(
-        (option) => option.value === defaultValue
-      )}
+      defaultValue={defaultValue}
       name={name}
       required={required}
-      key={defaultValue}
+      key={generateKey()}
     />
   );
 }

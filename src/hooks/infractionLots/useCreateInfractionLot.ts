@@ -45,7 +45,6 @@ const useCreateInfractionLot = (
       }: {
         data: { infractions_lots: Lot };
       }) => {
-        console.log(data);
         toastSuccess({
           title: 'Création réussie',
           description:

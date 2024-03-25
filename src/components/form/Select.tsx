@@ -19,7 +19,7 @@ import LabelValue from '@/interfaces/LabelValue';
 
 type SelectProps = {
   options: LabelValue[] | undefined;
-  defaultValue?: LabelValue | undefined;
+  defaultValue?: LabelValue[] | LabelValue | undefined;
   label?: string;
   name: string;
   helperMessage?: string;
@@ -37,6 +37,7 @@ type SelectProps = {
   optionMessage?: string;
   validations?: FieldValidation[];
   isDisabled?: boolean;
+  isMulti?: boolean;
 };
 
 export default function Select(
@@ -55,6 +56,7 @@ export default function Select(
     optionMessage = 'Aucune option disponible',
     validations,
     isDisabled = false,
+    isMulti = false,
   } = props;
 
   const {
@@ -110,6 +112,7 @@ export default function Select(
         {label}
       </FormLabel>
       <ReactSelect
+        isMulti={isMulti}
         instanceId={props?.name}
         // @ts-expect-error to fix
         onChange={handleChange}
