@@ -1,7 +1,12 @@
 import { useDisclosure } from '@chakra-ui/hooks';
 import { Stack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { ReactElement } from 'react';
+import {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+} from 'react';
 import { BsFilterCircle } from 'react-icons/bs';
 import { FaUser, FaUserAltSlash } from 'react-icons/fa';
 import { MdFilterListOff } from 'react-icons/md';
@@ -13,6 +18,7 @@ import Button from '@/components/button/Button';
 import Layout from '@/components/layout/Layout';
 import TitlePage from '@/components/text/TitlePage';
 import { useAuthentification } from '@/context/AuthentificationProvider';
+import InfractionLotStatutEnum from '@/enums/InfractionLotStatutEnum';
 import useFindInfractionLot from '@/hooks/infractionLots/useFindInfractionLot';
 
 const ListeInfractionsLotsPage = () => {
@@ -20,8 +26,9 @@ const ListeInfractionsLotsPage = () => {
   const { push, pathname, query } = useRouter();
   const { user } = useAuthentification();
 
-  const searchParams = new URLSearchParams(
-    query as unknown as string
+  const searchParams = useMemo(
+    () => new URLSearchParams(query as unknown as string),
+    [query]
   );
 
   const {
@@ -32,8 +39,29 @@ const ListeInfractionsLotsPage = () => {
     queryParameters: searchParams,
   });
 
-  const handleResetFilters = () =>
-    push(pathname).then((r) => r);
+  // Initialize status by default
+  const initStatusByDefault = useCallback(async () => {
+    const queryParametersStatus = new URLSearchParams();
+    Object.values(InfractionLotStatutEnum).forEach(
+      (statut) => {
+        if (
+          !queryParametersStatus
+            .get('statut')
+            ?.split(',')
+            .includes(statut) &&
+          statut !==
+            InfractionLotStatutEnum.INFRACTION_FERMEE
+        ) {
+          queryParametersStatus.append('statut', statut);
+        }
+      }
+    );
+    return push(
+      `${pathname}?${queryParametersStatus?.toString()}`
+    ).then((r) => r);
+  }, [pathname, push]);
+
+  const handleResetFilters = () => initStatusByDefault();
 
   const handleDisplayMyInfractions = () => {
     // If the user is already in the query parameters, remove it
@@ -50,6 +78,15 @@ const ListeInfractionsLotsPage = () => {
       (r) => r
     );
   };
+
+  useEffect(() => {
+    // If the status is already in the query parameters, do nothing
+    if (searchParams?.has('statut')) {
+      return;
+    }
+    // Initialize status by default
+    initStatusByDefault().then((r) => r);
+  }, [initStatusByDefault, searchParams]);
 
   return (
     <Stack>

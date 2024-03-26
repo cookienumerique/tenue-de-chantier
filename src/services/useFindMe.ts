@@ -9,17 +9,22 @@ import Utilisateur from '@/interfaces/Utilisateur';
 const useFindMe = (
   { enabled }: { enabled: boolean } = { enabled: true }
 ) => {
-  const { data, isLoading, isError, refetch, isSuccess } =
-    useQuery(
-      ['utilisateur-me'],
-      () =>
-        axios.get(
-          `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/utilisateurs/me`
-        ),
-      { refetchOnMount: false, enabled }
-    );
+  const {
+    data: response,
+    isLoading,
+    isError,
+    refetch,
+    isSuccess,
+  } = useQuery(
+    ['utilisateur-me'],
+    () =>
+      axios.get(
+        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/utilisateurs/me`
+      ),
+    { refetchOnMount: false, enabled }
+  );
   const { utilisateur, token } =
-    (data as unknown as {
+    (response?.data as unknown as {
       utilisateur: Utilisateur;
       token: string;
     }) ?? {};

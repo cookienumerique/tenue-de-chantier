@@ -19,7 +19,7 @@ const downloadTemplate = async ({
     );
 
     return downloadBlob({
-      blob: response as unknown as Blob,
+      blob: response?.data as unknown as Blob,
       fileName,
     });
   } catch (e) {

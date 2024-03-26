@@ -18,7 +18,11 @@ const useFindAllLot = ({
   const queryKey = ['lots', queryParameters?.toString()];
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError } = useQuery(
+  const {
+    data: response,
+    isLoading,
+    isError,
+  } = useQuery(
     queryKey,
     () =>
       axios.get(
@@ -34,7 +38,7 @@ const useFindAllLot = ({
     queryClient.invalidateQueries(queryKey);
 
   const { lots } =
-    (data as unknown as {
+    (response?.data as unknown as {
       lots: Lot[] | undefined;
     }) ?? {};
 

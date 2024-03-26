@@ -26,7 +26,11 @@ const useFindAllInfractions = ({
   ];
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError } = useQuery(
+  const {
+    data: response,
+    isLoading,
+    isError,
+  } = useQuery(
     queryKey,
     async () => {
       return axios.get(
@@ -41,7 +45,7 @@ const useFindAllInfractions = ({
     queryClient.invalidateQueries(queryKey);
 
   const { infractions_lots } =
-    (data as unknown as {
+    (response?.data as unknown as {
       infractions_lots: InfractionLot[] | undefined;
     }) ?? {};
 

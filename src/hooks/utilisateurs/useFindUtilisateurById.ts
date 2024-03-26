@@ -21,7 +21,11 @@ const useFindUtilisateurById = ({
   const queryKey = [key ?? `utilisateur-${id}`];
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError } = useQuery(
+  const {
+    data: response,
+    isLoading,
+    isError,
+  } = useQuery(
     queryKey,
     async () => {
       return axios.get(
@@ -35,7 +39,7 @@ const useFindUtilisateurById = ({
     queryClient.invalidateQueries(queryKey);
 
   const { utilisateurs } =
-    (data as unknown as {
+    (response?.data as unknown as {
       utilisateurs: Utilisateur | undefined;
     }) ?? {};
 

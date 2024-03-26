@@ -17,7 +17,11 @@ const useFindAllZac = ({
   const queryKey = ['zacs'];
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError } = useQuery(
+  const {
+    data: response,
+    isLoading,
+    isError,
+  } = useQuery(
     queryKey,
     () =>
       axios.get(
@@ -30,7 +34,7 @@ const useFindAllZac = ({
     queryClient.invalidateQueries(queryKey);
 
   const { zacs } =
-    (data as unknown as {
+    (response?.data as unknown as {
       zacs: Zac[] | undefined;
     }) ?? {};
 

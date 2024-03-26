@@ -19,7 +19,11 @@ const useFindLotById = ({
   const queryKey = [key ?? `lot-${id}`];
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError } = useQuery(
+  const {
+    data: response,
+    isLoading,
+    isError,
+  } = useQuery(
     queryKey,
     async () => {
       return axios.get(
@@ -33,7 +37,7 @@ const useFindLotById = ({
     queryClient.invalidateQueries(queryKey);
 
   const { lots } =
-    (data as unknown as {
+    (response?.data as unknown as {
       lots: Lot | undefined;
     }) ?? {};
 

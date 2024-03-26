@@ -21,7 +21,11 @@ const useValidateTicketPhpCAS = ({
   const queryKey = ['ticket-php-cas'];
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError } = useQuery(
+  const {
+    data: response,
+    isLoading,
+    isError,
+  } = useQuery(
     queryKey,
     async () => {
       return axios.get(
@@ -35,7 +39,7 @@ const useValidateTicketPhpCAS = ({
     queryClient.invalidateQueries(queryKey);
 
   const { utilisateur, token } =
-    (data as unknown as {
+    (response?.data as unknown as {
       utilisateur: Utilisateur | undefined;
       token: string;
     }) ?? {};

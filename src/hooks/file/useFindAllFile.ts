@@ -18,7 +18,11 @@ const useFindAllFile = ({
   const queryKey = ['files', queryParameters?.toString()];
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError } = useQuery(
+  const {
+    data: response,
+    isLoading,
+    isError,
+  } = useQuery(
     queryKey,
     () =>
       axios.get(
@@ -34,7 +38,7 @@ const useFindAllFile = ({
     queryClient.invalidateQueries(queryKey);
 
   const { files } =
-    (data as unknown as {
+    (response?.data as unknown as {
       files: File[] | undefined;
     }) ?? {};
 
