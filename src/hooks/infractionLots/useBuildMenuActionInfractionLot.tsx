@@ -12,10 +12,12 @@ import { TbPhotoShare } from 'react-icons/tb';
 import ActionInfractionEnum from '@/enums/ActionInfractionEnum';
 import PatrimoineZacEnum from '@/enums/PatrimoineZacEnum';
 import downloadTemplate from '@/functions/file/downloadTemplate';
+import downloadTemplateEmail from '@/functions/file/downloadTemplateEmail';
 import ActionInfractionType from '@/types/action/ActionInfractionType';
 
 type BuildMenuActionInfractionLotProps = {
   actions: ActionInfractionType | undefined;
+  infractionLotId: string | undefined;
   patrimoineZac: PatrimoineZacEnum | undefined;
 };
 
@@ -41,6 +43,7 @@ type BuildMenuActionInfractionLotReturn = {
  */
 const useBuildMenuActionInfractionLot = ({
   actions,
+  infractionLotId,
   patrimoineZac,
 }: BuildMenuActionInfractionLotProps): BuildMenuActionInfractionLotReturn => {
   const {
@@ -81,7 +84,8 @@ const useBuildMenuActionInfractionLot = ({
     [ActionInfractionEnum.ECRIRE_EMAIL]: {
       label: 'Ecrire un email',
       icon: IoMailOutline,
-      onClick: () => alert('Ecrire un email'),
+      onClick: () =>
+        downloadTemplateEmail({ infractionLotId }),
     },
     [ActionInfractionEnum.ECRIRE_COURRIER_MISE_EN_DEMEURE]:
       {

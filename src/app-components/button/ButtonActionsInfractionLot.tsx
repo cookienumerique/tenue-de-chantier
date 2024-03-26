@@ -56,6 +56,7 @@ const ButtonActionsInfractionLot = (
     onCloseModalCommentaireInfraction,
   } = useBuildMenuActionInfractionLot({
     actions: actions,
+    infractionLotId,
     patrimoineZac: libAmgr,
   });
 
