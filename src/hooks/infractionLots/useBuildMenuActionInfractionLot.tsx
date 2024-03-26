@@ -10,11 +10,13 @@ import { RiDownloadCloudLine } from 'react-icons/ri';
 import { TbPhotoShare } from 'react-icons/tb';
 
 import ActionInfractionEnum from '@/enums/ActionInfractionEnum';
+import PatrimoineZacEnum from '@/enums/PatrimoineZacEnum';
 import downloadTemplate from '@/functions/file/downloadTemplate';
 import ActionInfractionType from '@/types/action/ActionInfractionType';
 
 type BuildMenuActionInfractionLotProps = {
   actions: ActionInfractionType | undefined;
+  patrimoineZac: PatrimoineZacEnum | undefined;
 };
 
 type BuildMenuActionInfractionLotReturn = {
@@ -39,6 +41,7 @@ type BuildMenuActionInfractionLotReturn = {
  */
 const useBuildMenuActionInfractionLot = ({
   actions,
+  patrimoineZac,
 }: BuildMenuActionInfractionLotProps): BuildMenuActionInfractionLotReturn => {
   const {
     isOpen: isOpenModalFiles,
@@ -86,8 +89,7 @@ const useBuildMenuActionInfractionLot = ({
         icon: RiDownloadCloudLine,
         onClick: () =>
           downloadTemplate({
-            fileName:
-              'courrier-constat-mise-en-demeure.docx',
+            fileName: `${patrimoineZac}/courrier_infraction.docx`,
           }).then((r) => r),
       },
     [ActionInfractionEnum.ECRIRE_COURRIER_CONSTAT_CARENCE]:
@@ -96,7 +98,7 @@ const useBuildMenuActionInfractionLot = ({
         icon: RiDownloadCloudLine,
         onClick: () =>
           downloadTemplate({
-            fileName: 'courrier-constat-de-carence.docx',
+            fileName: `${patrimoineZac}/courrier_de_carence.docx`,
           }).then((r) => r),
       },
     [ActionInfractionEnum.ECRIRE_COURRIER_COMPLEMENTAIRE]:
@@ -105,7 +107,7 @@ const useBuildMenuActionInfractionLot = ({
         icon: RiDownloadCloudLine,
         onClick: () =>
           downloadTemplate({
-            fileName: 'courrier-complementaire.docx',
+            fileName: `${patrimoineZac}/courrier_constat_de_récidive.docx`,
           }).then((r) => r),
       },
     [ActionInfractionEnum.CHANGER_STATUT]: {

@@ -1,4 +1,4 @@
-import PatrimoineEnum from '@/enums/PatrimoineEnum';
+import PatrimoineZacEnum from '@/enums/PatrimoineZacEnum';
 
 export default interface Zac {
   id: number;
@@ -6,8 +6,7 @@ export default interface Zac {
   libZacMin: string;
   codStat: string;
   codSect: string;
-  libAmgr: string;
+  libAmgr: PatrimoineZacEnum;
   cod: string;
   geom: string;
-  patrimoine: PatrimoineEnum;
 }
