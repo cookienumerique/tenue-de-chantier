@@ -1,4 +1,4 @@
-import { Stack, Th, Thead, Tr } from '@chakra-ui/react';
+import { Stack } from '@chakra-ui/react';
 import { flexRender, Table } from '@tanstack/react-table';
 import { ReactElement } from 'react';
 import {
@@ -17,11 +17,16 @@ const HeadTable = (
 ): ReactElement => {
   const { table } = props;
   return (
-    <Thead borderRadius="sm">
+    <>
       {table.getHeaderGroups().map((headerGroup) => (
-        <Tr key={headerGroup.id}>
+        <Stack
+          key={headerGroup.id}
+          width="100%"
+          direction="row"
+          gap={0}
+        >
           {headerGroup.headers.map((header) => (
-            <Th
+            <Stack
               key={header.id}
               onClick={header.column.getToggleSortingHandler()}
               cursor={
@@ -29,29 +34,27 @@ const HeadTable = (
                   ? 'pointer'
                   : 'normal'
               }
+              direction="row"
+              alignItems="center"
+              width="fit-content"
+              {...header.column?.columnDef?.meta}
             >
-              <Stack
-                direction="row"
-                alignItems="center"
-              >
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-                {{
-                  asc: <HiOutlineChevronDown size={13} />,
-                  desc: <HiOutlineChevronUp size={13} />,
-                }[
-                  header.column.getIsSorted() as string
-                ] ?? null}
-              </Stack>
-            </Th>
+              {header.isPlaceholder
+                ? null
+                : flexRender(
+                    header.column.columnDef.header,
+                    header.getContext()
+                  )}
+              {{
+                asc: <HiOutlineChevronDown size={13} />,
+                desc: <HiOutlineChevronUp size={13} />,
+              }[header.column.getIsSorted() as string] ??
+                null}
+            </Stack>
           ))}
-        </Tr>
+        </Stack>
       ))}
-    </Thead>
+    </>
   );
 };
 

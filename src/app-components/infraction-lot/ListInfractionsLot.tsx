@@ -4,7 +4,6 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { useRouter } from 'next/router';
 import { ReactElement, useState } from 'react';
 
 import AlertErrorFetchData from '@/components/alert/AlertErrorFetchData';
@@ -32,7 +31,6 @@ const ListInfractionsLot = (
     isError,
   } = props;
   const { columns } = useBuildColumns();
-  const { push } = useRouter();
   const [sorting, setSorting] = useState<SortingState>(
     []
   );
@@ -48,9 +46,6 @@ const ListInfractionsLot = (
     getSortedRowModel: getSortedRowModel(),
   });
 
-  const onClickRow = (infractionLot: InfractionLot) =>
-    push(`/infractions-lots/${infractionLot?.id}`);
-
   if (isLoading) {
     return <SkeletonList />;
   }
@@ -59,12 +54,7 @@ const ListInfractionsLot = (
     return <AlertErrorFetchData />;
   }
 
-  return (
-    <Table
-      table={table}
-      onClickRow={onClickRow}
-    />
-  );
+  return <Table table={table} />;
 };
 
 export default ListInfractionsLot;

@@ -1,25 +1,31 @@
-import { Tbody, Th, Tr } from '@chakra-ui/react';
+import {
+  Accordion,
+  AccordionButton,
+  AccordionItem,
+  AccordionPanel,
+  Stack,
+  Th,
+  Tr,
+} from '@chakra-ui/react';
 import { flexRender, Table } from '@tanstack/react-table';
 import { ReactElement } from 'react';
 
+import LabelValue from '@/components/text/LabelValue';
 import InfractionLot from '@/interfaces/InfractionLot';
 
 type RowsTableProps<T> = {
   table: Table<T>;
-  onClickRow: (infractionLot: T) => void;
   messageNoResult?: string;
 };
 
 const BodyTable = (
   props: RowsTableProps<InfractionLot>
 ): ReactElement => {
-  const {
-    table,
-    onClickRow,
-    messageNoResult = 'Aucun résultat',
-  } = props;
+  const { table, messageNoResult = 'Aucun résultat' } =
+    props;
   return (
-    <Tbody>
+    <>
+      {/* When no result */}
       {table?.getRowModel().rows.length === 0 ? (
         <Tr>
           <Th
@@ -33,39 +39,61 @@ const BodyTable = (
           </Th>
         </Tr>
       ) : (
-        table?.getRowModel().rows.map((row, index) => (
-          <Tr
-            key={row.id}
-            backgroundColor={
-              index % 2 === 0 ? 'white' : 'gray.50'
-            }
-            _hover={{
-              backgroundColor: 'gray.100',
-              boxShadow: 'sm',
-            }}
-            cursor="pointer"
-          >
-            {row.getVisibleCells().map((cell) => (
-              <Th
-                color={
-                  // @ts-expect-error color is not in the type
-                  cell.column?.columnDef?.meta?.color
-                }
-                key={cell?.id}
-                onClick={() =>
-                  onClickRow(cell?.row?.original)
-                }
-              >
-                {flexRender(
-                  cell.column.columnDef.cell,
-                  cell.getContext()
-                )}
-              </Th>
-            ))}
-          </Tr>
-        ))
+        <Accordion
+          width="100%"
+          allowMultiple
+        >
+          {table?.getRowModel().rows.map((row, index) => (
+            <AccordionItem
+              as="div"
+              cursor="pointer"
+              key={row.id}
+              backgroundColor={
+                index % 2 === 0 ? 'white' : 'gray.50'
+              }
+              _hover={{
+                backgroundColor: 'gray.100',
+                boxShadow: 'sm',
+              }}
+              border="1px"
+              borderColor="gray.200"
+            >
+              <AccordionButton padding={0}>
+                {row.getVisibleCells().map((cell) => (
+                  <Stack
+                    {...cell.column?.columnDef?.meta}
+                    key={cell?.id}
+                  >
+                    {flexRender(
+                      cell.column.columnDef.cell,
+                      cell.getContext()
+                    )}
+                  </Stack>
+                ))}
+              </AccordionButton>
+              <AccordionPanel>
+                <Stack>
+                  <LabelValue
+                    label="libelle"
+                    value={
+                      row?.original?.infraction?.libelle
+                    }
+                  />
+                  <LabelValue
+                    label="Nom de l'entreprise"
+                    value="Indisponible (api-si)"
+                  />
+                  <LabelValue
+                    label="Coordonnées de  l'entreprise"
+                    value="Indisponible (api-si)"
+                  />
+                </Stack>
+              </AccordionPanel>
+            </AccordionItem>
+          ))}
+        </Accordion>
       )}
-    </Tbody>
+    </>
   );
 };
 

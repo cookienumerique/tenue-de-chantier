@@ -1,7 +1,4 @@
-import {
-  Table as TableChakra,
-  TableContainer,
-} from '@chakra-ui/react';
+import { Grid, GridItem } from '@chakra-ui/react';
 import { Table } from '@tanstack/react-table';
 import { ReactElement } from 'react';
 
@@ -11,25 +8,25 @@ import InfractionLot from '@/interfaces/InfractionLot';
 
 type RowsTableProps = {
   table: Table<InfractionLot>;
-  onClickRow: (infractionLot: InfractionLot) => void;
 };
 
 const Table = (props: RowsTableProps): ReactElement => {
-  const { table, onClickRow } = props;
+  const { table } = props;
+
   return (
-    <TableContainer backgroundColor="white">
-      <TableChakra
-        size="md"
-        variant="striped"
-        colorScheme="gray"
-      >
+    <Grid
+      templateColumns="repeat(1, 1fr)"
+      gap={0}
+      overflowY="scroll"
+      width="100%"
+    >
+      <GridItem w="100%">
         <HeadTable table={table} />
-        <BodyTable
-          table={table}
-          onClickRow={onClickRow}
-        />
-      </TableChakra>
-    </TableContainer>
+      </GridItem>
+      <GridItem w="100%">
+        <BodyTable table={table} />
+      </GridItem>
+    </Grid>
   );
 };
 
