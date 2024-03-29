@@ -4,13 +4,12 @@ import {
   AccordionItem,
   AccordionPanel,
   Stack,
-  Th,
-  Tr,
 } from '@chakra-ui/react';
 import { flexRender, Table } from '@tanstack/react-table';
 import { ReactElement } from 'react';
 
 import LabelValue from '@/components/text/LabelValue';
+import TextSecondary from '@/components/text/TextSecondary';
 import InfractionLot from '@/interfaces/InfractionLot';
 
 type RowsTableProps<T> = {
@@ -27,17 +26,14 @@ const BodyTable = (
     <>
       {/* When no result */}
       {table?.getRowModel().rows.length === 0 ? (
-        <Tr>
-          <Th
-            textAlign="center"
-            colSpan={
-              table.getHeaderGroups()?.[0]?.headers
-                ?.length
-            }
-          >
+        <Stack
+          backgroundColor="white"
+          padding="sm"
+        >
+          <TextSecondary textAlign="center">
             {messageNoResult}
-          </Th>
-        </Tr>
+          </TextSecondary>
+        </Stack>
       ) : (
         <Accordion
           width="100%"

@@ -127,6 +127,7 @@ export default function useBuildColumns() {
                   `/infractions-lots/${row?.getValue()}`
                 ).then((r) => r);
               }}
+              as="a"
               width="fit-content"
             >
               Voir l&apos;infraction

@@ -41,25 +41,24 @@ const ListeInfractionsLotsPage = () => {
 
   // Initialize status by default
   const initStatusByDefault = useCallback(async () => {
-    const queryParametersStatus = new URLSearchParams();
     Object.values(InfractionLotStatutEnum).forEach(
       (statut) => {
         if (
-          !queryParametersStatus
+          !searchParams
             .get('statut')
             ?.split(',')
             .includes(statut) &&
           statut !==
             InfractionLotStatutEnum.INFRACTION_FERMEE
         ) {
-          queryParametersStatus.append('statut', statut);
+          searchParams.append('statut', statut);
         }
       }
     );
     return push(
-      `${pathname}?${queryParametersStatus?.toString()}`
+      `${pathname}?${searchParams?.toString()}`
     ).then((r) => r);
-  }, [pathname, push]);
+  }, [pathname, searchParams, push]);
 
   const handleResetFilters = () => initStatusByDefault();
 

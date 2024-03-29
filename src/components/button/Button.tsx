@@ -20,6 +20,7 @@ export default function Button(
     isDisabled = false,
     size,
     variant,
+    as = 'button',
   } = props;
   return (
     <ButtonChakra
@@ -33,6 +34,7 @@ export default function Button(
       isDisabled={isDisabled}
       size={size}
       whiteSpace="normal"
+      as={as}
     >
       {children}
     </ButtonChakra>

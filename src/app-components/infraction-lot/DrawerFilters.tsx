@@ -7,6 +7,7 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
+  FormLabel,
   Stack,
 } from '@chakra-ui/react';
 import { Formiz, useForm } from '@formiz/core';
@@ -46,7 +47,8 @@ export default function DrawerFilters(
     optionSousCategorie: LabelValue | undefined;
     optionUtilisateur: LabelValue | undefined;
     optionStatut: Array<LabelValue> | undefined;
-    dateButoir: string | undefined;
+    minDateButoir: string | undefined;
+    maxDateButoir: string | undefined;
     date: string | undefined;
   }) => {
     const {
@@ -56,17 +58,18 @@ export default function DrawerFilters(
       optionSousCategorie,
       optionUtilisateur,
       optionStatut,
-      dateButoir,
+      minDateButoir,
+      maxDateButoir,
       date,
     } = values;
-
     const payload = {
       zacId: optionZac?.value,
       lotId: optionLot?.value,
       urgence: optionUrgence?.label,
       sousCategorie: optionSousCategorie?.label,
       utilisateur: optionUtilisateur?.value,
-      dateButoir,
+      minDateButoir,
+      maxDateButoir,
       date,
     };
     // Remove nulls values
@@ -118,7 +121,7 @@ export default function DrawerFilters(
           <Formiz connect={form}>
             <Stack gap="sm">
               <SelectZac
-                name="optionZac[]"
+                name="optionZac"
                 defaultValue={queryParamsUrl?.get(
                   'zacId'
                 )}
@@ -159,14 +162,36 @@ export default function DrawerFilters(
                   'utilisateur'
                 )}
               />
+              <Stack
+                gap="xs"
+                border="1px solid"
+                borderColor="gray.300"
+                padding="sm"
+                borderRadius="md"
+              >
+                <FormLabel>Date butoir</FormLabel>
+                <Stack direction="row">
+                  <InputDateButoir
+                    label="De"
+                    name="minDateButoir"
+                    defaultValue={
+                      queryParamsUrl?.get(
+                        'minDateButoir'
+                      ) ?? undefined
+                    }
+                  />
 
-              <InputDateButoir
-                name="dateButoir"
-                defaultValue={
-                  queryParamsUrl?.get('dateButoir') ??
-                  undefined
-                }
-              />
+                  <InputDateButoir
+                    label="À"
+                    name="maxDateButoir"
+                    defaultValue={
+                      queryParamsUrl?.get(
+                        'maxDateButoir'
+                      ) ?? undefined
+                    }
+                  />
+                </Stack>
+              </Stack>
 
               <InputDateCreation
                 label="Date initiale"
