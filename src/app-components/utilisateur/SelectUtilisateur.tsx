@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import Select from '@/components/form/Select';
 import uniqueOptions from '@/functions/uniqueOptions';
-import useFindAllUtilisateur from '@/hooks/utilisateur/useFindAllUtilisateur';
+import useFindAllUtilisateursActive from '@/hooks/utilisateur/useFindAllUtilisateursActive';
 
 type SelectUtilisateursProps = {
   label: string;
@@ -18,7 +18,7 @@ export default function SelectUtilisateurs(
     data: utilisateurs,
     isLoading: isLoadingUtilisteur,
     isError: isErrorUtilisteur,
-  } = useFindAllUtilisateur({
+  } = useFindAllUtilisateursActive({
     key: ['utilisateurs'],
   });
 

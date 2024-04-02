@@ -9,9 +9,9 @@ import FindListProps from '@/types/query/FindListProps';
 import FindListReturn from '@/types/query/FindListReturn';
 
 /**
- * @description Query for retrieving all utilisateurs
+ * @description retrieves users who have created at least one offense
  */
-const useFindAllUtilisateurs = ({
+const useFindAllUtilisateursActive = ({
   enabled = true,
   queryParameters,
   key,
@@ -22,11 +22,15 @@ const useFindAllUtilisateurs = ({
   ];
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError } = useQuery(
+  const {
+    data: response,
+    isLoading,
+    isError,
+  } = useQuery(
     queryKey,
     () =>
       axios.get(
-        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/utilisateurs/`,
+        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/utilisateurs/active`,
         {
           params: queryParameters,
         }
@@ -38,7 +42,7 @@ const useFindAllUtilisateurs = ({
     queryClient.invalidateQueries(queryKey);
 
   const { utilisateurs } =
-    (data as unknown as {
+    (response?.data as unknown as {
       utilisateurs: Utilisateur[] | undefined;
     }) ?? {};
 
@@ -50,4 +54,4 @@ const useFindAllUtilisateurs = ({
   };
 };
 
-export default useFindAllUtilisateurs;
+export default useFindAllUtilisateursActive;
