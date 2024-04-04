@@ -30,7 +30,7 @@ const CreationInfractionPage: NextPageWithLayout =
     const callbackOnSuccess = (data: {
       infractions_lots: Lot;
     }) => {
-      invalidateUser();
+      invalidateUser().then((r) => r);
       const { id: infractionLotId } =
         data?.infractions_lots as Lot;
       router
