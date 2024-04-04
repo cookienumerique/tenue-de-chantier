@@ -1,4 +1,10 @@
-import { Stack } from '@chakra-ui/react';
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Stack,
+} from '@chakra-ui/react';
 import {
   Field,
   useFormContext,
@@ -45,6 +51,7 @@ export default function SectionLocalisation(
     fields: ['zacId'],
   }) as { zacId: Field<LabelValue> };
 
+  const lotHasNoCpg = !lot?.cpg?.value && lot;
   const handleChangeZac = () => {
     form.setValues({ optionLot: null });
   };
@@ -89,6 +96,26 @@ export default function SectionLocalisation(
           </Stack>
         )}
       </Stack>
+      {lotHasNoCpg ? (
+        <Alert
+          status="error"
+          flexDirection="column"
+        >
+          <AlertIcon
+            boxSize="40px"
+            mr={0}
+          />
+          <AlertTitle>
+            Ce lot n&apos;a pas de CPG
+          </AlertTitle>
+          <AlertDescription>
+            Vous ne pouvez pas sélectionner une infraction
+            sans CPG
+          </AlertDescription>
+        </Alert>
+      ) : (
+        <></>
+      )}
     </Section>
   );
 }

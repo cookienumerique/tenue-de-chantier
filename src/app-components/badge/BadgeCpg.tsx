@@ -14,7 +14,8 @@ type BadgeCpgProps = {
 export default function BadgeCpg(
   props: BadgeCpgProps
 ): ReactElement {
-  const { cpg, fontSize = 'xs' } = props;
+  const { cpg = 'Non renseigné', fontSize = 'xs' } =
+    props;
 
   let colorScheme = 'gray';
 
