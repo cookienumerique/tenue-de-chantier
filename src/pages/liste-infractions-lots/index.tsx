@@ -131,9 +131,9 @@ const ListeInfractionsLotsPage = () => {
           size="sm"
           leftIcon={
             searchParams.get('utilisateur') ? (
-              <FaUserAltSlash />
-            ) : (
               <FaUser />
+            ) : (
+              <FaUserAltSlash />
             )
           }
           colorScheme="purple"
@@ -146,20 +146,18 @@ const ListeInfractionsLotsPage = () => {
         >
           {searchParams.get('utilisateur') ===
           `${user?.prenom} ${user?.nom}`
-            ? 'Voir les infractions de tout le monde'
-            : ''}
-
-          {searchParams.get('utilisateur') &&
-          searchParams.get('utilisateur') !==
-            `${user?.prenom} ${user?.nom}`
             ? `Infractions de ${searchParams.get('utilisateur')}`
             : ''}
+
           {!searchParams.get('utilisateur')
             ? 'Voir mes infractions'
             : ''}
         </Button>
         <Button
           size="sm"
+          variant={
+            searchByMyFavoriteZac ? 'solid' : 'outline'
+          }
           isDisabled={zacFavoris?.length === 0}
           isLoading={isLoadingZacFavoris}
           leftIcon={<PiSquaresFourFill />}
@@ -168,7 +166,7 @@ const ListeInfractionsLotsPage = () => {
             handleDisplayInfractionOfMyFavoriteZac()
           }
         >
-          {`${searchByMyFavoriteZac ? 'Voir toutes les infractions' : 'Infractions de mes ZAC'}`}
+          Infractions de mes ZAC favorites
         </Button>
         <Button
           size="sm"
