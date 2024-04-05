@@ -42,7 +42,7 @@ export default function DrawerFilters(
 
   const handleSubmit = (values: {
     optionLot: LabelValue | undefined;
-    optionZac: LabelValue | undefined;
+    optionZac: Array<LabelValue> | undefined;
     optionUrgence: LabelValue | undefined;
     optionSousCategorie: LabelValue | undefined;
     optionUtilisateur: LabelValue | undefined;
@@ -63,7 +63,6 @@ export default function DrawerFilters(
       date,
     } = values;
     const payload = {
-      zacId: optionZac?.value,
       lotId: optionLot?.value,
       urgence: optionUrgence?.label,
       sousCategorie: optionSousCategorie?.label,
@@ -86,6 +85,17 @@ export default function DrawerFilters(
           queryParams.append(
             `statut`,
             statut.label?.toString()
+          );
+        }
+      });
+    }
+    // For each optionZac, add it to the query parameters
+    if (optionZac) {
+      optionZac.forEach((zac) => {
+        if (zac?.value) {
+          queryParams.append(
+            `zacId`,
+            zac.value?.toString()
           );
         }
       });
@@ -121,10 +131,15 @@ export default function DrawerFilters(
           <Formiz connect={form}>
             <Stack gap="sm">
               <SelectZac
+                isMulti
                 name="optionZac"
-                defaultValue={queryParamsUrl?.get(
-                  'zacId'
-                )}
+                defaultValue={queryParamsUrl
+                  ?.get('zacId')
+                  ?.split(',')
+                  ?.map((zac) => ({
+                    value: zac,
+                    label: zac,
+                  }))}
               />
               <SelectLotsNonLivres
                 defaultValue={queryParamsUrl?.get(
