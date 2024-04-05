@@ -20,6 +20,7 @@ import TitlePage from '@/components/text/TitlePage';
 import { useAuthentification } from '@/context/AuthentificationProvider';
 import InfractionLotStatutEnum from '@/enums/InfractionLotStatutEnum';
 import useFindInfractionLot from '@/hooks/infractionLots/useFindInfractionLot';
+import useFindZacFavoris from '@/hooks/zac-favoris/useFindZacFavoris';
 
 const ListeInfractionsLotsPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -31,6 +32,9 @@ const ListeInfractionsLotsPage = () => {
     [query]
   );
 
+  const searchByMyFavoriteZac =
+    !!searchParams.get('myZac');
+
   const {
     data: infractionsLot,
     isLoading,
@@ -38,6 +42,15 @@ const ListeInfractionsLotsPage = () => {
   } = useFindInfractionLot({
     queryParameters: searchParams,
   });
+
+  const {
+    data: zacFavoris,
+    isLoading: isLoadingZacFavoris,
+  } = useFindZacFavoris();
+
+  const zacFavorisIds = zacFavoris?.map(
+    (zacFavoris) => zacFavoris?.zac?.id
+  );
 
   // Initialize status by default
   const initStatusByDefault = useCallback(async () => {
@@ -62,6 +75,21 @@ const ListeInfractionsLotsPage = () => {
 
   const handleResetFilters = () => initStatusByDefault();
 
+  const handleDisplayInfractionOfMyFavoriteZac = () => {
+    // If the user is already in the query parameters, remove it
+    if (searchParams.get('zacId')) {
+      searchParams.delete('zacId');
+      searchParams.delete('myZac');
+    } else {
+      searchParams.set('myZac', '1');
+      zacFavorisIds?.forEach((zacId) => {
+        searchParams.append('zacId', zacId?.toString());
+      });
+    }
+    push(`${pathname}?${searchParams?.toString()}`).then(
+      (r) => r
+    );
+  };
   const handleDisplayMyInfractions = () => {
     // If the user is already in the query parameters, remove it
     if (searchParams.get('utilisateur')) {
@@ -132,11 +160,15 @@ const ListeInfractionsLotsPage = () => {
         </Button>
         <Button
           size="sm"
-          isDisabled
+          isDisabled={zacFavoris?.length === 0}
+          isLoading={isLoadingZacFavoris}
           leftIcon={<PiSquaresFourFill />}
           colorScheme="purple"
+          onClick={() =>
+            handleDisplayInfractionOfMyFavoriteZac()
+          }
         >
-          Infractions de mes ZAC
+          {`${searchByMyFavoriteZac ? 'Voir toutes les infractions' : 'Infractions de mes ZAC'}`}
         </Button>
         <Button
           size="sm"
