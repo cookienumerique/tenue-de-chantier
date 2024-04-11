@@ -7,22 +7,21 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  FormLabel,
   Stack,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { Formiz, useForm } from '@formiz/core';
 import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
 
 import ButtonCancel from '@/app-components/button/ButtonCancel';
-import InputDateButoir from '@/app-components/form/InputDateButoir';
-import InputDateCreation from '@/app-components/form/InputDateCreation';
 import SelectInfractionLotStatut from '@/app-components/form/SelectInfractionLotStatut';
 import SelectInfractionLotUrgence from '@/app-components/form/SelectInfractionLotUrgence';
 import SelectInfraction from '@/app-components/form/SelectInfractions';
 import SelectLotsNonLivres from '@/app-components/form/SelectLotsNonLivres';
 import SelectZac from '@/app-components/form/SelectZac';
 import SelectUtilisateurs from '@/app-components/utilisateur/SelectUtilisateur';
+import InputDateBetween from '@/components/form/InputDateBetween';
 import removeNullsProperties from '@/functions/helper/removeNullsProperties';
 import LabelValue from '@/interfaces/LabelValue';
 
@@ -40,6 +39,11 @@ export default function DrawerFilters(
     query as unknown as string
   );
 
+  const isMobile = useBreakpointValue({
+    base: true,
+    md: false,
+  });
+
   const handleSubmit = (values: {
     optionLot: LabelValue | undefined;
     optionZac: Array<LabelValue> | undefined;
@@ -49,6 +53,8 @@ export default function DrawerFilters(
     optionStatut: Array<LabelValue> | undefined;
     minDateButoir: string | undefined;
     maxDateButoir: string | undefined;
+    minDateCreation: string | undefined;
+    maxDateCreation: string | undefined;
     date: string | undefined;
   }) => {
     const {
@@ -60,6 +66,8 @@ export default function DrawerFilters(
       optionStatut,
       minDateButoir,
       maxDateButoir,
+      minDateCreation,
+      maxDateCreation,
       date,
     } = values;
     const payload = {
@@ -69,8 +77,11 @@ export default function DrawerFilters(
       utilisateur: optionUtilisateur?.value,
       minDateButoir,
       maxDateButoir,
+      minDateCreation,
+      maxDateCreation,
       date,
     };
+
     // Remove nulls values
     const noNullsValues = removeNullsProperties(payload);
 
@@ -130,28 +141,33 @@ export default function DrawerFilters(
         <DrawerBody>
           <Formiz connect={form}>
             <Stack gap="sm">
-              <SelectZac
-                isMulti
-                name="optionZac"
-                defaultValue={queryParamsUrl
-                  ?.get('zacId')
-                  ?.split(',')
-                  ?.map((zac) => ({
-                    value: zac,
-                    label: zac,
-                  }))}
-              />
-              <SelectLotsNonLivres
-                defaultValue={queryParamsUrl?.get(
-                  'lotId'
-                )}
-              />
+              <Stack
+                gap="inherit"
+                width={isMobile ? '100%' : '50%'}
+              >
+                <SelectZac
+                  isMulti
+                  name="optionZac"
+                  defaultValue={queryParamsUrl
+                    ?.get('zacId')
+                    ?.split(',')
+                    ?.map((zac) => ({
+                      value: zac,
+                      label: zac,
+                    }))}
+                />
+                <SelectLotsNonLivres
+                  defaultValue={queryParamsUrl?.get(
+                    'lotId'
+                  )}
+                />
 
-              <SelectInfractionLotUrgence
-                defaultValue={queryParamsUrl?.get(
-                  'urgence'
-                )}
-              />
+                <SelectInfractionLotUrgence
+                  defaultValue={queryParamsUrl?.get(
+                    'urgence'
+                  )}
+                />
+              </Stack>
 
               <SelectInfractionLotStatut
                 defaultValue={queryParamsUrl
@@ -171,54 +187,49 @@ export default function DrawerFilters(
                 )}
               />
 
-              <SelectUtilisateurs
-                label="Détécté par"
-                defaultValue={queryParamsUrl?.get(
-                  'utilisateur'
-                )}
-              />
               <Stack
-                gap="xs"
-                border="1px solid"
-                borderColor="gray.300"
-                padding="sm"
-                borderRadius="md"
+                gap="inherit"
+                width={isMobile ? '100%' : '50%'}
               >
-                <FormLabel>Date butoir</FormLabel>
-                <Stack direction="row">
-                  <InputDateButoir
-                    label="De"
-                    name="minDateButoir"
-                    defaultValue={
-                      queryParamsUrl?.get(
-                        'minDateButoir'
-                      ) ?? undefined
-                    }
-                  />
-
-                  <InputDateButoir
-                    label="À"
-                    name="maxDateButoir"
-                    defaultValue={
-                      queryParamsUrl?.get(
-                        'maxDateButoir'
-                      ) ?? undefined
-                    }
-                  />
-                </Stack>
+                <SelectUtilisateurs
+                  label="Détécté par"
+                  defaultValue={queryParamsUrl?.get(
+                    'utilisateur'
+                  )}
+                />
               </Stack>
 
-              <InputDateCreation
+              <InputDateBetween
+                label="Date butoir"
+                nameFrom="minDateButoir"
+                nameTo="maxDateButoir"
+                defaultValueFrom={queryParamsUrl?.get(
+                  'minDateButoir'
+                )}
+                defaultValueTo={queryParamsUrl?.get(
+                  'maxDateButoir'
+                )}
+              />
+
+              <InputDateBetween
                 label="Date initiale"
-                defaultValue={
-                  queryParamsUrl?.get('date') ?? undefined
-                }
+                nameFrom="minDateCreation"
+                nameTo="maxDateCreation"
+                defaultValueFrom={queryParamsUrl?.get(
+                  'minDateCreation'
+                )}
+                defaultValueTo={queryParamsUrl?.get(
+                  'maxDateCreation'
+                )}
               />
             </Stack>
           </Formiz>
         </DrawerBody>
 
-        <DrawerFooter gap="xs">
+        <DrawerFooter
+          gap="xs"
+          flexDirection={isMobile ? 'column' : 'row'}
+        >
           <ButtonCancel
             onClick={onClose}
             width={{ base: '100%', sm: 'fit-content' }}
