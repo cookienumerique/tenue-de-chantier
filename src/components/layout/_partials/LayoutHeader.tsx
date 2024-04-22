@@ -20,6 +20,7 @@ import {
 import { NavigationItem } from '@/components/layout/_partials/NavigationItem';
 import WrapperLogoutAvatar from '@/components/layout/_partials/WrapperLogoutAvatar';
 import HeaderTitle from '@/components/layout/header/HeaderTitle';
+import InfractionLotStatutEnum from '@/enums/InfractionLotStatutEnum';
 
 /**
  * @description Header for large screen
@@ -57,7 +58,26 @@ export default function LayoutHeader(): ReactElement {
     {
       label: 'Rechercher des infractions',
       icon: <IoMdSearch />,
-      onClick: () => push('/liste-infractions-lots'),
+      onClick: () => {
+        const queryParams = new URLSearchParams();
+        Object.values(InfractionLotStatutEnum).forEach(
+          (statut) => {
+            if (
+              !queryParams
+                .get('statut')
+                ?.split(',')
+                .includes(statut) &&
+              statut !==
+                InfractionLotStatutEnum.INFRACTION_FERMEE
+            ) {
+              queryParams.append('statut', statut);
+            }
+          }
+        );
+        push(
+          `/liste-infractions-lots?${queryParams?.toString()}`
+        ).then((r) => r);
+      },
     },
   ];
 

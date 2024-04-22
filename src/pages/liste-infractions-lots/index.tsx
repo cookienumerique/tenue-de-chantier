@@ -1,12 +1,7 @@
 import { useDisclosure } from '@chakra-ui/hooks';
 import { Stack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import {
-  ReactElement,
-  useCallback,
-  useEffect,
-  useMemo,
-} from 'react';
+import { ReactElement, useMemo, useState } from 'react';
 import { BsFilterCircle } from 'react-icons/bs';
 import { FaUser, FaUserAltSlash } from 'react-icons/fa';
 import { MdFilterListOff } from 'react-icons/md';
@@ -18,7 +13,6 @@ import Button from '@/components/button/Button';
 import Layout from '@/components/layout/Layout';
 import TitlePage from '@/components/text/TitlePage';
 import { useAuthentification } from '@/context/AuthentificationProvider';
-import InfractionLotStatutEnum from '@/enums/InfractionLotStatutEnum';
 import useFindInfractionLot from '@/hooks/infractionLots/useFindInfractionLot';
 import useFindZacFavoris from '@/hooks/zac-favoris/useFindZacFavoris';
 
@@ -26,6 +20,9 @@ const ListeInfractionsLotsPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { push, pathname, query } = useRouter();
   const { user } = useAuthentification();
+  const [queryParamsByDefault] = useState(
+    new URLSearchParams(query as unknown as string)
+  );
 
   const searchParams = useMemo(
     () => new URLSearchParams(query as unknown as string),
@@ -52,28 +49,10 @@ const ListeInfractionsLotsPage = () => {
     (zacFavoris) => zacFavoris?.zac?.id
   );
 
-  // Initialize status by default
-  const initStatusByDefault = useCallback(async () => {
-    Object.values(InfractionLotStatutEnum).forEach(
-      (statut) => {
-        if (
-          !searchParams
-            .get('statut')
-            ?.split(',')
-            .includes(statut) &&
-          statut !==
-            InfractionLotStatutEnum.INFRACTION_FERMEE
-        ) {
-          searchParams.append('statut', statut);
-        }
-      }
+  const handleResetFilters = () =>
+    push(
+      `${pathname}?${queryParamsByDefault?.toString()}`
     );
-    return push(
-      `${pathname}?${searchParams?.toString()}`
-    ).then((r) => r);
-  }, [pathname, searchParams, push]);
-
-  const handleResetFilters = () => initStatusByDefault();
 
   const handleDisplayInfractionOfMyFavoriteZac = () => {
     // If the user is already in the query parameters, remove it
@@ -105,15 +84,6 @@ const ListeInfractionsLotsPage = () => {
       (r) => r
     );
   };
-
-  useEffect(() => {
-    // If the status is already in the query parameters, do nothing
-    if (searchParams?.has('statut')) {
-      return;
-    }
-    // Initialize status by default
-    initStatusByDefault().then((r) => r);
-  }, [initStatusByDefault, searchParams]);
 
   return (
     <Stack>
