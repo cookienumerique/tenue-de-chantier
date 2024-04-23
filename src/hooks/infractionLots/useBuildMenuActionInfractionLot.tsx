@@ -1,4 +1,5 @@
 import { useDisclosure } from '@chakra-ui/hooks';
+import { As } from '@chakra-ui/react';
 import { AiOutlineComment } from 'react-icons/ai';
 import { CgArrowsExchange } from 'react-icons/cg';
 import {
@@ -8,11 +9,12 @@ import {
 import { IconType } from 'react-icons/lib';
 import { RiDownloadCloudLine } from 'react-icons/ri';
 import { TbPhotoShare } from 'react-icons/tb';
+import nl2br from 'react-nl2br';
 
 import ActionInfractionEnum from '@/enums/ActionInfractionEnum';
 import PatrimoineZacEnum from '@/enums/PatrimoineZacEnum';
 import downloadTemplate from '@/functions/file/downloadTemplate';
-import downloadTemplateEmail from '@/functions/file/downloadTemplateEmail';
+import useFindContentEmailByInfractionId from '@/hooks/infractionLots/useFindContentEmailByInfractionId';
 import ActionInfractionType from '@/types/action/ActionInfractionType';
 
 type BuildMenuActionInfractionLotProps = {
@@ -20,6 +22,15 @@ type BuildMenuActionInfractionLotProps = {
   infractionLotId: string | undefined;
   patrimoineZac: PatrimoineZacEnum | undefined;
 };
+export type Actions = {
+  label: string;
+  icon: IconType;
+  onClick?: () => void;
+  as?: As | undefined;
+  href?: string;
+  isLoading?: boolean;
+  isDisabled?: boolean;
+}[];
 
 type BuildMenuActionInfractionLotReturn = {
   isOpenModalFiles: boolean;
@@ -30,13 +41,7 @@ type BuildMenuActionInfractionLotReturn = {
   onCloseModalDateButoir: () => void;
   isOpenModalCommentaireInfraction: boolean;
   onCloseModalCommentaireInfraction: () => void;
-  actions:
-    | {
-        label: string;
-        icon: IconType;
-        onClick: () => void;
-      }[]
-    | undefined;
+  actions: Actions;
 };
 /**
  * @description Build menu action infraction lot
@@ -70,6 +75,13 @@ const useBuildMenuActionInfractionLot = ({
     onClose: onCloseModalDateButoir,
   } = useDisclosure();
 
+  const {
+    data: contentEmail,
+    isLoading: isLoadingContentEmail,
+  } = useFindContentEmailByInfractionId({
+    id: infractionLotId,
+  });
+
   const data = {
     [ActionInfractionEnum.UPLOAD_FILES]: {
       label: 'Ajouter des photos',
@@ -82,10 +94,12 @@ const useBuildMenuActionInfractionLot = ({
       onClick: () => onOpenModalCommentaireInfraction(),
     },
     [ActionInfractionEnum.ECRIRE_EMAIL]: {
+      as: 'a' as As,
+      href: `mailto:?subject=${contentEmail?.email?.subject}&body=${nl2br(contentEmail?.email?.body)}`,
       label: 'Ecrire un email',
       icon: IoMailOutline,
-      onClick: () =>
-        downloadTemplateEmail({ infractionLotId }),
+      isLoading: isLoadingContentEmail,
+      isDisabled: isLoadingContentEmail,
     },
     [ActionInfractionEnum.ECRIRE_COURRIER_MISE_EN_DEMEURE]:
       {
