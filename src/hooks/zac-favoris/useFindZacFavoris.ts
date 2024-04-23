@@ -25,8 +25,10 @@ const useFindZacFavoris = ({
   } = useQuery(
     queryKey,
     async () => {
-      return axios.get(
-        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/zac-favoris/me`
+      return (
+        (await axios.get(
+          `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/zac-favoris/me`
+        )) ?? {}
       );
     },
     { enabled, retry: false }

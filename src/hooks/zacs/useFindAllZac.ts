@@ -23,10 +23,10 @@ const useFindAllZac = ({
     isError,
   } = useQuery(
     queryKey,
-    () =>
-      axios.get(
+    async () =>
+      (await axios.get(
         `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/zacs`
-      ),
+      )) ?? {},
     { enabled, refetchOnMount: false }
   );
 

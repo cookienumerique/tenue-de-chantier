@@ -10,18 +10,22 @@ type CheckAuthentificateProps = {
 export const CheckAuthentification = ({
   children,
 }: CheckAuthentificateProps) => {
+  const { setToken, token } = useAuthentification();
   const router = useRouter();
-  const { isLogged } = useAuthentification();
   const authentificateURL = '/authentification';
   const currentURL = router.pathname;
   const isLoginPage = currentURL === authentificateURL;
   const { redirectToLoginPage } = usePhpCAS();
+  useEffect(() => {
+    /// Check the token in storage and set it in the context
+    setToken(localStorage.getItem('token'));
+  }, [setToken]);
 
   useEffect(() => {
-    if (!isLogged && !isLoginPage) {
+    if (!token && !isLoginPage) {
       redirectToLoginPage().then((r) => r);
     }
-  }, [redirectToLoginPage, isLogged, isLoginPage]);
+  }, [isLoginPage, redirectToLoginPage, token]);
 
   return children;
 };

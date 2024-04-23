@@ -17,10 +17,10 @@ const useFindMe = (
     isSuccess,
   } = useQuery(
     ['utilisateur-me'],
-    () =>
-      axios.get(
+    async () =>
+      (await axios.get(
         `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/utilisateurs/me`
-      ),
+      )) ?? {},
     { refetchOnMount: false, enabled }
   );
   const { utilisateur, token } =

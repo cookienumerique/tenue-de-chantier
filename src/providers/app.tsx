@@ -30,6 +30,9 @@ export const AppProvider = (props: AppProviderProps) => {
       queries: {
         useErrorBoundary: false,
       },
+      mutations: {
+        useErrorBoundary: false,
+      },
     },
   });
 
