@@ -6,17 +6,21 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  Spinner,
 } from '@chakra-ui/react';
-
-import { Actions } from '@/hooks/infractionLots/useBuildMenuActionInfractionLot';
+import { IconType } from 'react-icons/lib';
 
 type ButtonMenuProps = {
   width?: string;
   label?: string;
   colorScheme?: string;
   size?: string;
-  items: Actions;
+  items:
+    | Array<{
+        label: string;
+        onClick: () => void;
+        icon: IconType | undefined;
+      }>
+    | undefined;
   isLoading?: boolean;
 };
 
@@ -49,28 +53,22 @@ const ButtonMenu = (props: ButtonMenuProps) => {
         {label}
       </MenuButton>
       <MenuList>
-        {items?.map(
-          ({ icon, label, isLoading, ...rest }) => {
-            return (
-              <MenuItem
-                key={label}
-                icon={
-                  isLoading ? (
-                    <Spinner />
-                  ) : icon ? (
-                    <Icon
-                      boxSize={5}
-                      as={icon}
-                    />
-                  ) : undefined
-                }
-                {...rest}
-              >
-                {label}
-              </MenuItem>
-            );
-          }
-        )}
+        {items?.map((actionItem) => (
+          <MenuItem
+            key={actionItem?.label}
+            onClick={actionItem?.onClick}
+            icon={
+              actionItem?.icon ? (
+                <Icon
+                  boxSize={5}
+                  as={actionItem?.icon}
+                />
+              ) : undefined
+            }
+          >
+            {actionItem?.label}
+          </MenuItem>
+        ))}
       </MenuList>
     </Menu>
   );
