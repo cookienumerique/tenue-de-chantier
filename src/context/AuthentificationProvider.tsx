@@ -74,7 +74,7 @@ export const AuthentificationProvider = ({
   // Get the user from the API
   useEffect(() => {
     if (isError) {
-      //redirectToLoginPage().then((r) => r);
+      setToken(null);
       return;
     }
     setUser(utilisateur);
