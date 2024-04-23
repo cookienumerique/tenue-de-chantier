@@ -7,11 +7,12 @@ Axios.interceptors.response.use(
   },
   (error) => {
     // Gérer l'erreur
+    if (error.response?.status === 401) {
+      console.log(error);
+      window.localStorage.removeItem('token');
+      return window.location.reload();
+    }
     if (!error.response) {
-      if (error.response?.status === 401) {
-        window.localStorage.removeItem('token');
-        return window.location.reload();
-      }
       // Réseau ou autres erreurs hors réponse HTTP
       console.error('Network error: ', error.message);
       // Vous pouvez ici décider de renvoyer une réponse par défaut ou de continuer à propager l'erreur
