@@ -3,14 +3,16 @@ import {
   GlobalStyle,
   Stack,
 } from '@chakra-ui/react';
-import { QueryClientProvider } from '@tanstack/react-query';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactNode } from 'react';
 
 import { theme } from '@/config/theme';
 import { AuthentificationProvider } from '@/context/AuthentificationProvider';
 import { CheckAuthentification } from '@/context/CheckAuthentification';
-import { queryClient } from '@/lib/react-query';
 
 // const myFont = localFont({
 //   src: '',
@@ -22,6 +24,14 @@ type AppProviderProps = {
 
 export const AppProvider = (props: AppProviderProps) => {
   const { children } = props;
+
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        useErrorBoundary: false,
+      },
+    },
+  });
 
   return (
     <ChakraProvider
