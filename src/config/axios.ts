@@ -2,22 +2,14 @@ import Axios from 'axios';
 
 Axios.interceptors.response.use(
   (response) => {
-    // Gérer la réponse normalement
-    return response;
+    return response ?? {};
   },
   (error) => {
-    // Gérer l'erreur
     if (error.response?.status === 401) {
-      //console.log(error);
-      localStorage.removeItem('token');
-      window.location.reload();
-      return Promise.reject(error);
+      window.localStorage.removeItem('token');
+      return window.location.reload();
     }
-    if (!error.response) {
-      // Vous pouvez ici décider de renvoyer une réponse par défaut ou de continuer à propager l'erreur
-      return Promise.resolve({ data: {} });
-    }
-    return Promise.reject(error);
+    return error.response ?? {};
   }
 );
 
