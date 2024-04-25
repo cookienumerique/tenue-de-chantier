@@ -20,7 +20,8 @@ export const CheckAuthentification = ({
       console.log('redirect to php cas login page');
       redirectToLoginPage().then((r) => r);
     }
-  }, [isLoginPage, redirectToLoginPage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return children;
 };
