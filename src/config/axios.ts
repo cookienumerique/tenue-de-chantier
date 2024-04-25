@@ -1,15 +1,13 @@
 import Axios from 'axios';
 
 Axios.interceptors.response.use(
-  (response) => {
-    return response ?? {};
-  },
+  (response) => response?.data ?? {},
   (error) => {
     if (error.response?.status === 401) {
       window.localStorage.removeItem('token');
       return window.location.reload();
     }
-    return error.response ?? {};
+    return Promise.reject(error);
   }
 );
 
