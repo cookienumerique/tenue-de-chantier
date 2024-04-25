@@ -17,6 +17,7 @@ export const CheckAuthentification = ({
 
   useEffect(() => {
     if (!localStorage.getItem('token') && !isLoginPage) {
+      console.log('redirect to php cas login page');
       redirectToLoginPage().then((r) => r);
     }
   }, [isLoginPage, redirectToLoginPage]);
