@@ -58,7 +58,7 @@ export default function InputDateBetween(
         </Stack>
         <Stack width="12em">
           <InputDateButoir
-            label="À"
+            label="à"
             name={nameTo}
             defaultValue={defaultValueTo ?? undefined}
           />

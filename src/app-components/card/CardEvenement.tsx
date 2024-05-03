@@ -22,7 +22,7 @@ export default function CardEvenement(
 
   return (
     <Card
-      title="Evenements"
+      title="Évenements"
       isError={isError}
       isLoading={isLoading}
       color="evenement.600"

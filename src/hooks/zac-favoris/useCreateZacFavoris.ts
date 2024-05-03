@@ -29,7 +29,7 @@ const useCreateZacFavoris = (
       onSuccess: async () => {
         toastSuccess({
           title: 'Création réussie',
-          description: 'La ZAC à été ajoutée aux favoris',
+          description: 'La ZAC a été ajoutée aux favoris',
         });
         return callbackOnSuccess();
       },

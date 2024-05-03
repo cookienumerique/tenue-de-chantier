@@ -70,7 +70,7 @@ const BodyTable = (
               <AccordionPanel>
                 <Stack>
                   <LabelValue
-                    label="libelle"
+                    label="libellé"
                     value={
                       row?.original?.infraction?.libelle
                     }
@@ -80,7 +80,7 @@ const BodyTable = (
                     value="Indisponible (api-si)"
                   />
                   <LabelValue
-                    label="Coordonnées de  l'entreprise"
+                    label="Coordonnées de l'entreprise"
                     value="Indisponible (api-si)"
                   />
                 </Stack>

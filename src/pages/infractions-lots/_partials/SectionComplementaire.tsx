@@ -20,7 +20,7 @@ export default function SectionComplementaire(
   if (!cpg) return <></>;
 
   return (
-    <Section title="Informations complémentaires">
+    <Section title="Informations complémentaires (utiles pour la rédaction des courriers) :">
       <Stack
         gap="inherit"
         direction={{ base: 'column', md: 'row' }}
@@ -28,12 +28,12 @@ export default function SectionComplementaire(
       >
         <Textarea
           width="100%"
-          label="Description"
+          label="Description de l'infraction :"
           name="description"
         />
         <Textarea
           width="100%"
-          label="Mesures correctives à entreprendre"
+          label="Mesures correctives à mettre en place :"
           name="mesuresCorrectives"
         />
       </Stack>

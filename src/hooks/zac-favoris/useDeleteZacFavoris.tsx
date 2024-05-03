@@ -35,14 +35,14 @@ export default function useDeleteZacFavoris(
         toastError({
           title: 'Erreur',
           description:
-            'Une erreur est survenue lors de la suppression du favoris',
+            'Une erreur est survenue lors de la suppression du favori',
         });
       },
       onSuccess: async () => {
         toastSuccess({
           title: 'Suppression réussie',
           description:
-            'La ZAC à été supprimée des favoris',
+            'La ZAC a été supprimée des favoris',
         });
         return callbackOnSuccess();
       },

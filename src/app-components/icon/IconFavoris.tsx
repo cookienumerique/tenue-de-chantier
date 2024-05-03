@@ -45,7 +45,7 @@ export default function IconFavoris(
       label={
         variant === 'add'
           ? 'Enlever des favoris'
-          : 'Ajouter des favoris'
+          : 'Ajouter aux favoris'
       }
       aria-label={variant === 'add' ? 'add' : 'remove'}
       icon={

@@ -96,14 +96,14 @@ const useBuildMenuActionInfractionLot = ({
     [ActionInfractionEnum.ECRIRE_EMAIL]: {
       as: 'a' as As,
       href: `mailto:?subject=${contentEmail?.email?.subject}&body=${nl2br(contentEmail?.email?.body)}`,
-      label: 'Ecrire un email',
+      label: 'Écrire un email',
       icon: IoMailOutline,
       isLoading: isLoadingContentEmail,
       isDisabled: isLoadingContentEmail,
     },
     [ActionInfractionEnum.ECRIRE_COURRIER_MISE_EN_DEMEURE]:
       {
-        label: 'Ecrire un courrier de mise en demeure',
+        label: 'Écrire un courrier de mise en demeure',
         icon: RiDownloadCloudLine,
         onClick: () =>
           downloadTemplate({
@@ -112,7 +112,7 @@ const useBuildMenuActionInfractionLot = ({
       },
     [ActionInfractionEnum.ECRIRE_COURRIER_CONSTAT_CARENCE]:
       {
-        label: 'Ecrire un courrier de constat de carence',
+        label: 'Écrire un courrier de constat de carence',
         icon: RiDownloadCloudLine,
         onClick: () =>
           downloadTemplate({
@@ -121,7 +121,7 @@ const useBuildMenuActionInfractionLot = ({
       },
     [ActionInfractionEnum.ECRIRE_COURRIER_COMPLEMENTAIRE]:
       {
-        label: 'Ecrire un courrier complémentaire',
+        label: 'Écrire un courrier complémentaire',
         icon: RiDownloadCloudLine,
         onClick: () =>
           downloadTemplate({

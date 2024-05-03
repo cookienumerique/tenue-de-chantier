@@ -28,15 +28,15 @@ export default function CardInfraction(
       icon={<GiInjustice size={20} />}
     >
       <LabelValue
-        label="categorie"
+        label="catégorie"
         value={infraction?.categorie}
       />
       <LabelValue
-        label="Sous categorie"
+        label="sous-catégorie"
         value={infraction?.sousCategorie}
       />
       <LabelValue
-        label="libelle"
+        label="libellé"
         value={infraction?.libelle}
       />
       <LabelValue

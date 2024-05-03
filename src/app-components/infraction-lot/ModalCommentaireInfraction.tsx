@@ -80,7 +80,7 @@ export default function ModalStatutInfraction(
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Ecrire un commentaire</ModalHeader>
+        <ModalHeader>Écrire un commentaire</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Formiz connect={form}>

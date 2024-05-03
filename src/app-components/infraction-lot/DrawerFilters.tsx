@@ -192,7 +192,7 @@ export default function DrawerFilters(
                 width={isMobile ? '100%' : '50%'}
               >
                 <SelectUtilisateurs
-                  label="Détécté par"
+                  label="Détecté par"
                   defaultValue={queryParamsUrl?.get(
                     'utilisateur'
                   )}

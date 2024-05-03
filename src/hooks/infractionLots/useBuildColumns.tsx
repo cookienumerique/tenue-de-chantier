@@ -105,7 +105,7 @@ export default function useBuildColumns() {
         `${infractionLot?.utilisateur?.nom} ${infractionLot?.utilisateur?.prenom}`,
       {
         id: 'utilisateur',
-        header: () => <Text>Détécté par</Text>,
+        header: () => <Text>Détecté par</Text>,
         cell: (row) => row?.getValue(),
         meta: {
           ...commonProps,

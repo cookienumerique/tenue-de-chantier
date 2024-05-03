@@ -41,7 +41,7 @@ export default function ToggleSelectInfraction(
         }
         {...commonProps}
       >
-        Recherche par catégorie et sous catégorie
+        Recherche par catégorie et sous-catégorie
       </Button>
     </Stack>
   );

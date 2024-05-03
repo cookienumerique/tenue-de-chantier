@@ -191,11 +191,11 @@ export default function SectionInfraction(
             {infractionSelected ? (
               <Stack>
                 <LabelValueComponent
-                  label="categorie"
+                  label="catégorie"
                   value={infractionSelected?.categorie}
                 />
                 <LabelValueComponent
-                  label="sous categorie"
+                  label="sous-catégorie"
                   value={
                     infractionSelected?.sousCategorie
                   }
@@ -228,7 +228,7 @@ export default function SectionInfraction(
             />
 
             <Select
-              label="Sous catégorie de l'infraction"
+              label="Sous-catégorie de l'infraction"
               name="infraction.optionSousCategorie"
               placeholder="Sélectionnez une sous-catégorie"
               isLoading={isLoadingInfraction}

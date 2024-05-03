@@ -107,7 +107,7 @@ const CreationInfractionPage: NextPageWithLayout =
 
     return (
       <Stack gap="sm">
-        <Text>Creation d&apos;une infraction</Text>
+        <Text>Création d&apos;une infraction</Text>
 
         <Formiz connect={form}>
           {/* Section localisation */}
