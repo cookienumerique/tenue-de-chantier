@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react';
-import { RiSquareFill } from 'react-icons/ri';
+import { PiBuildings } from 'react-icons/pi';
 
 import BadgeCpg from '@/app-components/badge/BadgeCpg';
 import Card from '@/app-components/card/Card';
@@ -25,7 +25,7 @@ export default function CardLot(
       isError={isError}
       title={"Lot : " + lot?.libLot ?? 'Lot'}
       color="lot.600"
-      icon={<RiSquareFill size={20} />}
+      icon={<PiBuildings size={20} />}
       cardProps={{ height: 'fit-content' }}
     >
 

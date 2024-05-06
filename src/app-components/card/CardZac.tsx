@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react';
-import { PiSquaresFourFill } from 'react-icons/pi';
+import { PiUserCircleLight } from 'react-icons/pi';
 
 import Card from '@/app-components/card/Card';
 import LabelValue from '@/components/text/LabelValue';
@@ -24,7 +24,7 @@ export default function CardZac(
       isError={isError}
       title="Contact"
       color="zac.500"
-      icon={<PiSquaresFourFill size={20} />}
+      icon={<PiUserCircleLight size={20} />}
       cardProps={{ height: 'fit-content' }}
     >
       <LabelValue
