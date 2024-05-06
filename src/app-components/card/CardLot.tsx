@@ -3,7 +3,7 @@ import { RiSquareFill } from 'react-icons/ri';
 
 import BadgeCpg from '@/app-components/badge/BadgeCpg';
 import Card from '@/app-components/card/Card';
-import LabelValue from '@/components/text/LabelValue';
+import LabelValue from '@/app-components/text/LabelValue';
 import Lot from '@/interfaces/Lot';
 
 type CardLotProps = {
@@ -23,26 +23,37 @@ export default function CardLot(
     <Card
       isLoading={isLoading}
       isError={isError}
-      title={lot?.libLot ?? 'Lot'}
+      title={"Lot : " + lot?.libLot ?? 'Lot'}
       color="lot.600"
       icon={<RiSquareFill size={20} />}
       cardProps={{ height: 'fit-content' }}
     >
+
+      <LabelValue
+        label="ZAC"
+        capitalize={false}
+        value={lot?.zac?.libZacMin}
+      />
+
+      <LabelValue
+	label="EPA"
+        capitalize={false}
+        value={lot?.zac?.libAmgr}
+      />
+
+      <LabelValue label="CPG">
+        <BadgeCpg cpg={lot?.cpg?.value} />
+      </LabelValue>
+
+      <LabelValue
+        label="Livré"
+        value={lot?.livre ? 'Oui' : 'Non'}
+      />
+
       <LabelValue
         label="Code"
         capitalize={false}
         value={lot?.codLot}
-      />
-      <LabelValue label="cpg">
-        <BadgeCpg cpg={lot?.cpg?.value} />
-      </LabelValue>
-      <LabelValue
-        label="Confidentiel"
-        value={lot?.progConfidentiel}
-      />
-      <LabelValue
-        label="Livré"
-        value={lot?.livre ? 'Oui' : 'Non'}
       />
     </Card>
   );

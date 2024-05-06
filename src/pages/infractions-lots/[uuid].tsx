@@ -137,17 +137,17 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
           {/* SubHeader informations utilisateurs */}
         </GridItem>
         <GridItem colSpan={{ base: 12, md: 6, lg: 4 }}>
-          <CardZac
-            zac={zac}
-            isLoading={isLoadingZac}
-            isError={isErrorZac}
-          />
-        </GridItem>
-        <GridItem colSpan={{ base: 12, md: 6, lg: 4 }}>
           <CardLot
             lot={lot}
             isLoading={isLoadingLot}
             isError={isErrorLot}
+          />
+        </GridItem>
+        <GridItem colSpan={{ base: 12, md: 6, lg: 4 }}>
+          <CardZac
+            zac={zac}
+            isLoading={isLoadingZac}
+            isError={isErrorZac}
           />
         </GridItem>
 

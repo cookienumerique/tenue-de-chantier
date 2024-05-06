@@ -10,6 +10,7 @@ type CardZacProps = {
   isLoading: boolean;
   isError: boolean;
 };
+
 /**
  * @description Affiche les informations d'une Zac
  */
@@ -21,27 +22,33 @@ export default function CardZac(
     <Card
       isLoading={isLoading}
       isError={isError}
-      title={zac?.libZac ?? 'Zac'}
+      title="Contact"
       color="zac.500"
       icon={<PiSquaresFourFill size={20} />}
       cardProps={{ height: 'fit-content' }}
     >
       <LabelValue
-        label="Libellé AMGR"
-        value={zac?.libAmgr}
+        label="Responsable"
+        value="Prénom Nom"
         capitalize={false}
       />
       <LabelValue
-        label="code sect"
-        value={zac?.codSect}
+        label="Téléphone"
+        value="00 00 00 00 00"
       />
       <LabelValue
-        label="Code stat"
+        label="Mail"
+        value="adresse@url.tld"
+        capitalize={false}
+      />
+      <LabelValue
+        label="Entreprise"
+        value="Nom entreprise"
+        capitalize={false}
+      />
+      <LabelValue
+        label="Adresse"
         value={zac?.codStat}
-      />
-      <LabelValue
-        label="patrimoine"
-        value="A venir"
       />
     </Card>
   );
