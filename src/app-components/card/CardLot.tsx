@@ -23,12 +23,11 @@ export default function CardLot(
     <Card
       isLoading={isLoading}
       isError={isError}
-      title={"Lot : " + lot?.libLot ?? 'Lot'}
+      title={'Lot : ' + lot?.libLot ?? 'Lot'}
       color="lot.600"
       icon={<PiBuildings size={20} />}
       cardProps={{ height: 'fit-content' }}
     >
-
       <LabelValue
         label="ZAC"
         capitalize={false}
@@ -36,7 +35,7 @@ export default function CardLot(
       />
 
       <LabelValue
-	label="EPA"
+        label="EPA"
         capitalize={false}
         value={lot?.zac?.libAmgr}
       />
