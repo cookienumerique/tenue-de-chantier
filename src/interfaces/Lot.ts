@@ -21,4 +21,10 @@ export default interface Lot {
   montantChargeFonciere: number;
   cpg: { name: string; value: CpgEnum };
   adresse: string;
+  nom: string | null | undefined;
+  prenom: string | null | undefined;
+  tel: string | null | undefined;
+  mail: string | null | undefined;
+  societe: string | null | undefined;
+  adresse1: string | null | undefined;
 }

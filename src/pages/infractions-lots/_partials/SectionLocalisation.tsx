@@ -13,7 +13,6 @@ import {
 import { ReactElement } from 'react';
 
 import CardLot from '@/app-components/card/CardLot';
-import CardZac from '@/app-components/card/CardZac';
 import SelectLotByZacId from '@/app-components/form/SelectLotByZacId';
 import SelectZac from '@/app-components/form/SelectZac';
 import Section from '@/components/section/Section';
@@ -39,11 +38,8 @@ export default function SectionLocalisation(
 ): ReactElement {
   const {
     lot,
-    zac,
-    isLoadingZac = false,
     isLoadingLot = false,
     isErrorLot = false,
-    isErrorZac,
     readOnly = false,
   } = props;
   const form = useFormContext();
@@ -62,11 +58,7 @@ export default function SectionLocalisation(
         spacing="md"
       >
         {readOnly ? (
-          <CardZac
-            zac={zac}
-            isLoading={isLoadingZac}
-            isError={isErrorZac}
-          />
+          <></>
         ) : (
           <Stack
             width={{ base: '100%', md: '50%', lg: '25%' }}

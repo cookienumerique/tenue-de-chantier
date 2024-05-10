@@ -3,10 +3,14 @@ import { PiUserCircleLight } from 'react-icons/pi';
 
 import Card from '@/app-components/card/Card';
 import LabelValue from '@/components/text/LabelValue';
-import Zac from '@/interfaces/Zac';
 
 type CardZacProps = {
-  zac: Zac | undefined;
+  nom: string | null | undefined;
+  prenom: string | null | undefined;
+  tel: string | null | undefined;
+  mail: string | null | undefined;
+  societe: string | null | undefined;
+  adresse: string | null | undefined;
   isLoading: boolean;
   isError: boolean;
 };
@@ -14,10 +18,19 @@ type CardZacProps = {
 /**
  * @description Affiche les informations d'une Zac
  */
-export default function CardZac(
+export default function CardContact(
   props: CardZacProps
 ): ReactElement {
-  const { zac, isLoading, isError } = props;
+  const {
+    nom,
+    prenom,
+    tel,
+    mail,
+    societe,
+    adresse,
+    isLoading,
+    isError,
+  } = props;
   return (
     <Card
       isLoading={isLoading}
@@ -29,26 +42,26 @@ export default function CardZac(
     >
       <LabelValue
         label="Responsable"
-        value="Prénom Nom"
+        value={`${prenom ?? ''} ${nom ?? 'Non renseigné'}`}
         capitalize={false}
       />
       <LabelValue
         label="Téléphone"
-        value="00 00 00 00 00"
+        value={tel ?? 'Non renseigné'}
       />
       <LabelValue
         label="Mail"
-        value="adresse@url.tld"
+        value={mail ?? 'Non renseigné'}
         capitalize={false}
       />
       <LabelValue
         label="Entreprise"
-        value="Nom entreprise"
+        value={societe ?? 'Non renseigné'}
         capitalize={false}
       />
       <LabelValue
         label="Adresse"
-        value={zac?.codStat}
+        value={adresse ?? 'Non renseigné'}
       />
     </Card>
   );

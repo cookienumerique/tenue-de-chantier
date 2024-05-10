@@ -2,11 +2,11 @@ import { Grid, GridItem, Stack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import type { ReactElement } from 'react';
 
+import CardContact from '@/app-components/card/CardContact';
 import CardDocument from '@/app-components/card/CardDocument';
 import CardEvenement from '@/app-components/card/CardEvenement';
 import CardInfraction from '@/app-components/card/CardInfraction';
 import CardLot from '@/app-components/card/CardLot';
-import CardZac from '@/app-components/card/CardZac';
 import TitleInfractionLot from '@/app-components/text/TitleInfractionLot';
 import Layout from '@/components/layout/Layout';
 import useFindEvenementsByInfractionLotId from '@/hooks/evenement/useFindEvenementsByInfractionLotId';
@@ -16,7 +16,6 @@ import useFindInfractionLotById from '@/hooks/infractionLots/useFindInfractionLo
 import useFindInfractionById from '@/hooks/infractions/useFindInfractionById';
 import useFindLotById from '@/hooks/lots/useFindLotById';
 import useFindUtilisateurById from '@/hooks/utilisateurs/useFindUtilisateurById';
-import useFindZacById from '@/hooks/zacs/useFindZacById';
 
 import { NextPageWithLayout } from '../_app';
 
@@ -42,15 +41,6 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
     } = useFindLotById({
       id: infractionLot?.lotId,
       enabled: !!infractionLot?.lotId,
-    });
-
-    const {
-      data: zac,
-      isLoading: isLoadingZac,
-      isError: isErrorZac,
-    } = useFindZacById({
-      id: lot?.zac?.id,
-      enabled: !!lot?.zac?.id,
     });
 
     const {
@@ -144,10 +134,15 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
           />
         </GridItem>
         <GridItem colSpan={{ base: 12, md: 6, lg: 4 }}>
-          <CardZac
-            zac={zac}
-            isLoading={isLoadingZac}
-            isError={isErrorZac}
+          <CardContact
+            nom={lot?.nom}
+            prenom={lot?.prenom}
+            tel={lot?.tel}
+            mail={lot?.mail}
+            adresse={lot?.adresse1}
+            societe={lot?.societe}
+            isLoading={isLoadingLot}
+            isError={isErrorLot}
           />
         </GridItem>
 
