@@ -45,7 +45,7 @@ export default function CardDocument(
 
   return (
     <Card
-      title="Documents"
+      title="Documents et photos"
       isError={isError}
       isLoading={isLoading}
       color="gray.600"
