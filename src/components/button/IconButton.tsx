@@ -11,7 +11,9 @@ import { ReactElement } from 'react';
 type IconButtonProps = {
   label: string;
   placement?: PlacementWithLogical;
-  size?: ResponsiveValue<'sm' | 'md' | 'lg' | 'xl'>;
+  size?: ResponsiveValue<
+    'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  >;
 } & IconButtonPropsChakra;
 export default function IconButton(
   props: IconButtonProps
