@@ -27,10 +27,7 @@ export default function useBuildColumns() {
       {
         id: 'action',
         cell: (row) => (
-          <Stack
-            width="2em"
-            border="1px"
-          >
+          <Stack width="1em">
             <IconButton
               aria-label="read-infraction-lot"
               backgroundColor="primary.500"
