@@ -1,10 +1,11 @@
 import { Stack, Text } from '@chakra-ui/react';
 import { createColumnHelper } from '@tanstack/react-table';
 import { useRouter } from 'next/router';
+import { FaEye } from 'react-icons/fa';
 
 import TagStatutInfractionLot from '@/app-components/tag/infraction-lot/TagStatutInfractionLot';
 import TagUrgence from '@/app-components/tag/infraction-lot/TagUrgence';
-import Button from '@/components/button/Button';
+import IconButton from '@/components/button/IconButton';
 import TextSecondary from '@/components/text/TextSecondary';
 import InfractionLot from '@/interfaces/InfractionLot';
 
@@ -21,6 +22,38 @@ export default function useBuildColumns() {
     paddingX: 'xs',
   };
   const columns = [
+    columnHelper.accessor(
+      (infractionLot) => infractionLot?.id,
+      {
+        id: 'action',
+        cell: (row) => (
+          <Stack
+            width="2em"
+            border="1px"
+          >
+            <IconButton
+              aria-label="read-infraction-lot"
+              backgroundColor="primary.500"
+              label="Voir l'infraction"
+              color="white"
+              size="xs"
+              icon={<FaEye color="white" />}
+              borderRadius="4em"
+              onClick={(e) => {
+                e?.preventDefault();
+                push(
+                  `/infractions-lots/${row?.getValue()}`
+                ).then((r) => r);
+              }}
+            />
+          </Stack>
+        ),
+        header: () => <Stack width="2em" />,
+        meta: {
+          ...commonProps,
+        },
+      }
+    ),
     columnHelper.accessor(
       (infractionLot) =>
         infractionLot?.lot?.zac?.libZacMin,
@@ -110,33 +143,6 @@ export default function useBuildColumns() {
         meta: {
           ...commonProps,
           minWidth: '15em',
-        },
-      }
-    ),
-    columnHelper.accessor(
-      (infractionLot) => infractionLot?.id,
-      {
-        id: 'action',
-        cell: (row) => (
-          <Stack width="8em">
-            <Button
-              size="xs"
-              onClick={(e) => {
-                e?.preventDefault();
-                push(
-                  `/infractions-lots/${row?.getValue()}`
-                ).then((r) => r);
-              }}
-              as="a"
-              width="fit-content"
-            >
-              Voir l&apos;infraction
-            </Button>
-          </Stack>
-        ),
-        header: () => <></>,
-        meta: {
-          ...commonProps,
         },
       }
     ),
