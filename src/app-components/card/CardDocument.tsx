@@ -1,4 +1,4 @@
-import { Stack, Text } from '@chakra-ui/react';
+import { Grid, GridItem, Text } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 import { GoFileDirectoryFill } from 'react-icons/go';
 
@@ -50,8 +50,18 @@ export default function CardDocument(
       isLoading={isLoading}
       color="gray.600"
       icon={<GoFileDirectoryFill size={20} />}
+      width="100%"
     >
-      <Stack gap={0}>
+      <Grid
+        templateColumns={{
+          base: 'repeat(2 1fr)',
+          sm: 'repeat(2, 1fr)',
+          md: 'repeat(4, 1fr)',
+          lg: 'repeat(5, 1fr)',
+          xl: 'repeat(7, 1fr)',
+        }}
+        gap="sm"
+      >
         {files?.length === 0 ? (
           <Text
             as="i"
@@ -61,14 +71,24 @@ export default function CardDocument(
           </Text>
         ) : (
           files?.map((file) => (
-            <File
+            <GridItem
+              width="100%"
               key={file?.id}
-              file={file}
-              callbackOnDelete={callbackOnDeleteFile}
-            />
+            >
+              <File
+                key={file?.id}
+                file={file}
+                callbackOnDelete={callbackOnDeleteFile}
+                width={{
+                  base: '15em',
+                  sm: '10em',
+                  md: '10em',
+                }}
+              />
+            </GridItem>
           ))
         )}
-      </Stack>
+      </Grid>
     </Card>
   );
 }

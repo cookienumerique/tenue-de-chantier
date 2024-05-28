@@ -1,12 +1,18 @@
 import {
   Icon,
   Image,
+  ResponsiveValue,
   Spinner,
   Stack,
-  Text,
-  Tooltip,
 } from '@chakra-ui/react';
-import { MouseEvent, ReactElement, useRef } from 'react';
+import axios from 'axios';
+import {
+  MouseEvent,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
 
 import TextPrimary from '@/components/text/TextPrimary';
@@ -18,7 +24,8 @@ import FileInterface from '@/interfaces/File';
 type FileProps = {
   file: FileInterface | undefined;
   callbackOnDelete?: () => void;
-  minTemplate?: boolean;
+  canDelete?: boolean;
+  width: ResponsiveValue<string>;
 };
 
 /**
@@ -32,10 +39,13 @@ export default function File(
   const {
     file,
     callbackOnDelete = () => null,
-    minTemplate = false,
+    width,
+    canDelete = true,
   } = props;
   const ref = useRef<string | undefined>();
-
+  const [thumbnail, setThumbnail] = useState<
+    string | undefined
+  >(undefined);
   const {
     mutate: deleteFile,
     isLoading: isLoadingDeleteFile,
@@ -74,97 +84,117 @@ export default function File(
     return downloadFileById({ id, fileName });
   };
 
-  if (minTemplate) {
-    return (
-      <Stack
-        border="1px solid"
-        borderColor="gray.100"
-        borderRadius="md"
-        padding="2xs"
-        _hover={{
-          backgroundColor: 'gray.50',
-        }}
-        cursor="pointer"
-        onClick={() => downloadFile(file?.id, file?.nom)}
-      >
-        <Tooltip
-          label={file?.nom}
-          backgroundColor="gray.100"
-          color="gray.600"
-        >
-          <Image
-            src="/images/file-icon.png"
-            alt="file"
-            boxSize="20px"
-          />
-        </Tooltip>
-      </Stack>
-    );
-  }
+  const getThumbnail = async (
+    file?: FileInterface | undefined
+  ) => {
+    if (file) {
+      const response = await axios.get(
+        `http://localhost:8080/v1/files/${file?.id}`,
+        { responseType: 'blob' }
+      );
+      const thumbnail = URL.createObjectURL(
+        response.data
+      );
+      setThumbnail(thumbnail);
+    }
+  };
+
+  useEffect(() => {
+    getThumbnail(file);
+  }, [file]);
 
   return (
     <Stack
-      borderBottom="1px solid"
+      border="1px solid"
       borderColor="gray.200"
-      paddingX="2xs"
-      paddingY="2xs"
       direction="row"
-      gap="2xs"
-      justifyContent="space-between"
       _hover={{
         backgroundColor: 'gray.50',
       }}
       cursor="pointer"
       onClick={() => downloadFile(file?.id, file?.nom)}
-      alignItems="center"
+      borderRadius="lg"
+      width="100%"
+      height="100%"
+      boxShadow="sm"
     >
       <Stack
-        direction="row"
+        gap={0}
         alignItems="center"
+        width="100%"
       >
         <Image
-          src="/images/file-icon.png"
-          alt="file"
-          boxSize="20px"
+          src={thumbnail}
+          alt={file?.nom}
+          width="100%"
+          borderTopRadius="lg"
+          //boxSize={width}
+          height={width}
+          objectFit="cover"
         />
 
-        <Stack gap={0}>
-          <TextPrimary fontWeight="bold">
-            {file?.nom}
-          </TextPrimary>
-          <Text
-            fontSize="xs"
-            color="gray.500"
+        <Stack
+          direction="row"
+          alignItems="space-between"
+          width="100%"
+          padding="2xs"
+        >
+          <Stack
+            gap={0}
+            width="inherit"
           >
-            {`${formatDate(
-              file?.dateCreation
-            )} - ${file?.utilisateur?.nom} ${
-              file?.utilisateur?.prenom
-            }`}
-          </Text>
+            <TextPrimary
+              fontSize="xs"
+              fontWeight="bold"
+              wordWrap="anywhere"
+            >
+              {file?.nom}
+            </TextPrimary>
+            <TextPrimary
+              fontSize="xs"
+              color="gray.500"
+            >
+              {`${formatDate(file?.dateCreation)}`}
+            </TextPrimary>
+            <TextPrimary
+              fontSize="xs"
+              color="gray.500"
+            >
+              {`${file?.utilisateur?.nom} ${file?.utilisateur?.prenom}`}
+            </TextPrimary>
+          </Stack>
+
+          {canDelete ? (
+            <Stack
+              padding="2xs"
+              onClick={(e) =>
+                handleRemoveFile(e, file?.id)
+              }
+              borderRadius="md"
+              _hover={{
+                backgroundColor: 'red.400',
+              }}
+              backgroundColor="red.500"
+              height="fit-content"
+            >
+              {isLoadingDeleteFile &&
+              ref?.current === file?.id ? (
+                <Spinner
+                  boxSize={4}
+                  color="primary.500"
+                />
+              ) : (
+                <Icon
+                  as={AiOutlineDelete}
+                  color="white"
+                  boxSize={4}
+                />
+              )}
+            </Stack>
+          ) : (
+            <></>
+          )}
         </Stack>
-      </Stack>
-      <Stack
-        padding="2xs"
-        onClick={(e) => handleRemoveFile(e, file?.id)}
-        borderRadius="50%"
-        _hover={{
-          backgroundColor: 'gray.200',
-        }}
-      >
-        {isLoadingDeleteFile &&
-        ref?.current === file?.id ? (
-          <Spinner
-            boxSize={4}
-            color="primary.500"
-          />
-        ) : (
-          <Icon
-            as={AiOutlineDelete}
-            color="red.500"
-            boxSize={4}
-          />
-        )}
       </Stack>
     </Stack>
   );

@@ -29,8 +29,9 @@ export default function CardEvenement(
       icon={<TbTimelineEventText size={20} />}
     >
       <Stack
-        maxHeight="20em"
         overflowY="scroll"
+        overflowX="hidden"
+        maxHeight="26em"
       >
         <EvenementList evenements={evenements} />
       </Stack>

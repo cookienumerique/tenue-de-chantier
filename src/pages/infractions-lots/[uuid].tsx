@@ -147,7 +147,7 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
         </GridItem>
 
         <GridItem
-          colSpan={{ base: 12, md: 6, lg: 4 }}
+          colSpan={{ base: 12, md: 12, lg: 4 }}
           rowSpan={{ base: 1, xl: 2 }}
         >
           <CardEvenement
@@ -166,7 +166,7 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
         </GridItem>
 
         <GridItem
-          colSpan={{ base: 12, md: 6, lg: 4 }}
+          colSpan={{ base: 12 }}
           rowSpan={{ base: 1, xl: 2 }}
         >
           <CardDocument

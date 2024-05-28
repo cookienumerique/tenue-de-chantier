@@ -38,6 +38,7 @@ export default function Card(
     cardProps,
     icon,
     color = 'gray.700',
+    width,
   } = props;
 
   const paddingY = '2xs';
@@ -56,6 +57,7 @@ export default function Card(
       backgroundColor={color}
       height="100%"
       boxShadow="lg"
+      width={width}
       {...cardProps}
     >
       {title ? (

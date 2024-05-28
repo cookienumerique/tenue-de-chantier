@@ -5,14 +5,15 @@ import type { ReactElement } from 'react';
  * @description Afficher un texte primaire
  */
 export default function TextPrimary(
-  props: TextProps
+  props: { wordWrap?: string } & TextProps
 ): ReactElement {
-  const { children, ...rest } = props;
+  const { children, wordWrap, ...rest } = props;
 
   if (!children) return <></>;
   return (
     <Text
       fontSize="sm"
+      wordWrap={wordWrap}
       {...rest}
     >
       {children}

@@ -1,4 +1,4 @@
-import { Stack, Text } from '@chakra-ui/react';
+import { Grid, GridItem, Text } from '@chakra-ui/react';
 import type { ReactElement } from 'react';
 import nl2br from 'react-nl2br';
 
@@ -98,18 +98,33 @@ export default function EvenementItemByType(
 
     case EvenementTypeEnum.AJOUTER_DOCUMENT:
       return (
-        <Stack
+        <Grid
+          templateColumns={{
+            base: 'repeat(2,1fr)',
+            sm: 'repeat(3, 1fr)',
+            md: 'repeat(4, 1fr)',
+          }}
           gap="2xs"
-          direction="row"
+          overflowX="scroll"
         >
           {files?.map((file) => (
-            <File
+            <GridItem
+              width="100%"
               key={file?.id}
-              file={file}
-              minTemplate
-            />
+            >
+              <File
+                key={file?.id}
+                file={file}
+                canDelete={false}
+                width={{
+                  base: '4em',
+                  sm: '8em',
+                  md: '6em',
+                }}
+              />
+            </GridItem>
           ))}
-        </Stack>
+        </Grid>
       );
 
     case EvenementTypeEnum.AJOUTER_COMMENTAIRE:
