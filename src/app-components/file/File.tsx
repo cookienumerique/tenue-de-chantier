@@ -89,7 +89,7 @@ export default function File(
   ) => {
     if (file) {
       const response = await axios.get(
-        `http://localhost:8080/v1/files/${file?.id}`,
+        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/files/${file?.id}`,
         { responseType: 'blob' }
       );
       const thumbnail = URL.createObjectURL(
