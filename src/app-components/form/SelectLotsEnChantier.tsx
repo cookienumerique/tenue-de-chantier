@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 
 import Select from '@/components/form/Select';
-import useFindLotsNonLivresOptions from '@/hooks/lots/useFindLotsNonLivresOptions';
+import useFindLotsEnChantierOptions from '@/hooks/lots/useFindLotsEnChantierOptions';
 
 type SelectLotProps = {
   defaultValue?: string | number | null;
@@ -12,7 +12,7 @@ type SelectLotProps = {
 /**
  * @description Select Lot by ZacId
  */
-export default function SelectLotsNonLivres(
+export default function SelectLotsEnChantier(
   props: SelectLotProps
 ): ReactElement {
   const {
@@ -26,7 +26,7 @@ export default function SelectLotsNonLivres(
     data: options,
     isError: isErrorLot,
     isLoading,
-  } = useFindLotsNonLivresOptions();
+  } = useFindLotsEnChantierOptions();
 
   return (
     <Select

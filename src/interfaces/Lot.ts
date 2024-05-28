@@ -27,4 +27,5 @@ export default interface Lot {
   mail: string | null | undefined;
   societe: string | null | undefined;
   adresse1: string | null | undefined;
+  enChantier?: boolean;
 }

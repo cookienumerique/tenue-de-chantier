@@ -1,19 +1,21 @@
 import useFindAllLot from '@/hooks/lots/useFindAllLot';
 import LabelValue from '@/interfaces/LabelValue';
 import Lot from '@/interfaces/Lot';
+import FindByIdProps from '@/types/query/FindByIdProps';
 import FindByIdReturn from '@/types/query/FindByReturn';
 
 /**
- * @description Retrieve all Lot not delivery and transform them into LabelValue[]
+ * @description Retrieve all Lot by ZacId and transform them into LabelValue[]
  */
-export default function useFindLotsNonLivresOptions(): FindByIdReturn<
-  LabelValue[]
-> {
+export default function useFindLotsEnChantierByZacIdOptions({
+  id,
+}: FindByIdProps): FindByIdReturn<LabelValue[]> {
   const queryParameters = new URLSearchParams({
-    livre: 'no',
+    zacId: id?.toString() as string,
+    enChantier: 'true',
   });
   const { data, isLoading, isError, invalidate } =
-    useFindAllLot({ queryParameters });
+    useFindAllLot({ queryParameters, enabled: !!id });
 
   // Filtrer les lots livrés / non livrés
   const options = data
@@ -27,7 +29,7 @@ export default function useFindLotsNonLivresOptions(): FindByIdReturn<
 
   return {
     data: options,
-    isLoading,
+    isLoading: isLoading && !!id,
     isError,
     invalidate,
   };

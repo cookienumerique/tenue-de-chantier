@@ -18,7 +18,7 @@ import ButtonCancel from '@/app-components/button/ButtonCancel';
 import SelectInfractionLotStatut from '@/app-components/form/SelectInfractionLotStatut';
 import SelectInfractionLotUrgence from '@/app-components/form/SelectInfractionLotUrgence';
 import SelectInfraction from '@/app-components/form/SelectInfractions';
-import SelectLotsNonLivres from '@/app-components/form/SelectLotsNonLivres';
+import SelectLotsEnChantier from '@/app-components/form/SelectLotsEnChantier';
 import SelectZac from '@/app-components/form/SelectZac';
 import SelectUtilisateurs from '@/app-components/utilisateur/SelectUtilisateur';
 import InputDateBetween from '@/components/form/InputDateBetween';
@@ -156,7 +156,7 @@ export default function DrawerFilters(
                       label: zac,
                     }))}
                 />
-                <SelectLotsNonLivres
+                <SelectLotsEnChantier
                   defaultValue={queryParamsUrl?.get(
                     'lotId'
                   )}
