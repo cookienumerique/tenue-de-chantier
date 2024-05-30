@@ -75,13 +75,33 @@ const BodyTable = (
                       row?.original?.infraction?.libelle
                     }
                   />
+
                   <LabelValue
-                    label="Nom de l'entreprise"
-                    value="Indisponible (api-si)"
+                    label="Contact"
+                    value={`${row?.original?.lot?.nom ? row?.original?.lot?.nom : 'Non renseigné'} ${row?.original?.lot?.prenom ?? ''}`}
+                  />
+
+                  <LabelValue
+                    label="Entreprise"
+                    value={
+                      row?.original?.lot?.societe ??
+                      'Non renseigné'
+                    }
+                  />
+
+                  <LabelValue
+                    label="Email"
+                    value={
+                      row?.original?.lot?.mail ??
+                      'Non renseigné'
+                    }
                   />
                   <LabelValue
-                    label="Coordonnées de l'entreprise"
-                    value="Indisponible (api-si)"
+                    label="Téléphone"
+                    value={
+                      row?.original?.lot?.tel ??
+                      'Non renseigné'
+                    }
                   />
                 </Stack>
               </AccordionPanel>
