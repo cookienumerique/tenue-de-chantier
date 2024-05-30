@@ -59,9 +59,9 @@ const HomePage: NextPageWithLayout = (): ReactElement => {
       </GridItem>
       <GridItem colSpan={{ base: 12, lg: 4 }}>
         <Stack gap={gap}>
+          <CardZacFavoris />
           {/* Last infractions created */}
           <CardLastInfractionsLot />
-          <CardZacFavoris />
         </Stack>
       </GridItem>
     </Grid>

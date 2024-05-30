@@ -84,7 +84,7 @@ const useBuildMenuActionInfractionLot = ({
 
   const data = {
     [ActionInfractionEnum.UPLOAD_FILES]: {
-      label: 'Ajouter des photos',
+      label: 'Ajouter des documents / photos',
       icon: TbPhotoShare,
       onClick: () => onOpenModalFiles(),
     },

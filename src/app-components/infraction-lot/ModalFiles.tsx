@@ -98,7 +98,7 @@ export default function ModalFiles(
         <ModalBody>
           <Formiz connect={form}>
             <InputFiles
-              label="Ajouter des fichiers"
+              label="Ajouter des documents / photos"
               type="file"
               name="files"
               multiple
