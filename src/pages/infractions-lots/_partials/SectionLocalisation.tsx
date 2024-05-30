@@ -14,7 +14,7 @@ import { ReactElement } from 'react';
 
 import CardLot from '@/app-components/card/CardLot';
 import SelectLotByZacId from '@/app-components/form/SelectLotByZacId';
-import SelectZac from '@/app-components/form/SelectZac';
+import SelectZacWithLotsEnChantiers from '@/app-components/form/SelectZacWithLotsEnChantiers';
 import Section from '@/components/section/Section';
 import LabelValue from '@/interfaces/LabelValue';
 import Lot from '@/interfaces/Lot';
@@ -63,7 +63,7 @@ export default function SectionLocalisation(
           <Stack
             width={{ base: '100%', md: '50%', lg: '25%' }}
           >
-            <SelectZac
+            <SelectZacWithLotsEnChantiers
               callbackOnChange={handleChangeZac}
               required
             />
