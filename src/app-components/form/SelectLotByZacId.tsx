@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 
+import CustomOptionLot from '@/app-components/form/CustomOptionLot';
 import Select from '@/components/form/Select';
 import useFindLotsEnChantierByZacIdOptions from '@/hooks/lots/useFindLotsEnChantierByZacIdOptions';
 
@@ -38,6 +39,7 @@ export default function SelectLotByZacId(
       defaultValue={options?.find(
         (option) => option?.value === defaultValue
       )}
+      components={{ Option: CustomOptionLot }}
       name={name}
       required
       isDisabled={isDisabled}

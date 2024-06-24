@@ -19,13 +19,19 @@ export default function useFindLotsEnChantierByZacIdOptions({
 
   // Filtrer les lots livrés / non livrés
   const options = data
-    ?.filter((lotItem) => !lotItem?.livre)
-    ?.map(
-      (lot: Lot): LabelValue => ({
+    ?.filter((lotItem) => lotItem?.enChantier)
+    ?.map((lot: Lot): LabelValue => {
+      const contactNotDefined = !lot?.nom && !lot?.mail;
+      return {
         label: lot?.libLot,
         value: lot.id,
-      })
-    );
+        meta: {
+          contactNotDefined,
+          lotId: lot.id,
+          zacId: lot?.zac.id,
+        },
+      };
+    });
 
   return {
     data: options,
