@@ -38,6 +38,7 @@ type SelectProps = {
   validations?: FieldValidation[];
   isDisabled?: boolean;
   isMulti?: boolean;
+  components?: object;
 };
 
 export default function Select(
@@ -57,6 +58,7 @@ export default function Select(
     validations,
     isDisabled = false,
     isMulti = false,
+    components,
   } = props;
 
   const {
@@ -125,6 +127,7 @@ export default function Select(
         aria-invalid={!isValid}
         noOptionsMessage={() => optionMessage}
         isDisabled={isDisabled}
+        components={components}
       />
       {helperMessage ? (
         <FormHelperText>{helperMessage}</FormHelperText>
