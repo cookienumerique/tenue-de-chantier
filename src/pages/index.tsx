@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 
 import Layout from '@/components/layout/Layout';
 import Section from '@/components/section/Section';
+import { useDocumentTitle } from '@/hooks/app/useDocumentTitle';
 import CardLastInfractionsLot from '@/pages/_partials/CardLastInfractionsLot';
 import CardZacFavoris from '@/pages/_partials/CardZacFavoris';
 import useFindMe from '@/services/useFindMe';
@@ -32,6 +33,9 @@ const HomePage: NextPageWithLayout = (): ReactElement => {
   }, [lastZacIdUsed, push]);
 
   const zacId = zacInQueryParam ?? idZacUtilisateur;
+
+  useDocumentTitle('Accueil');
+
   return (
     <Grid
       gap={gap}

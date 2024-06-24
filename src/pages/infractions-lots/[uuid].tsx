@@ -9,6 +9,7 @@ import CardInfraction from '@/app-components/card/CardInfraction';
 import CardLot from '@/app-components/card/CardLot';
 import TitleInfractionLot from '@/app-components/text/TitleInfractionLot';
 import Layout from '@/components/layout/Layout';
+import { useDocumentTitle } from '@/hooks/app/useDocumentTitle';
 import useFindEvenementsByInfractionLotId from '@/hooks/evenement/useFindEvenementsByInfractionLotId';
 import useFindFilesInfractionLotById from '@/hooks/file/useFindFilesInfractionLotById';
 import useFindActionsByInfractionLotId from '@/hooks/infractionLots/useFindActionsByInfractionLotId';
@@ -86,6 +87,7 @@ const VisualisationInfractionLotPage: NextPageWithLayout =
     } = useFindFilesInfractionLotById({
       infractionLotId: infractionLot?.id,
     });
+    useDocumentTitle(`Infraction lot :${lot?.libLot}`);
 
     return (
       <Grid

@@ -10,6 +10,7 @@ import type { ReactElement } from 'react';
 
 import Button from '@/components/button/Button';
 import Layout from '@/components/layout/Layout';
+import { useDocumentTitle } from '@/hooks/app/useDocumentTitle';
 import useCreateInfractionLot, {
   CreateInfractionLotPayload,
 } from '@/hooks/infractionLots/useCreateInfractionLot';
@@ -104,6 +105,8 @@ const CreationInfractionPage: NextPageWithLayout =
       id: lotIdInQueryParam || loIdSelected,
       enabled: !!loIdSelected || !!lotIdInQueryParam,
     });
+
+    useDocumentTitle("Création d'une infraction");
 
     return (
       <Stack gap="sm">

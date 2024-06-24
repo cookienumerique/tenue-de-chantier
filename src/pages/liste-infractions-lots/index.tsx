@@ -13,6 +13,7 @@ import Button from '@/components/button/Button';
 import Layout from '@/components/layout/Layout';
 import TitlePage from '@/components/text/TitlePage';
 import { useAuthentification } from '@/context/AuthentificationProvider';
+import { useDocumentTitle } from '@/hooks/app/useDocumentTitle';
 import useFindInfractionLot from '@/hooks/infractionLots/useFindInfractionLot';
 import useFindZacFavoris from '@/hooks/zac-favoris/useFindZacFavoris';
 
@@ -44,6 +45,8 @@ const ListeInfractionsLotsPage = () => {
     data: zacFavoris,
     isLoading: isLoadingZacFavoris,
   } = useFindZacFavoris();
+
+  useDocumentTitle('Infractions');
 
   const zacFavorisIds = zacFavoris?.map(
     (zacFavoris) => zacFavoris?.zac?.id

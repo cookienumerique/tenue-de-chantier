@@ -4,6 +4,7 @@ import type { ReactElement } from 'react';
 import { useEffect } from 'react';
 
 import { useAuthentification } from '@/context/AuthentificationProvider';
+import { useDocumentTitle } from '@/hooks/app/useDocumentTitle';
 import useValidateTicketPhpCAS from '@/hooks/authentification/useValidateTicketPhpCAS';
 
 const AuthenticatePage = (): ReactElement => {
@@ -19,6 +20,8 @@ const AuthenticatePage = (): ReactElement => {
   useEffect(() => {
     login({ utilisateur, token });
   }, [utilisateur, token, login]);
+
+  useDocumentTitle('Authentification');
 
   if (isLoading)
     return <Text>Authentification en cours ...</Text>;
