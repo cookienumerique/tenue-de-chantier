@@ -1,0 +1,21 @@
+{
+  "short_name": "Tenue de chantiers",
+  "name": "Tenue de chantiers",
+  "icons": [
+    {
+      "src": "/images/android-chrome-192x192",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/android-chrome-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#000000"
+}

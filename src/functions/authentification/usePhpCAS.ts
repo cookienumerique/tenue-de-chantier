@@ -8,7 +8,9 @@ const usePhpCAS = () => {
    */
   const redirectToLoginPage = async () => {
     // If we are in dev mode, we fake the ticket, because the ticket won't be verified
-    if (process?.env.NEXT_PUBLIC_APP_ENV === 'dev') {
+    if (
+      process?.env.NEXT_PUBLIC_APP_ENV === 'development'
+    ) {
       await router
         .push(
           `${process.env.NEXT_PUBLIC_APP_HOST}/authentification?ticket=fake-ticket`

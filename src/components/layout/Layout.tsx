@@ -29,6 +29,10 @@ export default function Layout(
     >
       <Head>
         <link
+          rel="manifest"
+          href="/manifest.json"
+        />
+        <link
           rel="icon"
           href="/images/favicon.ico"
         />

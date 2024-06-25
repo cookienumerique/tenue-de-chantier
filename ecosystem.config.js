@@ -10,7 +10,7 @@ module.exports = {
         APP_ENV: 'local', // APP_ENV=local
       },
       env_dev: {
-        APP_ENV: 'dev', // APP_ENV=dev
+        APP_ENV: 'development', // APP_ENV=dev
       },
       env_prod: {
         APP_ENV: 'prod', // APP_ENV=prod
