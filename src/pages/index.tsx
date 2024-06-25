@@ -46,7 +46,9 @@ const HomePage: NextPageWithLayout = (): ReactElement => {
           flex={{ base: '1', lg: '2', xl: '4' }}
           overflowY="scroll"
         >
-          {isLoading ? (
+          {isLoading &&
+          process.env.NEXT_PUBLIC_APP_ENV !==
+            'development' ? (
             <>Chargement...</>
           ) : (
             <Box
