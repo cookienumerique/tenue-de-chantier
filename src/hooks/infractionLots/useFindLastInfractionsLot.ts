@@ -27,10 +27,8 @@ const useFindLastInfractionsLot = ({
   } = useQuery(
     queryKey,
     async () => {
-      return (
-        (await axios.get(
-          `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/infractions-lots/last`
-        )) ?? {}
+      return axios.get(
+        `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/infractions-lots/last`
       );
     },
     { enabled, retry: false }
