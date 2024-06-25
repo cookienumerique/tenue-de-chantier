@@ -14,7 +14,7 @@ import FindListReturn from '@/types/query/FindListReturn';
 const useFindZacWithLotsEnChantiers = ({
   enabled = true,
 }: FindListProps = {}): FindListReturn<Zac[]> => {
-  const queryKey = ['zacs'];
+  const queryKey = ['zacs-with-lots-en-chantiers'];
   const queryClient = useQueryClient();
 
   const {
@@ -27,7 +27,11 @@ const useFindZacWithLotsEnChantiers = ({
       (await axios.get(
         `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/zacs/zacs-with-lots-en-chantiers`
       )) ?? {},
-    { enabled, refetchOnMount: false }
+    {
+      enabled,
+      refetchOnMount: false,
+      refetchOnWindowFocus: true,
+    }
   );
 
   const invalidate = () =>
@@ -37,7 +41,6 @@ const useFindZacWithLotsEnChantiers = ({
     (response?.data as unknown as {
       zacs: Zac[] | undefined;
     }) ?? {};
-
   return {
     data: zacs,
     isLoading,

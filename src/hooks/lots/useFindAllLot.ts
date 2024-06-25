@@ -31,7 +31,11 @@ const useFindAllLot = ({
           params: queryParameters,
         }
       ),
-    { enabled, refetchOnMount: false }
+    {
+      enabled,
+      refetchOnMount: false,
+      refetchOnWindowFocus: true,
+    }
   );
 
   const invalidate = () =>
