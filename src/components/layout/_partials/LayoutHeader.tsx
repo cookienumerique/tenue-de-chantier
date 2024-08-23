@@ -16,6 +16,7 @@ import {
   IoAddSharp,
   IoMapOutline,
 } from 'react-icons/io5';
+import { MdHelpOutline } from 'react-icons/md';
 
 import { NavigationItem } from '@/components/layout/_partials/NavigationItem';
 import WrapperLogoutAvatar from '@/components/layout/_partials/WrapperLogoutAvatar';
@@ -45,6 +46,11 @@ export default function LayoutHeader(): ReactElement {
   });
 
   const navData = [
+    {
+      label: "Page d'aide",
+      icon: <MdHelpOutline />,
+      onClick: () => push('/aide'),
+    },
     {
       label: 'Accéder à la carte',
       icon: <IoMapOutline />,
