@@ -11,7 +11,6 @@ import useFindFilesInfractionLotById from '@/hooks/file/useFindFilesInfractionLo
 import useBuildMenuActionInfractionLot from '@/hooks/infractionLots/useBuildMenuActionInfractionLot';
 import useFindActionsByInfractionLotId from '@/hooks/infractionLots/useFindActionsByInfractionLotId';
 import useFindInfractionLotById from '@/hooks/infractionLots/useFindInfractionLotById';
-import useFindLotById from '@/hooks/lots/useFindLotById';
 import ActionInfractionType from '@/types/action/ActionInfractionType';
 
 type ButtonActionsInfractionLotProps = {
@@ -38,12 +37,6 @@ const ButtonActionsInfractionLot = (
     id: infractionLotId,
   });
 
-  const { data: lot } = useFindLotById({
-    id: infractionLot?.lotId,
-  });
-  const { zac } = lot ?? {};
-  const { libAmgr } = zac ?? {};
-
   const {
     actions: optionsActions,
     isOpenModalFiles,
@@ -57,9 +50,7 @@ const ButtonActionsInfractionLot = (
   } = useBuildMenuActionInfractionLot({
     actions: actions,
     infractionLotId,
-    patrimoineZac: libAmgr,
   });
-
   const { invalidate: invalidateFilesInfractionLot } =
     useFindFilesInfractionLotById({
       infractionLotId,

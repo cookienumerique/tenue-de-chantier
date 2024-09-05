@@ -12,7 +12,6 @@ import { TbPhotoShare } from 'react-icons/tb';
 import nl2br from 'react-nl2br';
 
 import ActionInfractionEnum from '@/enums/ActionInfractionEnum';
-import PatrimoineZacEnum from '@/enums/PatrimoineZacEnum';
 import downloadTemplate from '@/functions/file/downloadTemplate';
 import useFindContentEmailByInfractionId from '@/hooks/infractionLots/useFindContentEmailByInfractionId';
 import ActionInfractionType from '@/types/action/ActionInfractionType';
@@ -20,7 +19,6 @@ import ActionInfractionType from '@/types/action/ActionInfractionType';
 type BuildMenuActionInfractionLotProps = {
   actions: ActionInfractionType | undefined;
   infractionLotId: string | undefined;
-  patrimoineZac: PatrimoineZacEnum | undefined;
 };
 export type Actions = {
   label: string;
@@ -49,7 +47,6 @@ type BuildMenuActionInfractionLotReturn = {
 const useBuildMenuActionInfractionLot = ({
   actions,
   infractionLotId,
-  patrimoineZac,
 }: BuildMenuActionInfractionLotProps): BuildMenuActionInfractionLotReturn => {
   const {
     isOpen: isOpenModalFiles,
@@ -107,7 +104,8 @@ const useBuildMenuActionInfractionLot = ({
         icon: RiDownloadCloudLine,
         onClick: () =>
           downloadTemplate({
-            fileName: `${patrimoineZac}/courrier_infraction.docx`,
+            infractionLotId,
+            name: 'courrier_infraction.docx',
           }).then((r) => r),
       },
     [ActionInfractionEnum.ECRIRE_COURRIER_CONSTAT_CARENCE]:
@@ -116,7 +114,8 @@ const useBuildMenuActionInfractionLot = ({
         icon: RiDownloadCloudLine,
         onClick: () =>
           downloadTemplate({
-            fileName: `${patrimoineZac}/courrier_de_carence.docx`,
+            infractionLotId,
+            name: 'courrier_de_carence.docx',
           }).then((r) => r),
       },
     [ActionInfractionEnum.ECRIRE_COURRIER_COMPLEMENTAIRE]:
@@ -125,7 +124,8 @@ const useBuildMenuActionInfractionLot = ({
         icon: RiDownloadCloudLine,
         onClick: () =>
           downloadTemplate({
-            fileName: `${patrimoineZac}/courrier_constat_de_récidive.docx`,
+            infractionLotId,
+            name: 'courrier_constat_de_récidive.docx',
           }).then((r) => r),
       },
     [ActionInfractionEnum.CHANGER_STATUT]: {

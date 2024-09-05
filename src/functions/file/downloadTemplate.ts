@@ -6,13 +6,15 @@ import downloadBlob from '@/functions/file/downloadBlob';
  * @description Download template by name
  */
 const downloadTemplate = async ({
-  fileName,
+  infractionLotId,
+  name,
 }: {
-  fileName: string;
+  infractionLotId: string | undefined;
+  name: string;
 }): Promise<void> => {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/files/template/${fileName}`,
+      `${process.env.NEXT_PUBLIC_APP_API_HOST}/v1/infractions-lots/template/${infractionLotId}/${name}`,
       {
         responseType: 'blob',
       }
@@ -20,7 +22,7 @@ const downloadTemplate = async ({
 
     return downloadBlob({
       blob: response?.data as unknown as Blob,
-      fileName,
+      fileName: name,
     });
   } catch (e) {
     console.error(e);
