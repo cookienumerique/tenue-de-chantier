@@ -1,4 +1,5 @@
 import { Image, Stack, Text } from '@chakra-ui/react';
+import Video from 'next-video';
 import { ReactElement } from 'react';
 
 import Layout from '@/components/layout/Layout';
@@ -33,6 +34,12 @@ const HelpPage = () => {
           src="/images/epa-logo.png"
           alt="hero"
           width="150px"
+        />
+
+        <Video
+          width={500}
+          height={250}
+          src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
         />
       </Stack>
     </Stack>
