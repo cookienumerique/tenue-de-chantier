@@ -14,6 +14,8 @@ import nl2br from 'react-nl2br';
 import ActionInfractionEnum from '@/enums/ActionInfractionEnum';
 import downloadTemplate from '@/functions/file/downloadTemplate';
 import useFindContentEmailByInfractionId from '@/hooks/infractionLots/useFindContentEmailByInfractionId';
+import useFindInfractionLotById from '@/hooks/infractionLots/useFindInfractionLotById';
+import useFindLotById from '@/hooks/lots/useFindLotById';
 import ActionInfractionType from '@/types/action/ActionInfractionType';
 
 type BuildMenuActionInfractionLotProps = {
@@ -48,6 +50,17 @@ const useBuildMenuActionInfractionLot = ({
   actions,
   infractionLotId,
 }: BuildMenuActionInfractionLotProps): BuildMenuActionInfractionLotReturn => {
+  const { data: infractionLot } =
+    useFindInfractionLotById({
+      id: infractionLotId,
+    });
+
+  const { data: lot, isLoading: isLoadingLot } =
+    useFindLotById({
+      id: infractionLot?.lotId,
+      enabled: !!infractionLot,
+    });
+
   const {
     isOpen: isOpenModalFiles,
     onOpen: onOpenModalFiles,
@@ -92,11 +105,12 @@ const useBuildMenuActionInfractionLot = ({
     },
     [ActionInfractionEnum.ECRIRE_EMAIL]: {
       as: 'a' as As,
-      href: `mailto:?subject=${contentEmail?.email?.subject}&body=${nl2br(contentEmail?.email?.body)}`,
+      href: `mailto:?to=${lot?.mail}&subject=${contentEmail?.email?.subject}&body=${nl2br(contentEmail?.email?.body)}`,
+      to: '',
       label: 'Écrire un email',
       icon: IoMailOutline,
-      isLoading: isLoadingContentEmail,
-      isDisabled: isLoadingContentEmail,
+      isLoading: isLoadingContentEmail || isLoadingLot,
+      isDisabled: isLoadingContentEmail || isLoadingLot,
     },
     [ActionInfractionEnum.ECRIRE_COURRIER_MISE_EN_DEMEURE]:
       {
