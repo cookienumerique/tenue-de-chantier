@@ -105,7 +105,7 @@ const useBuildMenuActionInfractionLot = ({
     },
     [ActionInfractionEnum.ECRIRE_EMAIL]: {
       as: 'a' as As,
-      href: `mailto:?to=${lot?.mail}&subject=${contentEmail?.email?.subject}&body=${nl2br(contentEmail?.email?.body)}`,
+      href: `mailto:?to=${lot?.mail}&cc=${contentEmail?.email?.cc}&subject=${contentEmail?.email?.subject}&body=${nl2br(contentEmail?.email?.body)}`,
       to: '',
       label: 'Écrire un email',
       icon: IoMailOutline,

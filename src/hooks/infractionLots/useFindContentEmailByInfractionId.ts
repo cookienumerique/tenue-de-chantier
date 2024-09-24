@@ -15,7 +15,7 @@ const useFindContentEmailByInfractionId = ({
   key,
   enabled,
 }: FindByIdProps): FindByIdReturn<
-  { email: { subject: string; body: string } } | undefined
+  { email: { subject: string; body: string; cc: string } } | undefined
 > => {
   const queryKey = [key ?? `content-email-${uuid}`];
   const queryClient = useQueryClient();
@@ -39,7 +39,7 @@ const useFindContentEmailByInfractionId = ({
 
   const contentEmail =
     (response?.data as unknown as {
-      email: { subject: string; body: string };
+      email: { subject: string; body: string; cc: string };
     }) ?? {};
 
   return {
